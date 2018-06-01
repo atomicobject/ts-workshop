@@ -1,0 +1,25 @@
+{
+  "name": "ts-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^23.0.0",
+    "jest": "^23.1.0",
+    "ts-jest": "^22.4.6",
+    "typescript": "^2.9.1",
+    "typings-tester": "^0.3.1"
+  },
+  "jest": {
+    "transform": {
+      "\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleFileExtensions": ["js", "jsx", "ts", "tsx", "json"],
+    "testRegex": "/(exercises|__tests__)/.*\\.(test|spec)\\.tsx?"
+  }
+}
