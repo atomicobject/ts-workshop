@@ -132,7 +132,7 @@ describe("interfaces/object types", () => {
 
     let s: GenericState = state0;
     // console.log(s.name)
-    for(const x of Array(5)) {
+    for(const _ of Array(5)) {
       if (s.eatSnack && Math.random() < 0.7) {
         // console.log("Eating a snack")
         s = s.eatSnack()
