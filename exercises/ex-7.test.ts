@@ -24,22 +24,36 @@ enum Dessert {
 
 interface ClassicDinnerOrder {
   littlePlate: Salad;
-  bigPlate: Entree;
+  entree: Entree;
 }
+
+interface QuickSnackOrder {
+  amuse: AmuseBouche;
+  appetizer: Appetizer;
+}
+interface WholeEnchiladaOrder {
+  amuse: AmuseBouche;
+  appetizer: Appetizer;
+  salad: Salad;
+  entree: Entree;
+  dessert: Dessert;
+}
+
+type OrderType = ClassicDinnerOrder | QuickSnackOrder | WholeEnchiladaOrder
 
 let aMemorableMeal: ClassicDinnerOrder = {
   littlePlate: Salad.Caesar,
-  bigPlate: Entree.Curry
+  entree: Entree.Curry
 };
-let theBigPlate: Entree = aMemorableMeal.bigPlate;
-let anotherBigPlate: Entree = aMemorableMeal['bigPlate'];
+let theentree: Entree = aMemorableMeal.entree;
+let anotherentree: Entree = aMemorableMeal['entree'];
 let theLittlePlate: Salad = aMemorableMeal.littlePlate;
 
 type DinnerCourse = keyof ClassicDinnerOrder;
 type DinnerComponents = ClassicDinnerOrder[DinnerCourse];
 
 const course1: DinnerCourse = "littlePlate";
-const course2: DinnerCourse = "bigPlate";
+const course2: DinnerCourse = "entree";
 
 // typings:expect-error
 const notACourse: DinnerCourse = "dessert";
@@ -53,6 +67,55 @@ type Leftovers = {
   plate1: ClassicDinnerOrder['littlePlate'],
   plate2: ClassicDinnerOrder['littlePlate'],
 }
+
+it("foo", () => {
+  let order1: ClassicDinnerOrder = {
+    littlePlate: Salad.Caesar,
+    entree: Entree.Curry,
+  }
+  let order2: ClassicDinnerOrder = {
+    littlePlate: Salad.Caesar,
+    entree: Entree.Lasagna,
+  }
+
+  type TakeAway = {
+    order1Item: Salad,
+    order2Item: Salad,
+  }
+
+  const takeaway: TakeAway = {
+    order1Item: order1.littlePlate,
+    order2Item: order2.littlePlate,
+  }
+
+  type _1 = AssertAssignable<Salad, TakeAway['order1Item']>
+
+})
+it("bar", () => {
+  type Order1Type = WholeEnchiladaOrder;
+  type Order2Type = QuickSnackOrder;
+
+  type CourseToKeep1 = 'appetizer'
+  let courseToKeep1: CourseToKeep1 = 'appetizer'
+  type _1 = AssertAssignable<keyof Order1Type, CourseToKeep1>
+
+  type CourseToKeep2 = 'appetizer'
+  let courseToKeep2: CourseToKeep2 = 'appetizer'
+  type _2 = AssertAssignable<keyof Order2Type, CourseToKeep2>
+
+  let order1!: Order1Type;
+  let order2!: Order2Type;
+
+  type TakeAway = {
+    order1Item: Order1Type[CourseToKeep1],
+    order2Item: Order1Type[CourseToKeep1],
+  }
+
+  // let takeaway: TakeAway = {
+  //   order1Item: order1['appetizer'],
+  //   order2Item: order2['appetizer']
+  // }
+})
 
 /**
  * whatDidIHave answers the question in the name of the function.
@@ -71,10 +134,10 @@ describe("whatDidIHave", () => {
   it("answers important questions", () => {
     let aMemorableMeal: ClassicDinnerOrder = {
       littlePlate: Salad.Caesar,
-      bigPlate: Entree.Curry
+      entree: Entree.Curry
     };
     expect(whatDidIHaveClassic(aMemorableMeal, "littlePlate")).toEqual(Salad.Caesar);
-    expect(whatDidIHaveClassic(aMemorableMeal, "bigPlate")).toEqual(Entree.Curry);
+    expect(whatDidIHaveClassic(aMemorableMeal, "entree")).toEqual(Entree.Curry);
   });
 });
 
@@ -84,23 +147,12 @@ function whatDidIHave<T>(meal: T, course: keyof T): T[keyof T] {
 }
 
 
-interface QuickSnackOrder {
-  amuse: AmuseBouche;
-  appetizer: Appetizer;
-}
 
 let order: QuickSnackOrder = {
   amuse: AmuseBouche.BruschettaBite,
   appetizer: Appetizer.FriedCauliflower
 };
 
-interface WholeEnchiladaOrder {
-  amuse: AmuseBouche;
-  appetizer: Appetizer;
-  salad: Salad;
-  entree: Entree;
-  dessert: Dessert;
-}
 
 type HalfEatenQuickSnack = {
   amuse: null;

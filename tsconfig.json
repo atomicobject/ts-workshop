@@ -3,6 +3,8 @@
     "moduleResolution": "node",
     "strict": true,
     "lib": ["es2016", "dom"],
-    "target": "es2016"
+    "target": "es2016",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   }
 }
