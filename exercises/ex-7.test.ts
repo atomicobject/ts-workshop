@@ -23,7 +23,7 @@ enum Dessert {
 }
 
 interface ClassicDinnerOrder {
-  littlePlate: Salad;
+  salad: Salad;
   entree: Entree;
 }
 
@@ -42,39 +42,39 @@ interface WholeEnchiladaOrder {
 type OrderType = ClassicDinnerOrder | QuickSnackOrder | WholeEnchiladaOrder
 
 let aMemorableMeal: ClassicDinnerOrder = {
-  littlePlate: Salad.Caesar,
+  salad: Salad.Caesar,
   entree: Entree.Curry
 };
 let theentree: Entree = aMemorableMeal.entree;
 let anotherentree: Entree = aMemorableMeal['entree'];
-let theLittlePlate: Salad = aMemorableMeal.littlePlate;
+let thesalad: Salad = aMemorableMeal.salad;
 
 type DinnerCourse = keyof ClassicDinnerOrder;
 type DinnerComponents = ClassicDinnerOrder[DinnerCourse];
 
-const course1: DinnerCourse = "littlePlate";
+const course1: DinnerCourse = "salad";
 const course2: DinnerCourse = "entree";
 
 // typings:expect-error
-const notACourse: DinnerCourse = "dessert";
+const notACourse: DinnerCourse = "amuse";
 
 const aNiceSalad: DinnerComponents = Salad.Caesar;
 const aDeliciousEntree: DinnerComponents = Entree.Lasagna;
 // typings:expect-error
-const notAllowed: DinnerComponents = Dessert.FlourlessChocolateCake;
+const notAllowed: DinnerComponents = AmuseBouche.BruschettaBite;
 
 type Leftovers = {
-  plate1: ClassicDinnerOrder['littlePlate'],
-  plate2: ClassicDinnerOrder['littlePlate'],
+  plate1: ClassicDinnerOrder['salad'],
+  plate2: ClassicDinnerOrder['salad'],
 }
 
 it("foo", () => {
   let order1: ClassicDinnerOrder = {
-    littlePlate: Salad.Caesar,
+    salad: Salad.Caesar,
     entree: Entree.Curry,
   }
   let order2: ClassicDinnerOrder = {
-    littlePlate: Salad.Caesar,
+    salad: Salad.Caesar,
     entree: Entree.Lasagna,
   }
 
@@ -84,8 +84,8 @@ it("foo", () => {
   }
 
   const takeaway: TakeAway = {
-    order1Item: order1.littlePlate,
-    order2Item: order2.littlePlate,
+    order1Item: order1.salad,
+    order2Item: order2.salad,
   }
 
   type _1 = AssertAssignable<Salad, TakeAway['order1Item']>
@@ -133,10 +133,10 @@ function whatDidIHaveClassic(
 describe("whatDidIHave", () => {
   it("answers important questions", () => {
     let aMemorableMeal: ClassicDinnerOrder = {
-      littlePlate: Salad.Caesar,
+      salad: Salad.Caesar,
       entree: Entree.Curry
     };
-    expect(whatDidIHaveClassic(aMemorableMeal, "littlePlate")).toEqual(Salad.Caesar);
+    expect(whatDidIHaveClassic(aMemorableMeal, "salad")).toEqual(Salad.Caesar);
     expect(whatDidIHaveClassic(aMemorableMeal, "entree")).toEqual(Entree.Curry);
   });
 });

@@ -30,23 +30,22 @@ them to take home after dinner.
 
 And define a function assembleTakeaway that takes their orders and boxes them up.
 */
-it("6.1", () => {
-  // Comment out this test after making it pass.
-  const jackOrder: ClassicDinnerOrder = {
-    salad: Salad.Caesar,
-    entree: Entree.Lasagna
-  };
+// it("6.1", () => {
+//   const jackOrder: ClassicDinnerOrder = {
+//     salad: Salad.Caesar,
+//     entree: Entree.Lasagna
+//   };
 
-  type _1 = AssertAssignable<Salad, Takeaway['jack']>
-  type _2 = AssertAssignable<Salad, Takeaway['jill']>
+//   type _1 = AssertAssignable<Salad, Takeaway['jack']>
+//   type _2 = AssertAssignable<Salad, Takeaway['jill']>
 
-  expect(assembleTakeaway(jackOrder, jillOrder)).toEqual({
-    jack: Salad.Caesar,
-    jill: Salad.Fattoush
-  })
+//   expect(assembleTakeaway(jackOrder, jillOrder)).toEqual({
+//     jack: Salad.Caesar,
+//     jill: Salad.Fattoush
+//   })
 
-  // Comment out this test before moving on.
-});
+//   // Comment out this test before moving on.
+// });
 
 
 /*
@@ -88,12 +87,14 @@ _have_ a salad.
 Just like when we introduce constants or variables in code so we can name a value
 we may wish to change later, we can also create type variables that alias a type.
 
-Introduce 3 variables that can be changed to swap jack between any order type
+Start with 3 variables that can be changed to swap jack between any order type
 and any course to take home.
 
-Extra credit: Use the clues below to make only two variables which need to be updated.
+Then: Use the clues below to make only two variables which need to be updated.
 In this case, it should be impossible to mismatch the name of the saved course and type
 type it's associated with.
+
+Hint: Doing this will require declaring `jackSavedCourse` with `const`.
 
 */
 // test("6.3", () => {
@@ -126,3 +127,32 @@ type it's associated with.
 //   type _x2 = AssertAssignable<AmuseBouche, JackOrderType["amuse"]>
 //  // Comment out this test before moving on.
 // })
+
+/*
+Now that we've expressed Jack's preferences in term of type and runtime variables, we're situated.
+*/
+test("6.4 - generic assembleTakeaway", () => {
+  // This generic function could be called with explicit type arguments to assemble takeaway with
+  // an arbitrary Jack order/course.
+  const saladTakeaway = assembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)
+  expect(saladTakeaway).toEqual({
+    jack: Salad.Caesar,
+    jill: Salad.Fattoush
+  })
+
+  // But usually it would be called without explicit type arguments, and they are inferred from the
+  // types of the values passed in.
+  const amuseTakeaway = assembleTakeaway('amuse', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+  expect(amuseTakeaway).toEqual({
+    jack: AmuseBouche.CocktailWeiner,
+    jill: Salad.Fattoush
+  })
+
+  // Typescript should understand what type of food Jack is taking home.
+  type _1 = AssertAssignable<Salad, typeof saladTakeaway["jack"]>
+  type _2 = AssertAssignable<AmuseBouche, typeof amuseTakeaway["jack"]>
+
+  // Don't allow invalid keys
+  // typings:expect-error
+  assembleTakeaway('dessert', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+})
