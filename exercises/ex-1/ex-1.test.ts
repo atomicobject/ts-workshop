@@ -1,26 +1,26 @@
 describe("TypeScript Basics", () => {
-  it("has a few primative types", () => {
+  test("has a few primative types", () => {
     let hello: string = "hello world";
 
     let isTypeScriptTime: boolean = true;
 
     let oneAndAHalf: number = 1.5;
   });
-  it("as well as some collection types", () => {
+  test("as well as some collection types", () => {
     let fruits: string[] = ["apple", "orange", "pear"];
 
     let votes: boolean[] = [true, false, true];
 
     let oneAndAHalf: number = 1.5;
   });
-  it("infers the type of a value if you don't specify a type", () => {
+  test("infers the type of a value if you don't specify a type", () => {
     let hello = "hello world";
 
     let isTypeScriptTime = true;
 
     let oneAndAHalf = 1.5;
   });
-  it("discourages you from changing types", () => {
+  test("discourages you from changing types", () => {
     let hello = "the string";
 
     // typings:expect-error
@@ -29,7 +29,7 @@ describe("TypeScript Basics", () => {
 });
 
 describe("typed functions", () => {
-  it("asks us to be explicit about our arguments", () => {
+  test("asks us to be explicit about our arguments", () => {
     // typings:expect-error
     function declareFavoriteFood(name, food) {
       return `${name}'s favorite food is ${food}`;
@@ -39,15 +39,38 @@ describe("typed functions", () => {
       return `${name}'s favorite food is ${food}`;
     }
   });
-  it("infers the return type of a function", () => {
+  test("infers the return type of a function", () => {
     function typedDeclareFavoriteFood(name: string, food: string) {
       return `${name}'s favorite food is ${food}`;
     }
   });
 });
 
+describe("type guards", () => {
+  test("checks whether a thing is a type", () => {});
+});
+
 describe("tinkering with annotations", () => {
-  it("allows just one primitive", () => {
+  test("we can declare our own types made up of primitives", () => {
+    type MySpecialString = string;
+
+    function sayHello(name: string) {
+      console.log(`Hello, ${name}!`);
+    }
+    // And we can use them where they're compatible with other types
+    let specialName: MySpecialString = "Dixie the Good";
+    sayHello(specialName);
+
+    // But, notice that declaring a named type doesn't inherently change the way the type operates
+    function specialSayHello(name: MySpecialString) {
+      console.log(`Hello, ${specialName}, Your Excellence.`);
+    }
+
+    let aCommonerName: string = "John";
+    specialSayHello(aCommonerName); // No type error
+  });
+
+  test("allows just one primitive", () => {
     type FixThisType = any;
 
     let aBool: FixThisType = true;
@@ -56,18 +79,14 @@ describe("tinkering with annotations", () => {
     let aString: FixThisType = "whatever";
   });
 
-  it("allows unions of primitives", () => {
-    type FixThisType = any;
-
-    let aBool: FixThisType = true;
-
-    let aString: FixThisType = "whatever";
+  test("Those types can also be literals", () => {
+    type ALiteralString = "just this one";
 
     // typings: expect-error
-    let aNull: FixThisType = null
+    let notThatLiteral: ALiteralString = "some other string";
   });
 
-  it("describes a literal", () => {
+  test("describes a literal", () => {
     type FixThisType = any;
 
     let hello: FixThisType = "hello";
@@ -80,9 +99,29 @@ describe("tinkering with annotations", () => {
 
     // typings: expect-error
     let moon: FixThisType = "moon";
-  })
+  });
 
-  it("can union whatever you want", () => {
+  test("and more interestingly, we can describe new types by unioning primatives together!", () => {
+    type AStringOrANumber = string | number;
+    let aString: AStringOrANumber = "hello";
+    let aNumber: AStringOrANumber = 2;
+
+    // typings: expect-error
+    let aBool: AStringOrANumber = true;
+  });
+
+  test("this allows us to constrain types in interesting ways", () => {
+    type FixThisType = any;
+
+    let aBool: FixThisType = true;
+
+    let aString: FixThisType = "whatever";
+
+    // typings: expect-error
+    let aNull: FixThisType = null;
+  });
+
+  test("can union different types together", () => {
     type FixThisType = any;
 
     let hello: FixThisType = "hello";
@@ -97,18 +136,29 @@ describe("tinkering with annotations", () => {
 
     // typings: expect-error
     let moon: FixThisType = "moon";
-  })
+  });
 
+  test("infers different types based on the keywords you use to declare variables", () => {
+    let mutable = "hello";
+    if (mutable !== "world") {
+      mutable.slice(1);
+    }
 
+    const immutable = "goodnight";
+    if (immutable !== "goodnight") {
+      // typings: expect-error
+      immutable.slice(1);
+    }
+  });
 });
 
 describe("having a hard time demonstrating features without unions", () => {
-  it("allows unions", () => {
+  test("allows unions", () => {
     let stringOrNumber: string | number = "the string";
 
     stringOrNumber = 5;
   });
-  it("can follow control flow", () => {
+  test("can follow control flow", () => {
     let thing = Math.random() >= 0.5;
     let stringOrNumber: string | number = thing ? "a string" : 5;
     if (thing) {
@@ -118,7 +168,7 @@ describe("having a hard time demonstrating features without unions", () => {
 });
 
 describe("Literal types", () => {
-  it("can follow control flow", () => {
+  test("can follow control flow", () => {
     let fruit = "orange";
     // fruit: string
     if (fruit === "orange") {
@@ -129,7 +179,7 @@ describe("Literal types", () => {
       fruit;
     }
   });
-  it("", () => {
+  test("", () => {
     // Array, of...whatever
     let things = ["apple", 4, true];
     things.push(null); // Oh no! TypeScript has inferred that things can only be of a few types
@@ -137,11 +187,11 @@ describe("Literal types", () => {
     let anyThings: any[] = ["apple", 4, true];
     anyThings.push(["hello"]); // If TS isn't quite right about its inference, we can tell it what we meant
 
-    function pickFruit(fruits: string[]) {
+    function pickFrutest(fruits: string[]) {
       return fruits[Math.random() * fruits.length];
     }
   });
-  it("infers types for normal JS", () => {
+  test("infers types for normal JS", () => {
     let orange = "orange";
     const apple = "apple";
   });
@@ -150,3 +200,9 @@ describe("Literal types", () => {
 // Here's a function, here are some tests, convert it to ts, make the hate go away
 // Using types to guide writing new code
 // make this code increasingly typescripty
+
+describe("Object types", () => {
+  test("interfaces describe objects", () => {
+    interface FoodItem {}
+  });
+});
