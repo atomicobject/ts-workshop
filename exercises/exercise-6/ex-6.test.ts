@@ -9,7 +9,7 @@ import {
   AmuseBouche,
   Appetizer
 } from "../chez-eclectic";
-import { assembleTakeaway, Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType } from "./code";
+import { genericAssembleTakeaway, Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType } from "./code";
 import { AssertAssignable } from "../util";
 
 const jillOrder: ClassicDinnerOrder = {
@@ -94,7 +94,8 @@ Then: Use the clues below to make only two variables which need to be updated.
 In this case, it should be impossible to mismatch the name of the saved course and type
 type it's associated with.
 
-Hint: Doing this will require declaring `jackSavedCourse` with `const`.
+Hint: Doing this will require declaring `jackSavedCourse` with `const`
+so that its type is a string literal and not just `string`.
 
 */
 // test("6.3", () => {
@@ -129,12 +130,23 @@ Hint: Doing this will require declaring `jackSavedCourse` with `const`.
 // })
 
 /*
-Now that we've expressed Jack's preferences in term of type and runtime variables, we're situated.
+
+We've now used type and runtime variables to factor our code so that
+change limited to one place. This technique can be useful when applied
+at a broad scale to create systems that are statically typed, but where
+there is still a single source of truth. More of your code is decoupled
+from key decisions you may want to revisit later.
+
+But there's another, more common reason for engaging in this sort of
+activity: creating generic functions where the variables are inputs.
+
+Let's convert assembleTakeaway to a generic function
+
 */
 test("6.4 - generic assembleTakeaway", () => {
   // This generic function could be called with explicit type arguments to assemble takeaway with
   // an arbitrary Jack order/course.
-  const saladTakeaway = assembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)
+  const saladTakeaway = genericAssembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)
   expect(saladTakeaway).toEqual({
     jack: Salad.Caesar,
     jill: Salad.Fattoush
@@ -142,7 +154,7 @@ test("6.4 - generic assembleTakeaway", () => {
 
   // But usually it would be called without explicit type arguments, and they are inferred from the
   // types of the values passed in.
-  const amuseTakeaway = assembleTakeaway('amuse', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+  const amuseTakeaway = genericAssembleTakeaway('amuse', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
   expect(amuseTakeaway).toEqual({
     jack: AmuseBouche.CocktailWeiner,
     jill: Salad.Fattoush
@@ -154,5 +166,5 @@ test("6.4 - generic assembleTakeaway", () => {
 
   // Don't allow invalid keys
   // typings:expect-error
-  assembleTakeaway('dessert', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+  genericAssembleTakeaway('dessert', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
 })

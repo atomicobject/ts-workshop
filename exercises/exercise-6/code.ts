@@ -94,9 +94,9 @@ import {
 // }
 
 // namespace Three {
-  export type JackOrderType = WholeEnchiladaOrder;
-  export const jackSavedCourse = "amuse";
-  export type JackSavedCourseType = JackOrderType[typeof jackSavedCourse];
+  // export type JackOrderType = WholeEnchiladaOrder;
+  // export const jackSavedCourse = "amuse";
+  // export type JackSavedCourseType = JackOrderType[typeof jackSavedCourse];
 ;
   let jillOrder: ClassicDinnerOrder = {
     salad: Salad.Fattoush,
@@ -108,7 +108,7 @@ import {
     jill: Salad;
   };
 
-  export function assembleTakeaway<JackOrderType, JackSavedCourseKey extends keyof JackOrderType>(
+  export function genericAssembleTakeaway<JackOrderType, JackSavedCourseKey extends keyof JackOrderType>(
     jackSavedCourse: JackSavedCourseKey,
     jackOrder: JackOrderType,
     jillOrder: ClassicDinnerOrder

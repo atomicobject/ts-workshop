@@ -63,59 +63,6 @@ const aDeliciousEntree: DinnerComponents = Entree.Lasagna;
 // typings:expect-error
 const notAllowed: DinnerComponents = AmuseBouche.BruschettaBite;
 
-type Leftovers = {
-  plate1: ClassicDinnerOrder['salad'],
-  plate2: ClassicDinnerOrder['salad'],
-}
-
-it("foo", () => {
-  let order1: ClassicDinnerOrder = {
-    salad: Salad.Caesar,
-    entree: Entree.Curry,
-  }
-  let order2: ClassicDinnerOrder = {
-    salad: Salad.Caesar,
-    entree: Entree.Lasagna,
-  }
-
-  type TakeAway = {
-    order1Item: Salad,
-    order2Item: Salad,
-  }
-
-  const takeaway: TakeAway = {
-    order1Item: order1.salad,
-    order2Item: order2.salad,
-  }
-
-  type _1 = AssertAssignable<Salad, TakeAway['order1Item']>
-
-})
-it("bar", () => {
-  type Order1Type = WholeEnchiladaOrder;
-  type Order2Type = QuickSnackOrder;
-
-  type CourseToKeep1 = 'appetizer'
-  let courseToKeep1: CourseToKeep1 = 'appetizer'
-  type _1 = AssertAssignable<keyof Order1Type, CourseToKeep1>
-
-  type CourseToKeep2 = 'appetizer'
-  let courseToKeep2: CourseToKeep2 = 'appetizer'
-  type _2 = AssertAssignable<keyof Order2Type, CourseToKeep2>
-
-  let order1!: Order1Type;
-  let order2!: Order2Type;
-
-  type TakeAway = {
-    order1Item: Order1Type[CourseToKeep1],
-    order2Item: Order1Type[CourseToKeep1],
-  }
-
-  // let takeaway: TakeAway = {
-  //   order1Item: order1['appetizer'],
-  //   order2Item: order2['appetizer']
-  // }
-})
 
 /**
  * whatDidIHave answers the question in the name of the function.
@@ -210,3 +157,29 @@ const myQuickSnack: QuickSnackOrder = {
 };
 let finished = cleanMyPlate(myQuickSnack);
 finished.appetizer;
+
+type _1 = CleanedPlate<{foo: number}> extends CleanedPlate<infer T> ? T : never;
+type _2 = {foo: number, bar: null} extends (CleanedPlate<infer T> & infer U) ? U : never;
+
+type Diff<T extends string|number|symbol, U extends string|number|symbol> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];  
+type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;  
+
+type _3 = Diff<'foo'|'bar'|'baz', 'bar'>
+
+type X = { foo: number, bar: null }
+type NullEntries<T> = {[K in keyof T]: T[K] extends null ? K : never}[keyof T]
+type _4 = NullEntries<X>
+
+/*
+
+Tricks:
+* mapObject: Map types to map over property entries
+* filter: Subscript map type with never types to filter string lists
+* if: Conditional types for if statements
+* K extends string for a string list
+* Type overloading of functions
+* Phantom keys on runtime object to have values which carry extra type info.
+* Fluent interfaces which change type on each invocation to accumulate info.
+
+
+*/

@@ -1,54 +1,45 @@
-export interface GenericState {
+export interface HungerState {
   readonly name: string;
-  readonly sleep?: () => GenericState;
-  readonly eatSnack?: () => GenericState;
-  readonly eatMeal?: () => GenericState;
+  readonly sleep?: () => HungerState;
+  readonly eatSnack?: () => HungerState;
+  readonly eatMeal?: () => HungerState;
 }
 
-export class Starving implements GenericState {
-  name = "starving";
-  eatSnack = () => new Hungry();
-  eatMeal = () => new Full();
+export class Starving implements HungerState {
+  readonly name = "starving";
 }
 
-export class Hungry implements GenericState {
-  name = "hungry";
-  eatSnack = () => new Peckish();
-  eatMeal = () => new Full();
+export class Hungry implements HungerState {
+  readonly name = "hungry";
 }
 
-export class Peckish implements GenericState {
-  name = "peckish";
-  eatSnack = () => new Full();
+export class Peckish implements HungerState {
+  readonly name = "peckish";
 }
 
-export class Full implements GenericState {
-  name = "full";
-  sleep = () => new Starving();
+export class Full implements HungerState {
+  readonly name = "full";
 }
 
-export type State = Starving | Hungry | Peckish | Full;
-
-// export class Starving implements GenericState {
+// export class Starving implements HungerState {
 //   name = "starving";
 //   eatSnack = () => new Hungry();
 //   eatMeal = () => new Full();
 // }
 
-// export class Hungry implements GenericState {
+// export class Hungry implements HungerState {
 //   name = "hungry";
 //   eatSnack = () => new Peckish();
 //   eatMeal = () => new Full();
 // }
 
-// export class Peckish implements GenericState {
+// export class Peckish implements HungerState {
 //   name = "peckish";
 //   eatSnack = () => new Full();
 // }
 
-// export class Full implements GenericState {
+// export class Full implements HungerState {
 //   name = "full";
 //   sleep = () => new Starving();
 // }
 
-// type State = Starving | Hungry | Peckish | Full;
