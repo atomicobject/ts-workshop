@@ -51,7 +51,7 @@ this using classes and interfaces.
 */
 
 import { AssertAssignable } from "../util";
-import { Starving, Hungry, Peckish, Full, HungerState } from "./code";
+import { Starving, Hungry, Peckish, Full, HungerState, Transition, quickestRouteToSleep } from "./code";
 
 /** This value is used in tests to represent something you should do
  * in the exercise.
@@ -178,9 +178,11 @@ Classes in typescript are really a combination of a few different things:
 
 For a class such as `Starving`, we can use the name in two ways.
 
-As a value, where we're referring to the class constructor function itself.
-
+As a value, where we're referring to the class constructor function itself. 
 As a type, we're referring to the shape of _instances_ of the class.
+
+Let's exercise our new classes by walking through a hunger cycle using our classes directly.
+
 */
 // test("can walk through each state with specific type awareness", () => {
 //   const state0 = new Starving;
@@ -195,8 +197,35 @@ As a type, we're referring to the shape of _instances_ of the class.
 
 
 
+/*
+We can also use our HungerState interface, as we did earlier.
+
+Advance through an entire day of the hunger cycle when dealing with our state
+with the generic interface.
+
+You can resolve type errors by checking for valid state transitions before calling them.
+Or, you can add a `!` at the end of any value which might be null/undefined
+to tell typescript to assume it's present.
+
+*/
 // test(`can advance through the whole state machine generically if transitions are checked for validity`, () => {
-//   let state : HungerState = new Starving;
+//   let state : HungerState = new Starving();
+
 //   // TODO: Advance through an entire day of hunger
 //   expect(state).toBeInstanceOf(Starving);
 // });
+
+
+/*
+Let's now explore an example where the interface works well.
+
+Define a function quickestRouteToSleep which returns an array
+of Transitions from a given state to sleeping. It may assume
+the state machine at the top of this file.
+*/
+// test("quickestRouteToSleep", () => {
+//     expect(quickestRouteToSleep(new Full)).toEqual([Transition.SLEEP]);
+//     expect(quickestRouteToSleep(new Peckish)).toEqual([Transition.SNACK, Transition.SLEEP]);
+//     expect(quickestRouteToSleep(new Hungry)).toEqual([Transition.MEAL, Transition.SLEEP]);
+//     expect(quickestRouteToSleep(new Starving)).toEqual([Transition.MEAL, Transition.SLEEP]);
+// })
