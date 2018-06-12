@@ -1,3 +1,5 @@
+import { AssertAssignable } from "../util";
+
 describe("TypeScript Basics", () => {
   test("has a few primative types", () => {
     let hello: string = "hello world";
@@ -121,23 +123,6 @@ describe("tinkering with annotations", () => {
     let aNull: FixThisType = null;
   });
 
-  test("can union different types together", () => {
-    type FixThisType = any;
-
-    let hello: FixThisType = "hello";
-    let apples: FixThisType = 4;
-    let pears: FixThisType = 1.5;
-
-    // typings: expect-error
-    let world: FixThisType = "world";
-
-    // typings: expect-error
-    let goodnight: FixThisType = "goodnight";
-
-    // typings: expect-error
-    let moon: FixThisType = "moon";
-  });
-
   test("infers different types based on the keywords you use to declare variables", () => {
     let mutable = "hello";
     if (mutable !== "world") {
@@ -152,20 +137,6 @@ describe("tinkering with annotations", () => {
   });
 });
 
-describe("having a hard time demonstrating features without unions", () => {
-  test("allows unions", () => {
-    let stringOrNumber: string | number = "the string";
-
-    stringOrNumber = 5;
-  });
-  test("can follow control flow", () => {
-    let thing = Math.random() >= 0.5;
-    let stringOrNumber: string | number = thing ? "a string" : 5;
-    if (thing) {
-      stringOrNumber;
-    }
-  });
-});
 
 describe("Literal types", () => {
   test("can follow control flow", () => {
@@ -203,6 +174,78 @@ describe("Literal types", () => {
 
 describe("Object types", () => {
   test("interfaces describe objects", () => {
-    interface FoodItem {}
+    interface FoodItem {
+      name: string,
+      cost: number
+    }
+    
+    let muffin: FoodItem = {
+      cost: 2, name: "Muffin"
+    }
   });
+  
+  test("structural compatibility", () => {
+    // Type annotations are just there to help us describe object shapes
+    interface DeliItem {
+      name: string,
+      cost: number
+    }
+    interface BakeryItem {
+      name: string,
+      cost: number,
+    }
+
+    let lunchMeat: DeliItem = {
+      name: "Sliced Turkey",
+      cost: 3
+    }
+
+    let croissant: BakeryItem = {
+      name: "Croissant",
+      cost: 2
+    }
+
+    function bakeryPriceStatement(item: BakeryItem) {
+      return `That fresh-baked ${item.name} will be $${item.cost}.`
+    }
+
+    function deliPriceStatement(item: DeliItem){
+      return `That juicy ${item.name} will be $${item.cost}.`
+    }
+
+    // We can substitute one type for another anytime they're structurally compatible
+    let freshBakedCheese = bakeryPriceStatement(lunchMeat)
+    let juicyCroissant = deliPriceStatement(croissant)
+
+    // Or even anonymous types
+    let mysteryMeat = deliPriceStatement({name: "Mystery Meat", cost: 1})
+
+    
+    enum Flavor {
+      Sweet = "sweet", Sour = "sour", Salty = "salty", Bitter="bitter", Savory = "savory"
+    }
+    interface FlavoredFoodItem {
+      name: string,
+      cost: number,
+      flavorProfile: Flavor
+    }
+
+    let cheezits: FlavoredFoodItem = {name: "Box of Cheezits", cost: 4, flavorProfile: Flavor.Salty}
+
+    // Flavored food is structurally compatible with regular food
+    let freshBakedCheezits = bakeryPriceStatement(cheezits)
+
+    function flavoredFoodPriceStatement(item: FlavoredFoodItem){
+      return `That ${item.flavorProfile} ${item.name} will be ${item.cost}.`
+    }
+
+    // But regular food isn't assignable to a type that expects flavored food
+    // typings:expect-error
+    let noCroissants = flavoredFoodPriceStatement(croissant)
+
+    // In the future, we'll use AssertAssignable to prove structural compatibility or lack thereof:
+    type _t1 = AssertAssignable<BakeryItem, FlavoredFoodItem>
+    // typings:excpect-error
+    type _t2 = AssertAssignable<BakeryItem, FlavoredFoodItem>
+  })
 });
