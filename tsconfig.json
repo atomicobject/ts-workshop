@@ -3,7 +3,10 @@
     "moduleResolution": "node",
     "strict": true,
     "lib": ["es2016", "dom"],
+    "jsx": "react",
     "target": "es2016",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false
   }
