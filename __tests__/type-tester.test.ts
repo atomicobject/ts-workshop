@@ -8,5 +8,5 @@ const glob = util.promisify(glob1);
 
 it("Should type check", async () => {
   const files = await glob("exercises/**/*.test.{ts,tsx}")
-  check(files, "tsconfig.json")
+  check(files.sort(), "tsconfig.json")
 });
