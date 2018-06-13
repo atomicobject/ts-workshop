@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "exercises"
+  ],
+  "exclude": [
+    "**/*.test.tsx",
+    "**/*.test.ts"
+  ]
+}
