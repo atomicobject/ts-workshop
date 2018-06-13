@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "strict": true
+    "strict": true,
+    "lib": ["es2016", "dom"],
+    "target": "es2016",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   }
 }
