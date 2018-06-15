@@ -42,3 +42,25 @@ To make sure you're prepared for the workshop, please do the following:
 
   
 
+## Check editor support
+
+We recommend using **Visual Studio Code**, as it comes with excellent TypeScript support built in. If you decide not to use it, we recommend downloading it before the workshop in case you run into issues with your editor of choice.
+
+If you'd prefer to use a different editor, you'll want to make sure that it's set up to properly type check TypeScript as you type. If you open `exercise-1.test.ts`, you should see one error for the variable `foo`. We expect this error, as indicated by the `typings:expect-error` above.
+
+A properly configured Visual Studio Code shows the following:
+
+![ex-1-start](doc/ex-1-start.png)
+
+
+
+### Potential issues
+
+#### No Error Highlighting
+
+If you don't see _any_ error highlighting or other indication, your editor is probably not set up to type check TypeScript as you type. You may need a different plugin.
+
+#### More type errors
+
+If you are seeing more than one error in your editor, either you haven't install dependencies yet (`npm install`), your editor is not finding them for some reason, or there may be some other issue.
+
