@@ -7,6 +7,9 @@ const glob = util.promisify(glob1);
 
 
 it("Should type check", async () => {
-  const files = await glob("exercises/**/*.test.{ts,tsx}")
+  let files = await glob("exercises/**/*.{ts,tsx}")
+  if (process.env.CHECK_FILE) {
+    files = files.filter(file => file.includes(process.env.CHECK_FILE!))
+  }
   check(files.sort(), "tsconfig.json")
 });

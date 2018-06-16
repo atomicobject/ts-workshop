@@ -5,6 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "jest --watchAll",
+    "exercise-1": "CHECK_FILE='exercise-1' jest --watchAll ex-1 type ",
+    "exercise-2": "CHECK_FILE='exercise-2' jest --watchAll ex-2 type ",
+    "exercise-3": "CHECK_FILE='exercise-3' jest --watchAll ex-3 type ",
+    "exercise-4": "CHECK_FILE='exercise-4' jest --watchAll ex-4 type ",
+    "exercise-5": "CHECK_FILE='exercise-5' jest --watchAll ex-5 type ",
+    "exercise-6": "CHECK_FILE='exercise-6' jest --watchAll ex-6 type ",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
