@@ -1,28 +1,32 @@
 import { AssertAssignable } from "../util";
 
+type Foo = Protein | OrderType
+
+
 enum Protein {
-  Chicken,
-  Tofu,
-  Jackfruit,
-  Beef,
-  Tuna,
-  Turkey,
-  ExtraVeggies,
+  Chicken = "Chicken", // 🐓
+  Tofu = "Tofu",     // 
+  Jackfruit = "Jackfruit", // 🍈
+  Beef = "Beef", // 🐄
+  Tuna = "Tuna", // 🐟
+  Turkey = "Turkey", //🦃
+  ExtraVeggies = "ExtraVeggies", // 🥗
+
   // Pricey Proteins
-  KobeBeef,
-  Carnitas,
-  KingSalmon,
-  PortabelloCap
+  KobeBeef = "KobeBeef", // 🥩
+  Carnitas = "Carnitas", // 🐖
+  KingSalmon = "KingSalmon", // 🐟
+  PortabelloCap = "PortabelloCap" // 🍄
 }
 
 enum OrderType {
-  Taco,
-  Burrito,
-  Sushi,
-  Pasta,
-  PadThai,
-  Sandwich,
-  Pizza
+  Taco = "Taco", // 🌮
+  Burrito = "Burrito", // 🌯
+  Sushi = "Sushi", // 🍣
+  Pasta = "Pasta", // 🍝
+  PadThai = "PadThai", //🍲
+  Sandwich = "Sandwich", // 🥪
+  Pizza = "Pizza" // 🍕
 }
 
 interface Taco {
@@ -69,10 +73,10 @@ interface Sushi {
 }
 
 enum NoodleStyle {
-  Cavatappi,
-  Macaroni,
-  Spaghetti,
-  Bowtie
+  Cavatappi = "Cavatappi",
+  Macaroni = "Macaroni",
+  Spaghetti = "Spaghetti",
+  Bowtie = "Bowtie"
 }
 
 interface Pasta {
@@ -87,13 +91,13 @@ interface PadThai {
 }
 
 enum Topping {
-  Cheese,
-  Spinach,
-  Peppers,
-  Mushrooms,
-  Tomato,
-  Mayo,
-  Cucumber
+  Cheese = "Cheese", // 🧀
+  Spinach = "Spinach", // 🍃
+  Peppers = "Peppers", // 🌶
+  Mushrooms = "Mushrooms", // 🍄
+  Tomato = "Tomato", // 🍅
+  Mayo = "Mayo", 
+  Cucumber = "Cucumber" // 🥒
 }
 
 interface Sandwich {
@@ -110,7 +114,7 @@ interface Sandwich {
 type MenuItem = Taco | Burrito | Sushi | Pasta | PadThai | Sandwich;
 
 interface Extras {
-  awesomeSauce: boolean;
+  awesomeSauce: boolean; // 🤯
   extraNapkins: boolean;
 }
 
@@ -119,6 +123,7 @@ type LineItem = MenuItem & Extras;
 interface Order {
   lineItems: LineItem[];
 }
+
 
 function priceMenuItem(item: MenuItem): number {
   const basePrice = hasPriceyProtein(item) ? 7 : 5;
