@@ -1,6 +1,9 @@
 import React from "react";
 
 import "./styles.css";
+import { Protein, Topping, OrderType } from "../exercise-4/code";
+import { Flavor } from "../util";
+import { Dollars } from "./code";
 
 export const StaticExample: React.SFC<{}> = props => (
   <div className="order-summary">
@@ -33,9 +36,7 @@ export const StaticExample: React.SFC<{}> = props => (
         </li>
       </ul>
 
-      <div className="item-total">
-        Total: $8
-      </div>
+      <div className="item-total">Total: $9</div>
 
       <div className="awesome-sauce-backdrop">🤯</div>
     </div>
@@ -48,9 +49,8 @@ export const StaticExample: React.SFC<{}> = props => (
 
       <ul className="addition-list">
         <li>
-          <div className="crown-marker">👑</div>
-          <div className="addition-label">🥩 Kobe Beef</div>
-          <div className="item-price">+$1 </div>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🐓 Chicken</div>
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
@@ -62,19 +62,16 @@ export const StaticExample: React.SFC<{}> = props => (
         </li>
       </ul>
 
-      <div className="item-total">
-        Total: $7
-      </div>
+      <div className="item-total">Total: $7</div>
     </div>
 
     <hr className="divider" />
 
     <div className="total-section">
       <div className="subtotal-info">Subtotal: $24</div>
-      <div className="subtotal-info">15% Tip: $3.60</div>
+      <div className="subtotal-info">Tip: $3.60</div>
 
       <div className="grand-total">Total: $27.60</div>
     </div>
-
   </div>
 );

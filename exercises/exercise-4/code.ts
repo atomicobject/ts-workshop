@@ -3,7 +3,7 @@ import { AssertAssignable } from "../util";
 type Foo = Protein | OrderType
 
 
-enum Protein {
+export enum Protein {
   Chicken = "Chicken", // 🐓
   Tofu = "Tofu",     // 
   Jackfruit = "Jackfruit", // 🍈
@@ -19,7 +19,7 @@ enum Protein {
   PortabelloCap = "PortabelloCap" // 🍄
 }
 
-enum OrderType {
+export enum OrderType {
   Taco = "Taco", // 🌮
   Burrito = "Burrito", // 🌯
   Sushi = "Sushi", // 🍣
@@ -56,14 +56,14 @@ interface Burrito {
   beanType: BeanType;
 }
 
-enum BeanType {
-  Black,
-  Pinto
+export enum BeanType {
+  BlackBeans = "BlackBeans",
+  PintoBeans = "PintoBeans"
 }
 
-enum RiceType {
-  Brown,
-  White
+export enum RiceType {
+  BrownRice = "BrownRice",
+  WhiteRice = "WhiteRice"
 }
 
 interface Sushi {
@@ -90,7 +90,7 @@ interface PadThai {
   protein: Protein.Beef | Protein.Chicken | Protein.ExtraVeggies | Protein.Tofu;
 }
 
-enum Topping {
+export enum Topping {
   Cheese = "Cheese", // 🧀
   Spinach = "Spinach", // 🍃
   Peppers = "Peppers", // 🌶
