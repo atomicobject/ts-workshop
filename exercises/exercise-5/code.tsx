@@ -10,33 +10,49 @@ import { Flavor } from "../util";
 
 export type Dollars = Flavor<number, "dollars">;
 
-export enum Annotation {
-  Pricey = "Pricey",
-  Awesome = "Awesome"
-}
-
-export interface AdditionSummaryProps {
-  additionType: AllComponents;
-  additionPrice: Dollars;
-  annotation?: Annotation;
-}
-
-export interface ItemSummaryProps {
-  entreeType: EntreeType;
-  basePrice: Dollars;
-  additions: AdditionSummaryProps[];
-  mindBlowing: boolean;
-  itemTotal: Dollars;
-}
-
 export interface ReceiptProps {
+  /** Array of line item summaries */
   items: ItemSummaryProps[];
+  /** Order subtotal */
   subtotal: Dollars;
+  /** Tip amount */
   tip: Dollars;
+  /** Order total */
   total: Dollars;
 }
+export interface ItemSummaryProps {
+  /** Entree type – determines emoji/label */
+  entreeType: EntreeType;
+  /** Base entree price, next to e.g. Taco/Sandwich */
+  basePrice: Dollars;
+  /** List of additions - protein, toppings, extras */
+  additions: AdditionSummaryProps[];
+  /** Backdrop on/off */
+  mindBlowing: boolean;
+  /** Item total beneath extras */
+  itemTotal: Dollars;
+}
+export interface AdditionSummaryProps {
+  /** Type of protein/topping/etc. */
+  additionType: AllComponents;
+  /** Addition cost. 0 for free items. */
+  additionPrice: Dollars;
+  /** Special indicator, pricey or nuclear? */
+  annotation?: Annotation;
+}
+export enum Annotation {
+  /** Gets a crown */
+  Pricey = "Pricey",
+  /** Nuclear */
+  Nuclear = "Nuclear"
+}
 
-export type AllComponents = Protein | Topping | EntreeType | BeanType | RiceType;
+export type AllComponents =
+  | Protein
+  | Topping
+  | EntreeType
+  | BeanType
+  | RiceType;
 export interface IconProps {
   type: AllComponents;
 }
@@ -66,10 +82,18 @@ export const ItemSummary: React.SFC<ItemSummaryProps> = props => (
     <ul className="addition-list">
       {/* Render an AdditionSummary using each addition as props */}
       {props.additions.map((addition, i) => (
+        // Note: key is required by react for arrays of elements
         <AdditionSummary key={i} {...addition} />
       ))}
     </ul>
   </div>
 );
 
-export const Receipt: React.SFC<ReceiptProps> = props => <div />;
+export const Receipt: React.SFC<ReceiptProps> = props => (
+  <div>
+    {props.items.map((item, i) => (
+      // Note: key is required by react for arrays of elements
+      <ItemSummary key={i} {...item} />
+    ))}
+  </div>
+);

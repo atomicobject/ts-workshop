@@ -60,7 +60,7 @@ storiesOf("Exercise 5.4: The full Receipt", module)
         //         {
         //           additionType: Protein.Beef,
         //           additionPrice: 1,
-        //           annotation: Annotation.Awesome
+        //           annotation: Annotation.Nuclear
         //         }
         //       ]
         //     },
