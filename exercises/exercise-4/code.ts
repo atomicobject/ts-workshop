@@ -39,8 +39,6 @@ interface Taco {
     | Protein.Carnitas;
   extraTaco: boolean;
   salsa: boolean;
-  beanType: BeanType;
-  riceType: RiceType;
 }
 
 interface Burrito {
@@ -120,7 +118,7 @@ interface Extras {
 
 type LineItem = MenuItem & Extras;
 
-interface Order {
+export interface Order {
   lineItems: LineItem[];
 }
 

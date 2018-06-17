@@ -11,6 +11,8 @@
     "exercise-4": "cross-env CHECK_FILE='exercise-4' jest --watchAll ex-4 type ",
     "exercise-5": "cross-env CHECK_FILE='exercise-5' start-storybook -p 6006 ",
     "exercise-6": "cross-env CHECK_FILE='exercise-6' jest --watchAll ex-6 type ",
+    "exercise-7": "cross-env CHECK_FILE='exercise-7' jest --watchAll ex-7 type ",
+    "exercise-8": "cross-env CHECK_FILE='exercise-8' jest --watchAll ex-8 type ",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

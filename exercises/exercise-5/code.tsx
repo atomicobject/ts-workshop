@@ -15,13 +15,13 @@ export enum Annotation {
   Awesome = "Awesome"
 }
 
-interface AdditionSummaryProps {
+export interface AdditionSummaryProps {
   additionType: AllComponents;
   additionPrice: Dollars;
   annotation?: Annotation;
 }
 
-interface ItemSummaryProps {
+export interface ItemSummaryProps {
   entreeType: OrderType;
   basePrice: Dollars;
   additions: AdditionSummaryProps[];
@@ -29,7 +29,7 @@ interface ItemSummaryProps {
   itemTotal: Dollars;
 }
 
-interface ReceiptProps {
+export interface ReceiptProps {
   items: ItemSummaryProps[];
   subtotal: Dollars;
   tip: Dollars;
@@ -37,7 +37,7 @@ interface ReceiptProps {
 }
 
 export type AllComponents = Protein | Topping | OrderType | BeanType | RiceType;
-interface IconProps {
+export interface IconProps {
   type: AllComponents;
 }
 

@@ -12,7 +12,7 @@ import {
 } from "../exercise-4/code";
 import { StaticExample } from "./example";
 
-storiesOf("Step 4: The full Receipt", module)
+storiesOf("Exercise 5.4: The full Receipt", module)
   .add("Intro", () => (
     <div>
       <h1>Create a Receipt Component</h1>

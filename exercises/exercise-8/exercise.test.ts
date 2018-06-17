@@ -9,7 +9,7 @@ import {
   AmuseBouche,
   Appetizer
 } from "../chez-eclectic";
-import { genericAssembleTakeaway, Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType } from "./code";
+import { Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType } from "./code";
 import { AssertAssignable } from "../util";
 
 const jillOrder: ClassicDinnerOrder = {
@@ -143,28 +143,29 @@ activity: creating generic functions where the variables are inputs.
 Let's convert assembleTakeaway to a generic function
 
 */
-test("6.4 - generic assembleTakeaway", () => {
-  // This generic function could be called with explicit type arguments to assemble takeaway with
-  // an arbitrary Jack order/course.
-  const saladTakeaway = genericAssembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)
-  expect(saladTakeaway).toEqual({
-    jack: Salad.Caesar,
-    jill: Salad.Fattoush
-  })
+FINISH ME
+// test("6.4 - generic assembleTakeaway", () => {
+//   // This generic function could be called with explicit type arguments to assemble takeaway with
+//   // an arbitrary Jack order/course.
+//   const saladTakeaway = genericAssembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)
+//   expect(saladTakeaway).toEqual({
+//     jack: Salad.Caesar,
+//     jill: Salad.Fattoush
+//   })
 
-  // But usually it would be called without explicit type arguments, and they are inferred from the
-  // types of the values passed in.
-  const amuseTakeaway = genericAssembleTakeaway('amuse', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
-  expect(amuseTakeaway).toEqual({
-    jack: AmuseBouche.CocktailWeiner,
-    jill: Salad.Fattoush
-  })
+//   // But usually it would be called without explicit type arguments, and they are inferred from the
+//   // types of the values passed in.
+//   const amuseTakeaway = genericAssembleTakeaway('amuse', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+//   expect(amuseTakeaway).toEqual({
+//     jack: AmuseBouche.CocktailWeiner,
+//     jill: Salad.Fattoush
+//   })
 
-  // Typescript should understand what type of food Jack is taking home.
-  type _1 = AssertAssignable<Salad, typeof saladTakeaway["jack"]>
-  type _2 = AssertAssignable<AmuseBouche, typeof amuseTakeaway["jack"]>
+//   // Typescript should understand what type of food Jack is taking home.
+//   type _1 = AssertAssignable<Salad, typeof saladTakeaway["jack"]>
+//   type _2 = AssertAssignable<AmuseBouche, typeof amuseTakeaway["jack"]>
 
-  // Don't allow invalid keys
-  // typings:expect-error
-  genericAssembleTakeaway('dessert', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
-})
+//   // Don't allow invalid keys
+//   // typings:expect-error
+//   genericAssembleTakeaway('dessert', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+// })

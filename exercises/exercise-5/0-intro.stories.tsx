@@ -7,6 +7,6 @@ import "./styles.css";
 import { Protein } from "../exercise-4/code";
 import { Icon, AllComponents, TotalSection } from "./code";
 
-storiesOf("Receipt", module).add("static example", () => (
+storiesOf("Exercise 5.0 Receipt", module).add("static example", () => (
   <StaticExample />
 ));

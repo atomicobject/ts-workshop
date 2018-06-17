@@ -37,7 +37,7 @@ h1 {
 }
 
 .line-item {
-  max-width: 2.5in;
+  width: 2.5in;
   position: relative;
 }
 
