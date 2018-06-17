@@ -4,7 +4,7 @@ import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { ItemSummary, Annotation } from "./code";
 import {
-  OrderType,
+  EntreeType,
   Protein,
   RiceType,
   BeanType,
@@ -63,7 +63,7 @@ storiesOf("Exercise 5.3: Item", module)
         // with
         <ItemSummary
           basePrice={7}
-          entreeType={OrderType.Taco}
+          entreeType={EntreeType.Taco}
           mindBlowing={true}
           itemTotal={9}
           additions={[
@@ -123,7 +123,7 @@ storiesOf("Exercise 5.3: Item", module)
         // with
         // <ItemSummary
         //   basePrice={6}
-        //   entreeType={OrderType.Taco}
+        //   entreeType={EntreeType.Taco}
         //   mindBlowing={false}
         //   itemTotal={6}
         //   additions={[

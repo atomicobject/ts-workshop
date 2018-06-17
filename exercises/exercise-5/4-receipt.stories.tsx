@@ -4,7 +4,7 @@ import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { ItemSummary, Annotation, Receipt } from "./code";
 import {
-  OrderType,
+  EntreeType,
   Protein,
   RiceType,
   BeanType,
@@ -40,7 +40,7 @@ storiesOf("Exercise 5.4: The full Receipt", module)
         //   items={[
         //     {
         //       basePrice: 7,
-        //       entreeType: OrderType.Taco,
+        //       entreeType: EntreeType.Taco,
         //       mindBlowing: true,
         //       itemTotal: 9,
         //       additions: [
@@ -66,7 +66,7 @@ storiesOf("Exercise 5.4: The full Receipt", module)
         //     },
         //     {
         //       basePrice: 6,
-        //       entreeType: OrderType.Taco,
+        //       entreeType: EntreeType.Taco,
         //       mindBlowing: false,
         //       itemTotal: 6,
         //       additions: [

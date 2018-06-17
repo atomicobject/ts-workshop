@@ -1,3 +1,12 @@
+
+// Unions arise naturally out of functions
+// with conditional returns.
+function classify(n: number) {
+  if (n < 0) return 'negative';
+  if (n > 0) return 'positive';
+  return 'zero'
+}
+
 describe("Unions and intersections", () => {
   test("can union different types together", () => {
     type FixThisType = any;

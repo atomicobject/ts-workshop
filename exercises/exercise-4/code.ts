@@ -1,6 +1,6 @@
 import { AssertAssignable } from "../util";
 
-type Foo = Protein | OrderType
+type Foo = Protein | EntreeType
 
 
 export enum Protein {
@@ -19,7 +19,7 @@ export enum Protein {
   PortabelloCap = "PortabelloCap" // 🍄
 }
 
-export enum OrderType {
+export enum EntreeType {
   Taco = "Taco", // 🌮
   Burrito = "Burrito", // 🌯
   Sushi = "Sushi", // 🍣
@@ -30,7 +30,7 @@ export enum OrderType {
 }
 
 interface Taco {
-  type: OrderType.Taco;
+  type: EntreeType.Taco;
   protein:
     | Protein.Chicken
     | Protein.Beef
@@ -42,7 +42,7 @@ interface Taco {
 }
 
 interface Burrito {
-  type: OrderType.Burrito;
+  type: EntreeType.Burrito;
   protein:
     | Protein.Chicken
     | Protein.Beef
@@ -65,7 +65,7 @@ export enum RiceType {
 }
 
 interface Sushi {
-  type: OrderType.Sushi;
+  type: EntreeType.Sushi;
   protein: Protein.KingSalmon | Protein.Tuna | Protein.Tofu;
   riceType: RiceType;
 }
@@ -78,13 +78,13 @@ enum NoodleStyle {
 }
 
 interface Pasta {
-  type: OrderType.Pasta;
+  type: EntreeType.Pasta;
   protein: Protein.Chicken | Protein.ExtraVeggies | Protein.PortabelloCap;
   noodleStyle: NoodleStyle;
 }
 
 interface PadThai {
-  type: OrderType.PadThai;
+  type: EntreeType.PadThai;
   protein: Protein.Beef | Protein.Chicken | Protein.ExtraVeggies | Protein.Tofu;
 }
 
@@ -99,7 +99,7 @@ export enum Topping {
 }
 
 interface Sandwich {
-  type: OrderType.Sandwich;
+  type: EntreeType.Sandwich;
   protein:
     | Protein.Chicken
     | Protein.Turkey
@@ -126,7 +126,7 @@ export interface Order {
 function priceMenuItem(item: MenuItem): number {
   const basePrice = hasPriceyProtein(item) ? 7 : 5;
 
-  if (item.type === OrderType.Taco) {
+  if (item.type === EntreeType.Taco) {
     const extraTacoPrice = item.extraTaco ? 3 : 0;
     const salsaPrice = item.salsa ? 0.5 : 0;
     return basePrice + extraTacoPrice + salsaPrice;
@@ -159,7 +159,7 @@ function priceOrder(order: Order): number {
    but sometimes people don't read the menu before they
    order. */
 // type PaperOrder = {
-//   type?: OrderType;
+//   type?: EntreeType;
 //   protein?: Protein;
 //   awesomeSauce?: boolean;
 //   beanType?: BeanType;

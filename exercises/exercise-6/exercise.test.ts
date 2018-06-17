@@ -1,4 +1,4 @@
-import { Order, OrderType, Protein } from "../exercise-4/code";
+import { Order, EntreeType, Protein } from "../exercise-4/code";
 import { orderToReceipt } from "./code";
 import { ReceiptProps } from "../exercise-5/code";
 
@@ -22,7 +22,7 @@ describe("orderToReceipt", () => {
     const argument: Order = {
       lineItems: [
         {
-          type: OrderType.Taco,
+          type: EntreeType.Taco,
           protein: Protein.Beef,
           salsa: true,
           extraTaco: true,
@@ -36,7 +36,7 @@ describe("orderToReceipt", () => {
       items: [
         {
           basePrice: 6,
-          entreeType: OrderType.Taco,
+          entreeType: EntreeType.Taco,
           additions: [
             {
               additionType: Protein.Beef,

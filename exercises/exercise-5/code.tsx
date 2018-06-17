@@ -1,7 +1,7 @@
 import {
   Protein,
   Topping,
-  OrderType,
+  EntreeType,
   BeanType,
   RiceType
 } from "../exercise-4/code";
@@ -22,7 +22,7 @@ export interface AdditionSummaryProps {
 }
 
 export interface ItemSummaryProps {
-  entreeType: OrderType;
+  entreeType: EntreeType;
   basePrice: Dollars;
   additions: AdditionSummaryProps[];
   mindBlowing: boolean;
@@ -36,7 +36,7 @@ export interface ReceiptProps {
   total: Dollars;
 }
 
-export type AllComponents = Protein | Topping | OrderType | BeanType | RiceType;
+export type AllComponents = Protein | Topping | EntreeType | BeanType | RiceType;
 export interface IconProps {
   type: AllComponents;
 }

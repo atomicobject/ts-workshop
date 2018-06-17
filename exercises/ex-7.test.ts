@@ -39,7 +39,7 @@ interface WholeEnchiladaOrder {
   dessert: Dessert;
 }
 
-type OrderType = ClassicDinnerOrder | QuickSnackOrder | WholeEnchiladaOrder
+type EntreeType = ClassicDinnerOrder | QuickSnackOrder | WholeEnchiladaOrder
 
 let aMemorableMeal: ClassicDinnerOrder = {
   salad: Salad.Caesar,
@@ -143,7 +143,7 @@ type _cp = AssertAssignable<
 >;
 
 type CleanedQuickSnack = CleanedPlate<QuickSnackOrder>;
-function cleanMyPlate<OrderType>(order: OrderType): CleanedPlate<OrderType> {
+function cleanMyPlate<EntreeType>(order: EntreeType): CleanedPlate<EntreeType> {
   const ret: any = {};
   for (const key of Object.keys(order)) {
     ret[key] = null;
