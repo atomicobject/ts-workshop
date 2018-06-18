@@ -143,18 +143,30 @@ describe("More types", () => {
       regularString.slice(1);
     }
     
-    const literalString = "goodnight";
     /** 
      * Check out the type of literalString! It's a string literal, 
      * which means TS knows it can only be this exact value.
      */
-    if (literalString !== "goodnight") {
-      // typings: expect-error
-      literalString.slice(1);
-    }
+    const literalString = "goodnight";
+
+    // /** 
+    //  * TS also understands control flow. Note the type of literalString 
+    //  * inside of this block. 
+    //  * */
+    // if (literalString !== "goodnight") {
+    // // typings: expect-error
+    //   literalString.slice(1);
+    // }
+
+    /** This holds for other types of primatives, too. */
+    const literalBool = true;
+    const literalNumber = 2;
   });
 
   test("describes a literal", () => {
+    /**
+     * Let's try writing our own type. Update FixThisType to allow only a single literal.
+     */
     type FixThisType = any;
 
     let hello: FixThisType = "hello";
@@ -169,60 +181,19 @@ describe("More types", () => {
     let moon: FixThisType = "moon";
   });
 
-  test("and more interestingly, we can describe new types by unioning primatives together!", () => {
-    type AStringOrANumber = string | number;
-    let aString: AStringOrANumber = "hello";
-    let aNumber: AStringOrANumber = 2;
-
-    // typings: expect-error
-    let aBool: AStringOrANumber = true;
-  });
-
-  test("this allows us to constrain types in interesting ways", () => {
-    type FixThisType = any;
-
-    let aBool: FixThisType = true;
-
-    let aString: FixThisType = "whatever";
-
-    // typings: expect-error
-    let aNull: FixThisType = null;
-  });
+  test("literals in control flow", () => {
+    /**
+     * TS understands control flow. Take a look at the type of 'fruit' inside of these blocks.
+     */
+    function isBanana(fruit: string){
+      if (fruit === "banana") {
+        return `${fruit} is a banana`
+      } else {
+        return ` ${fruit} is not a banana`
+      }
+    } 
+  })
 });
-
-describe("Literal types", () => {
-  test("can follow control flow", () => {
-    let fruit = "orange";
-    // fruit: string
-    if (fruit === "orange") {
-      // fruit: "orange"
-      fruit;
-    } else {
-      // fruit: string
-      fruit;
-    }
-  });
-  test("", () => {
-    // Array, of...whatever
-    let things = ["apple", 4, true];
-    things.push(null); // Oh no! TypeScript has inferred that things can only be of a few types
-
-    let anyThings: any[] = ["apple", 4, true];
-    anyThings.push(["hello"]); // If TS isn't quite right about its inference, we can tell it what we meant
-
-    function pickFrutest(fruits: string[]) {
-      return fruits[Math.random() * fruits.length];
-    }
-  });
-  test("infers types for normal JS", () => {
-    let orange = "orange";
-    const apple = "apple";
-  });
-});
-
-// Here's a function, here are some tests, convert it to ts, make the hate go away
-// Using types to guide writing new code
-// make this code increasingly typescripty
 
 describe("Object types", () => {
   test("interfaces describe objects", () => {
