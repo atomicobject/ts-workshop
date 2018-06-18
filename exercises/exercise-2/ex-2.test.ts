@@ -7,6 +7,9 @@ function classify(n: number) {
   return 'zero'
 }
 
+describe("Literal types", () => {
+  
+})
 describe("Unions and intersections", () => {
   test("can union different types together", () => {
     type FixThisType = any;

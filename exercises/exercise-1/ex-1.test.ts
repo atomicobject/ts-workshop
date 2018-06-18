@@ -1,91 +1,157 @@
 import { AssertAssignable } from "../util";
 
-describe("TypeScript Basics", () => {
-  test("has a few primative types", () => {
-    let hello: string = "hello world";
+describe("Primative types", () => {
+  test("has type inference", () => {
+    /**
+     * TypeScript infers the types of variables.
+     * Hover over these variable declarations to see them.
+     */
 
-    let isTypeScriptTime: boolean = true;
-
-    let oneAndAHalf: number = 1.5;
-  });
-  test("as well as some collection types", () => {
-    let fruits: string[] = ["apple", "orange", "pear"];
-
-    let votes: boolean[] = [true, false, true];
-
-    let oneAndAHalf: number = 1.5;
-  });
-  test("infers the type of a value if you don't specify a type", () => {
     let hello = "hello world";
 
     let isTypeScriptTime = true;
 
     let oneAndAHalf = 1.5;
+
+    let arrayOfFruits = ["apple", "orange", "pear"];
+
+    let arrayOfBools = [true, false];
   });
-  test("discourages you from changing types", () => {
-    let hello = "the string";
+
+  test("and type annotations", () => {
+    /**
+     * Rather than letting TS infer the types, we can add
+     * type annotations that explicitly describe the variable type.
+     */
+
+    let hello: string = "hello world";
+
+    let isTypeScriptTime: boolean = true;
+
+    let oneAndAHalf: number = 1.5;
+
+    let arrayOfFruits: string[] = ["apple", "orange", "pear"];
+
+    let arrayOfBools: boolean[] = [true, false];
+  });
+
+  test("types enforce constraints", () => {
+    /**
+     * Once a variable has a type, the type checker will fail
+     * if we try to assign it to a value of a different type.
+     */
+    let hello: string = "a string";
 
     // typings:expect-error
     hello = 5;
+
+    /**
+     * Type annotations are useful because they allow us to
+     * express our intent to TypeScript, so it can catch mistakes.
+     */
+    // typings:expect-error
+    let shouldBeAString: string = true;
   });
 });
 
-describe("typed functions", () => {
-  test("asks us to be explicit about our arguments", () => {
+describe("More types", () => {
+  test("function types", () => {
+    /**
+     * Type annotations get more powerful when we start using 
+     * them with functions. Check out the type of declareFavoriteFood.
+     */
+    function declareFavoriteFood(name: string, food: string) {
+      return `${name}'s favorite food is ${food}`;
+    }
+    type declareFavoriteFoodType = typeof declareFavoriteFood;
+
+    /** TS knows the return type of declareFavoriteFood. */
+    let waldosFavorite = declareFavoriteFood("Waldo", "chips");
+
+    /**
+     * If we try to pass a value of the wrong type, we'll get an error- 
+     * just like we did when assigning a variable to the wrong type.
+     */
+    // typings:expect-error
+    let invalidInput = declareFavoriteFood("Waldo", true);
+  });
+  test("the 'any' type", () => {
+    /** 
+     * TS describes types that it can't identify as 'any'. 
+     * 
+     * In this example, we haven't told TS what the args of this function 
+     * should be, so it infers them to be 'any'. Implicit 'any' types
+     * aren't allowed for function args, so we get an error:
+     */
     // typings:expect-error
     function declareFavoriteFood(name, food) {
       return `${name}'s favorite food is ${food}`;
     }
 
-    function typedDeclareFavoriteFood(name: string, food: string) {
+    /** But it does allow _explicit_ any for function args: */
+    function typedDeclareFavoriteFood(name: any, food: any) {
       return `${name}'s favorite food is ${food}`;
     }
-  });
-  test("infers the return type of a function", () => {
-    function typedDeclareFavoriteFood(name: string, food: string) {
-      return `${name}'s favorite food is ${food}`;
-    }
-  });
-});
+    /** 
+     * Using 'any' is risky, because it effectively disables 
+     * type checking:
+     * */
+    let thisWillBlowUp = typedDeclareFavoriteFood(1, 2)
 
-describe("type guards", () => {
-  test("checks whether a thing is a type", () => {});
-});
+    /** We'll come back to 'any' in the next exercise. */
+  });
 
-describe("tinkering with annotations", () => {
-  test("we can declare our own types made up of primitives", () => {
+  test("a custom type", () => {
+    /**
+     * We can declare our own types made up of primitives.
+     */
     type MySpecialString = string;
 
     function sayHello(name: string) {
       console.log(`Hello, ${name}!`);
     }
-    // And we can use them where they're compatible with other types
+    /** And we can use them where they're compatible with other types */
     let specialName: MySpecialString = "Dixie the Good";
     sayHello(specialName);
 
-    // But, notice that declaring a named type doesn't inherently change the way the type operates
+    /** 
+     * But, notice that declaring a named type doesn't inherently 
+     * change the way the type operates.
+     */
     function specialSayHello(name: MySpecialString) {
       console.log(`Hello, ${specialName}, Your Excellence.`);
     }
 
     let aCommonerName: string = "John";
     specialSayHello(aCommonerName); // No type error
+    /** 
+     * string and MySpecialString are compatible; we can pass either one 
+     * in any place the other is expected.
+     */
   });
 
-  test("allows just one primitive", () => {
-    type FixThisType = any;
-
-    let aBool: FixThisType = true;
-
-    // typings: expect-error
-    let aString: FixThisType = "whatever";
-  });
-
-  test("Those types can also be literals", () => {
+  test("literal types", () => {
     type ALiteralString = "just this one";
 
     // typings: expect-error
     let notThatLiteral: ALiteralString = "some other string";
+  });
+
+  test("infers different types based on keywords", () => {
+    let regularString = "hello";
+    if (regularString !== "world") {
+      regularString.slice(1);
+    }
+    
+    const literalString = "goodnight";
+    /** 
+     * Check out the type of literalString! It's a string literal, 
+     * which means TS knows it can only be this exact value.
+     */
+    if (literalString !== "goodnight") {
+      // typings: expect-error
+      literalString.slice(1);
+    }
   });
 
   test("describes a literal", () => {
@@ -122,21 +188,7 @@ describe("tinkering with annotations", () => {
     // typings: expect-error
     let aNull: FixThisType = null;
   });
-
-  test("infers different types based on the keywords you use to declare variables", () => {
-    let mutable = "hello";
-    if (mutable !== "world") {
-      mutable.slice(1);
-    }
-
-    const immutable = "goodnight";
-    if (immutable !== "goodnight") {
-      // typings: expect-error
-      immutable.slice(1);
-    }
-  });
 });
-
 
 describe("Literal types", () => {
   test("can follow control flow", () => {
@@ -175,77 +227,85 @@ describe("Literal types", () => {
 describe("Object types", () => {
   test("interfaces describe objects", () => {
     interface FoodItem {
-      name: string,
-      cost: number
+      name: string;
+      cost: number;
     }
-    
+
     let muffin: FoodItem = {
-      cost: 2, name: "Muffin"
-    }
+      cost: 2,
+      name: "Muffin"
+    };
   });
-  
+
   test("structural compatibility", () => {
     // Type annotations are just there to help us describe object shapes
     interface DeliItem {
-      name: string,
-      cost: number
+      name: string;
+      cost: number;
     }
     interface BakeryItem {
-      name: string,
-      cost: number,
+      name: string;
+      cost: number;
     }
 
     let lunchMeat: DeliItem = {
       name: "Sliced Turkey",
       cost: 3
-    }
+    };
 
     let croissant: BakeryItem = {
       name: "Croissant",
       cost: 2
-    }
+    };
 
     function bakeryPriceStatement(item: BakeryItem) {
-      return `That fresh-baked ${item.name} will be $${item.cost}.`
+      return `That fresh-baked ${item.name} will be $${item.cost}.`;
     }
 
-    function deliPriceStatement(item: DeliItem){
-      return `That juicy ${item.name} will be $${item.cost}.`
+    function deliPriceStatement(item: DeliItem) {
+      return `That juicy ${item.name} will be $${item.cost}.`;
     }
 
     // We can substitute one type for another anytime they're structurally compatible
-    let freshBakedCheese = bakeryPriceStatement(lunchMeat)
-    let juicyCroissant = deliPriceStatement(croissant)
+    let freshBakedCheese = bakeryPriceStatement(lunchMeat);
+    let juicyCroissant = deliPriceStatement(croissant);
 
     // Or even anonymous types
-    let mysteryMeat = deliPriceStatement({name: "Mystery Meat", cost: 1})
+    let mysteryMeat = deliPriceStatement({ name: "Mystery Meat", cost: 1 });
 
-    
     enum Flavor {
-      Sweet = "sweet", Sour = "sour", Salty = "salty", Bitter="bitter", Savory = "savory"
+      Sweet = "sweet",
+      Sour = "sour",
+      Salty = "salty",
+      Bitter = "bitter",
+      Savory = "savory"
     }
     interface FlavoredFoodItem {
-      name: string,
-      cost: number,
-      flavorProfile: Flavor
+      name: string;
+      cost: number;
+      flavorProfile: Flavor;
     }
 
-    let cheezits: FlavoredFoodItem = {name: "Box of Cheezits", cost: 4, flavorProfile: Flavor.Salty}
+    let cheezits: FlavoredFoodItem = {
+      name: "Box of Cheezits",
+      cost: 4,
+      flavorProfile: Flavor.Salty
+    };
 
     // Flavored food is structurally compatible with regular food
-    let freshBakedCheezits = bakeryPriceStatement(cheezits)
+    let freshBakedCheezits = bakeryPriceStatement(cheezits);
 
-    function flavoredFoodPriceStatement(item: FlavoredFoodItem){
-      return `That ${item.flavorProfile} ${item.name} will be ${item.cost}.`
+    function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
+      return `That ${item.flavorProfile} ${item.name} will be ${item.cost}.`;
     }
 
     // But regular food isn't assignable to a type that expects flavored food
     // typings:expect-error
-    let noCroissants = flavoredFoodPriceStatement(croissant)
+    let noCroissants = flavoredFoodPriceStatement(croissant);
 
     // In the future, we'll use AssertAssignable to prove structural compatibility or lack thereof:
-    type _t1 = AssertAssignable<BakeryItem, FlavoredFoodItem>
+    type _t1 = AssertAssignable<BakeryItem, FlavoredFoodItem>;
     // typings:excpect-error
-    type _t2 = AssertAssignable<BakeryItem, FlavoredFoodItem>
-  })
+    type _t2 = AssertAssignable<BakeryItem, FlavoredFoodItem>;
+  });
 });

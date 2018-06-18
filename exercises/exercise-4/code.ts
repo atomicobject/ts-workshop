@@ -2,6 +2,55 @@ import { AssertAssignable } from "../util";
 
 type Foo = Protein | EntreeType
 
+/* Monster's Foodie Truck Menu
+
+Add AwesomeSauce to anything for $1!
+
+Taco....................$5
+  Protein
+    Chicken
+    Beef
+    BBQ jackfruit
+    Extra veggies
+    Carnitas (+$2)
+  Add a second taco for +$3 (+$4 for Carnitas)
+Burrito.................$7 
+  Protein    
+    Chicken
+    Beef
+    BBQ jackfruit
+    Extra veggies
+    Carnitas (+$2)
+  Beans
+    Black Beans
+    Pinto Beans
+  Rice
+    White Rice
+    Brown Rice (+$1) 
+Sushi ..................$8
+  Protein    
+    Tuna
+    Tofu
+    King Salmon (+$2)
+  Rice
+    White Rice
+    Brown Rice (+$1) 
+Sandwich................$4
+  Protein
+    Chicken
+    Turkey
+    Beef
+    Extra Veggies
+    Portabello Cap ($2)
+  Choose up to 3 toppings, extra toppings +$0.50
+    Cheese
+    Spinach
+    Peppers
+    Mushrooms
+    Tomato
+    Cucumber
+*/
+
 
 export enum Protein {
   Chicken = "Chicken", // 🐓
@@ -13,7 +62,6 @@ export enum Protein {
   ExtraVeggies = "ExtraVeggies", // 🥗
 
   // Pricey Proteins
-  KobeBeef = "KobeBeef", // 🥩
   Carnitas = "Carnitas", // 🐖
   KingSalmon = "KingSalmon", // 🐟
   PortabelloCap = "PortabelloCap" // 🍄
@@ -23,10 +71,7 @@ export enum EntreeType {
   Taco = "Taco", // 🌮
   Burrito = "Burrito", // 🌯
   Sushi = "Sushi", // 🍣
-  Pasta = "Pasta", // 🍝
-  PadThai = "PadThai", //🍲
-  Sandwich = "Sandwich", // 🥪
-  Pizza = "Pizza" // 🍕
+  Sandwich = "Sandwich", // 🥪 
 }
 
 interface Taco {
@@ -70,31 +115,12 @@ interface Sushi {
   riceType: RiceType;
 }
 
-enum NoodleStyle {
-  Cavatappi = "Cavatappi",
-  Macaroni = "Macaroni",
-  Spaghetti = "Spaghetti",
-  Bowtie = "Bowtie"
-}
-
-interface Pasta {
-  type: EntreeType.Pasta;
-  protein: Protein.Chicken | Protein.ExtraVeggies | Protein.PortabelloCap;
-  noodleStyle: NoodleStyle;
-}
-
-interface PadThai {
-  type: EntreeType.PadThai;
-  protein: Protein.Beef | Protein.Chicken | Protein.ExtraVeggies | Protein.Tofu;
-}
-
 export enum Topping {
   Cheese = "Cheese", // 🧀
   Spinach = "Spinach", // 🍃
   Peppers = "Peppers", // 🌶
   Mushrooms = "Mushrooms", // 🍄
   Tomato = "Tomato", // 🍅
-  Mayo = "Mayo", 
   Cucumber = "Cucumber" // 🥒
 }
 
@@ -109,7 +135,7 @@ interface Sandwich {
   toppings: Topping[];
 }
 
-type MenuItem = Taco | Burrito | Sushi | Pasta | PadThai | Sandwich;
+type MenuItem = Taco | Burrito | Sushi | Sandwich;
 
 interface Extras {
   awesomeSauce: boolean; // 🤯
@@ -144,7 +170,6 @@ function hasPriceyProtein(item: { protein: Protein }) {
   return [
     Protein.KingSalmon,
     Protein.Carnitas,
-    Protein.KobeBeef,
     Protein.PortabelloCap
   ].includes(item.protein);
 }
