@@ -83,7 +83,7 @@ storiesOf("Exercise 5.3: Item", module)
             {
               additionType: Protein.Beef,
               additionPrice: 1,
-              annotation: Annotation.Awesome
+              annotation: Annotation.Nuclear
             }
           ]}
         />
