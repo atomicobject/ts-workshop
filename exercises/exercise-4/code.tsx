@@ -2,9 +2,8 @@ import {
   Protein,
   Topping,
   EntreeType,
-  BeanType,
   RiceType
-} from "../exercise-4/code";
+} from "../exercise-3/code";
 import React from "react";
 import { Flavor } from "../util";
 
@@ -51,7 +50,6 @@ export type AllComponents =
   | Protein
   | Topping
   | EntreeType
-  | BeanType
   | RiceType;
 export interface IconProps {
   type: AllComponents;

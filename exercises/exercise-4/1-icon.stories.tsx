@@ -4,7 +4,7 @@ import { Protein } from "../exercise-4/code";
 import { expectToLookLike } from "../util/story-helpers";
 import { Icon } from "./code";
 
-storiesOf("Exercise 5.1: Icon", module)
+storiesOf("Exercise 4.1: Icon", module)
   .add("Intro", () => (
     <div>
       <h1>Create an Icon Component</h1>

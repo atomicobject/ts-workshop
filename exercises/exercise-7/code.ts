@@ -1,53 +1,121 @@
-export interface HungerState {
-  readonly name: string;
-  readonly sleep?: () => HungerState;
-  readonly eatSnack?: () => HungerState;
-  readonly eatMeal?: () => HungerState;
-}
+import {
+  QuickSnackOrder,
+  WholeEnchiladaOrder,
+  ClassicDinnerOrder,
+  Salad,
+  Entree,
+  DinnerWithDessert,
+  Dessert,
+  AmuseBouche,
+  Appetizer
+} from "../chez-eclectic";
 
-export class Starving implements HungerState {
-  readonly name = "starving";
-}
+// namespace Zero {
 
-export class Hungry implements HungerState {
-  readonly name = "hungry";
-}
+  // These three variables will be used in 6.3.
+  // They are here so imports are ready to go.
+  export type JackOrderType = never;
+  export const jackSavedCourse = null;
+  export type JackSavedCourseType = never
 
-export class Peckish implements HungerState {
-  readonly name = "peckish";
-}
+  export type Takeaway = {
+  };
 
-export class Full implements HungerState {
-  readonly name = "full";
-}
-
-// export class Starving implements HungerState {
-//   name = "starving";
-//   eatSnack = () => new Hungry();
-//   eatMeal = () => new Full();
+  export function assembleTakeaway(
+    jackOrder: ClassicDinnerOrder,
+    jillOrder: ClassicDinnerOrder
+  ) {
+    return {};
+  }
 // }
 
-// export class Hungry implements HungerState {
-//   name = "hungry";
-//   eatSnack = () => new Peckish();
-//   eatMeal = () => new Full();
+// namespace One {
+//   export type JackOrderType = never;
+//   export const jackSavedCourse = null;
+//   export type JackSavedCourseType = never
+//   export type Takeaway = {
+//     jack: Salad;
+//     jill: Salad;
+//   };
+
+//   export function assembleTakeaway(
+//     jackOrder: ClassicDinnerOrder,
+//     jillOrder: ClassicDinnerOrder
+//   ) {
+//     return {
+//       jack: jackOrder.salad,
+//       jill: jillOrder.salad
+//     };
+//   }
 // }
 
-// export class Peckish implements HungerState {
-//   name = "peckish";
-//   eatSnack = () => new Full();
+/*****************/
+// namespace Two {
+  // export type JackOrderType = never;
+  // export const jackSavedCourse = null;
+  // export type JackSavedCourseType = never
+
+  // export type Takeaway = {
+  //   jack: Salad;
+  //   jill: Salad;
+  // };
+
+  // export function assembleTakeaway(
+  //   jackOrder: {salad: Salad},
+  //   jillOrder: ClassicDinnerOrder
+  // ): Takeaway {
+  //   return {
+  //     jack: jackOrder.salad,
+  //     jill: jillOrder.salad
+  //   };
+  // }
 // }
 
-// export class Full implements HungerState {
-//   name = "full";
-//   sleep = () => new Starving();
+
+// namespace Three {
+//   export type JackOrderType = WholeEnchiladaOrder;
+//   export const jackSavedCourse = "amuse";
+//   export type JackSavedCourseType = JackOrderType[typeof jackSavedCourse];
+//
+//   export type Takeaway = {
+//     jack: JackSavedCourseType;
+//     jill: Salad;
+//   };
+
+//   export function assembleTakeaway(
+//     jackOrder: JackOrderType,
+//     jillOrder: ClassicDinnerOrder
+//   ): Takeaway {
+//     return {
+//       jack: jackOrder[jackSavedCourse],
+//       jill: jillOrder.salad
+//     };
+//   }
 // }
 
-export enum Transition {
-    SNACK = "SNACK",
-    MEAL = "MEAL",
-    SLEEP = "SLEEP"
-}
-export function quickestRouteToSleep(state: HungerState): Transition[] {
-  return [];
-}
+// namespace Three {
+  // export type JackOrderType = WholeEnchiladaOrder;
+  // export const jackSavedCourse = "amuse";
+  // export type JackSavedCourseType = JackOrderType[typeof jackSavedCourse];
+;
+  // let jillOrder: ClassicDinnerOrder = {
+  //   salad: Salad.Fattoush,
+  //   entree: Entree.Curry
+  // };
+
+  // export type Takeaway<JackSavedCourseType> = {
+  //   jack: JackSavedCourseType;
+  //   jill: Salad;
+  // };
+
+  // export function genericAssembleTakeaway<JackOrderType, JackSavedCourseKey extends keyof JackOrderType>(
+  //   jackSavedCourse: JackSavedCourseKey,
+  //   jackOrder: JackOrderType,
+  //   jillOrder: ClassicDinnerOrder
+  // ): Takeaway<JackOrderType[JackSavedCourseKey]> {
+  //   return {
+  //     jack: jackOrder[jackSavedCourse],
+  //     jill: jillOrder.salad
+  //   };
+  // }
+// }

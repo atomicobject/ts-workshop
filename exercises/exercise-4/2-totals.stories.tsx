@@ -4,7 +4,7 @@ import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 
 
-storiesOf("Exercise 5.2: Totals", module)
+storiesOf("Exercise 4.2: Totals", module)
   .add("Intro", () => (
     <div>
       <h1>Create a component for showing </h1>

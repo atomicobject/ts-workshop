@@ -11,7 +11,7 @@ import {
   Topping
 } from "../exercise-4/code";
 
-storiesOf("Exercise 5.3: Item", module)
+storiesOf("Exercise 4.3: Item", module)
   .add("Intro", () => (
     <div>
       <h1>Create an Icon Component</h1>

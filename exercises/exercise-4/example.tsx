@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./styles.css";
-import { Protein, Topping, EntreeType } from "../exercise-4/code";
+import { Protein, Topping, EntreeType } from "../exercise-3/code";
 import { Flavor } from "../util";
 import { Dollars } from "./code";
 

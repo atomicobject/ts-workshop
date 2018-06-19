@@ -1,231 +1,171 @@
-
-/*
-The Hunger Cycle
-------------------
-
-We have a very strict schedule. We always wake up STARVING.
-
-If we eat three snacks, we go from STARVING to HUNGRY to
-PECKISH to FULL. Or we can fill up when we're STARVING or
-HUNGRY by eating a meal, but we can't eat a meal when we're
-PECKISH or FULL. That would be excessive.
-
-Once we're full, we get sleepy and it's time to take a nap.
-
-You can see the whole thing here:
-
-      _________________
-     \/                |
-  STARVING ---         |
-      |       |        |
-      |snack  |        |
-      \/      |        |
-  HUNGRY -----|        |
-      |       |        |
-      |snack  | meal   | sleep
-      \/      |        |
-  PECKISH     |        |
-     |        |        |
-     |snack   |        |
-     \/       |        |
-   FULL   <----        |
-    |__________________|
-
-We're going to model our hunger cycle in TypeScript in two ways.
-
-We want to be able to write two kinds of code when talking about the hunger cycle.
-
-Some code will be specific. Say our plan for some day is to wake up, eat three snacks,
-and go to sleep. We always wake up STARVING, so we want to be able to eat three snacks
-with minimal ceremony and get right back to sleep. TypeScript can and should know that
-it's okay to eat three snacks when you're STARVING.
-
-But sometimes, we might have some special for our plan for the day. Maybe we want to write
-a function that will get us to sleep as quickly as possible, regardless of what state we're
-starting in. This code needs to deal with any possible state, and TypeScript should help us
-navigate the situation without allowing us to eat a meal when we're too full, take a nap
-when we're too hungry, etc.
-
-Let's build out a model for our hunger cycle in TypeScript. We're going to do
-this using classes and interfaces.
-*/
-
+import {
+  QuickSnackOrder,
+  WholeEnchiladaOrder,
+  ClassicDinnerOrder,
+  Salad,
+  Entree,
+  DinnerWithDessert,
+  Dessert,
+  AmuseBouche,
+  Appetizer
+} from "../chez-eclectic";
+import { Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType } from "./code";
 import { AssertAssignable } from "../util";
-import { Starving, Hungry, Peckish, Full, HungerState, Transition, quickestRouteToSleep } from "./code";
 
-/** This value is used in tests to represent something you should do
- * in the exercise.
- */
-const REPLACEME: any = null;
+const jillOrder: ClassicDinnerOrder = {
+  salad: Salad.Fattoush,
+  entree: Entree.Curry
+};
+
+/*
+
+Jack and Jill went up the hill to have dinner at Chez Eclectic.
+
+Jack and Jill love midnight snacks, so they've agreed ahead of time
+to save their salad courses immediately to take as leftovers so
+they have late night munchies.
+
+Define an object type Takeaway with two fields that can hold Jack and Jill's salads for
+them to take home after dinner.
+
+And define a function assembleTakeaway that takes their orders and boxes them up.
+*/
+// it("6.1", () => {
+//   const jackOrder: ClassicDinnerOrder = {
+//     salad: Salad.Caesar,
+//     entree: Entree.Lasagna
+//   };
+
+//   type _1 = AssertAssignable<Salad, Takeaway['jack']>
+//   type _2 = AssertAssignable<Salad, Takeaway['jill']>
+
+//   expect(assembleTakeaway(jackOrder, jillOrder)).toEqual({
+//     jack: Salad.Caesar,
+//     jill: Salad.Fattoush
+//   })
+
+//   // Comment out this test before moving on.
+// });
 
 
 /*
-Interfaces define a shape of data, and we'll use an interface to define
-a generic shape for any possible hunger state, called HungerState. HungerState
-is pre-defined in code.ts
 
-Look at the definition of HungerState. See those question marks? Those mean a
-property is optional. Let's take a closer look at what that means.
+Jack is having a hard time deciding what he wants. Jill is getting
+tired of having to modify assembleTakeaway every time he changes his mind.
 
-Let's explore what this interface will let us declare.
+The most direct way to do this in TypeScript is to take advantage of structural typing.
+
+Update assembleTakeaway so that it can accept any dinner type which includes a salad.
 */
-test("1. Optional properties", () => {
-  const stateWithNoTransitions: HungerState = REPLACEME;
-  expect(stateWithNoTransitions).not.toHaveProperty('sleep')
-  expect(stateWithNoTransitions).not.toHaveProperty('eatMeal')
-  expect(stateWithNoTransitions).not.toHaveProperty('eatSnack')
+// test("6.2", () => {
+//   let jackOrder: DinnerWithDessert = {
+//     salad: Salad.Caesar,
+//     entree: Entree.Lasagna,
+//     dessert: Dessert.FlourlessChocolateCake
+//   };
+//   let jillOrder: ClassicDinnerOrder = {
+//     salad: Salad.Fattoush,
+//     entree: Entree.Curry
+//   };
 
-  const stateWithSleepTransition: HungerState = REPLACEME;
-  expect('sleep' in stateWithSleepTransition).toBeTruthy()
-  expect('eatMeal' in stateWithSleepTransition).toBeFalsy()
-  expect('eatSnack' in stateWithSleepTransition).toBeFalsy()
+//   expect(assembleTakeaway(jackOrder, jillOrder)).toEqual({
+//     jack: Salad.Caesar,
+//     jill: Salad.Fattoush
+//   })
 
-  // add a few more.
-});
-
-
-/*
-Let's implement part of our hunger cycle: just hungry and full.
-
-Define the two as objects implementing the generic state interface.
-
-You'll probably find following the transitions to be less convenient than you expect.
-Use TypeScript's type narrowing for `if` and ternary conditionals to
-solve type errors.
-*/
-// test("2. I'm protected from using HungerState's in ways that may be invalid", () => {
-//   const hungry: HungerState = { }
-//   const full: HungerState = { }
-
-//   let state = hungry;
-//   REPLACEME
-//   expect(state.name).toEqual("full")
-//   REPLACEME
-//   expect(state.name).toEqual("hungry")
+//   expect(assembleTakeaway({salad: Salad.Caesar}, jillOrder)).toEqual({
+//     jack: Salad.Caesar,
+//     jill: Salad.Fattoush
+//   })
+//  // Comment out this test before moving on.
 // })
 
-
 /*
-The last test showed how code that deals with the whole HungerState
-category is protected from making transitions that are not valid.
+This works well enough, but now Jack wants to switch to a dinner option that doesn't even
+_have_ a salad.
 
-This is a valuable property: Since TypeScript knows that a transition
-function may not be present, you're protected from inadvertently
-making an invalid transition.
+Just like when we introduce constants or variables in code so we can name a value
+we may wish to change later, we can also create type variables that alias a type.
 
-But if we know exactly what starting transition we're in, we shouldn't
-need to go through the ceremony of checking each transition. TypeScript
-should just know.
+Start with 3 variables that can be changed to swap jack between any order type
+and any course to take home.
 
-When we find static typing to be getting in our way in TypeScript, often
-that is a symptom that our types are not precise enough for our current purposes.
-HungerState is generic across all states, but what if we had a type
-for each specific state? As we'll see, this will help us in cases
-where we know exactly what we're dealing with.
+Then: Use the clues below to make only two variables which need to be updated.
+In this case, it should be impossible to mismatch the name of the saved course and type
+type it's associated with.
 
-We're going to solve this by defining four classes which each implement
-our HungerState interface. Each of these classes will be defined like
-
-class Starving implements HungerState {
-  ...
-}
-
-Implement our hunger cycle by defining these four classes,
-providing the appropriate transitions. The class skeletons
-are provided for you in the code file for this exercise.
-*/
-
-// test("3a. Implement Starving", () => {
-//   const state = new Starving();
-//   expect(state.name).toEqual("starving")
-//   expect(state.eatSnack()).toBeInstanceOf(Hungry)
-//   expect(state.eatMeal()).toBeInstanceOf(Full)
-//   expect(state).not.toHaveProperty("sleep")
-// });
-
-// test("3b. Implement Hungry", () => {
-//   const state = new Hungry();
-//   expect(state.name).toEqual("hungry")
-//   expect(state.eatSnack()).toBeInstanceOf(Peckish)
-//   expect(state.eatMeal()).toBeInstanceOf(Full)
-//   expect(state).not.toHaveProperty("sleep")
-// });
-
-// test("3c. Implement Peckish", () => {
-//   const state = new Peckish();
-//   expect(state.name).toEqual("peckish")
-//   expect(state.eatSnack()).toBeInstanceOf(Full)
-//   expect(state).not.toHaveProperty('eatMeal')
-//   expect(state).not.toHaveProperty("sleep")
-// });
-
-// test("3d. Implement Full", () => {
-//   const state = new Full();
-//   expect(state.name).toEqual("full")
-//   expect(state).not.toHaveProperty("eatSnack")
-//   expect(state).not.toHaveProperty('eatMeal')
-//   expect(state.sleep()).toBeInstanceOf(Starving)
-// });
-
-
-/*
-
-Classes in typescript are really a combination of a few different things:
-
-* A constructor function that builds instances – literally the same as EcmaScript.
-* A type describing the shape of instances returned by the `new` operator.
-* A type for the constructor function itself, for accessing static members.
-
-For a class such as `Starving`, we can use the name in two ways.
-
-As a value, where we're referring to the class constructor function itself. 
-As a type, we're referring to the shape of _instances_ of the class.
-
-Let's exercise our new classes by walking through a hunger cycle using our classes directly.
+Hint: Doing this will require declaring `jackSavedCourse` with `const`
+so that its type is a string literal and not just `string`.
 
 */
-// test("4. Can walk through each state with specific type awareness", () => {
-//   const state0 = new Starving;
-//   type _0 = AssertAssignable<Starving, typeof state0>;
-//   const state1 = state0.eatSnack();
-//   type _1 = AssertAssignable<Hungry, typeof state1>;
-//   // ... continue //
-//   const finalState = REPLACEME;
-//   expect(finalState).toBeInstanceOf(Starving)
-//   type _endType = AssertAssignable<Starving, typeof finalState>;
+// test("6.3", () => {
+//   // Jack wants the whole enchilada
+//   type _1 = AssertAssignable<JackOrderType, WholeEnchiladaOrder>
+
+//   // We should track which course Jack wants to save.
+//   expect(jackSavedCourse).toEqual("amuse")
+
+//   // The type associated with jack's saved course must match
+//   // the type of the field we've named.
+//   type _2 = AssertAssignable<JackSavedCourseType, JackOrderType[typeof jackSavedCourse]>
+
+//   let jack: JackOrderType = {
+//     amuse: AmuseBouche.BruschettaBite,
+//     appetizer: Appetizer.FriedCauliflower,
+//     salad: Salad.Caesar,
+//     entree: Entree.Lasagna,
+//     dessert: Dessert.FlourlessChocolateCake
+//   }
+
+//   expect(assembleTakeaway(jack, jillOrder)).toEqual({
+//     jack: AmuseBouche.BruschettaBite,
+//     jill: Salad.Fattoush
+//   })
+  
+//   // Why are these assertions here? Puzzling. Maybe they are tricks
+//   // that could simplify the implementation?
+//   type _x1 = AssertAssignable<"amuse", typeof jackSavedCourse>
+//   type _x2 = AssertAssignable<AmuseBouche, JackOrderType["amuse"]>
+//  // Comment out this test before moving on.
 // })
 
-
-
 /*
-We can also use our HungerState interface, as we did earlier.
 
-Advance through an entire day of the hunger cycle when dealing with our state
-with the generic interface.
+We've now used type and runtime variables to factor our code so that
+change limited to one place. This technique can be useful when applied
+at a broad scale to create systems that are statically typed, but where
+there is still a single source of truth. More of your code is decoupled
+from key decisions you may want to revisit later.
 
-You can resolve type errors by checking for valid state transitions before calling them.
-Or, you can add a `!` at the end of any value which might be null/undefined
-to tell typescript to assume it's present.
+But there's another, more common reason for engaging in this sort of
+activity: creating generic functions where the variables are inputs.
+
+Let's convert assembleTakeaway to a generic function
 
 */
-// test(`5. Can advance through the whole state machine generically if transitions are checked for validity`, () => {
-//   let state : HungerState = new Starving();
+FINISH ME
+// test("6.4 - generic assembleTakeaway", () => {
+//   // This generic function could be called with explicit type arguments to assemble takeaway with
+//   // an arbitrary Jack order/course.
+//   const saladTakeaway = genericAssembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)
+//   expect(saladTakeaway).toEqual({
+//     jack: Salad.Caesar,
+//     jill: Salad.Fattoush
+//   })
 
-//   // TODO: Advance through an entire day of hunger
-//   expect(state).toBeInstanceOf(Starving);
-// });
+//   // But usually it would be called without explicit type arguments, and they are inferred from the
+//   // types of the values passed in.
+//   const amuseTakeaway = genericAssembleTakeaway('amuse', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
+//   expect(amuseTakeaway).toEqual({
+//     jack: AmuseBouche.CocktailWeiner,
+//     jill: Salad.Fattoush
+//   })
 
+//   // Typescript should understand what type of food Jack is taking home.
+//   type _1 = AssertAssignable<Salad, typeof saladTakeaway["jack"]>
+//   type _2 = AssertAssignable<AmuseBouche, typeof amuseTakeaway["jack"]>
 
-/*
-Let's now explore an example where the interface works well.
-
-Define a function quickestRouteToSleep which returns an array
-of Transitions from a given state to sleeping. It may assume
-the state machine at the top of this file.
-*/
-// test("6. quickestRouteToSleep", () => {
-//     expect(quickestRouteToSleep(new Full)).toEqual([Transition.SLEEP]);
-//     expect(quickestRouteToSleep(new Peckish)).toEqual([Transition.SNACK, Transition.SLEEP]);
-//     expect(quickestRouteToSleep(new Hungry)).toEqual([Transition.MEAL, Transition.SLEEP]);
-//     expect(quickestRouteToSleep(new Starving)).toEqual([Transition.MEAL, Transition.SLEEP]);
+//   // Don't allow invalid keys
+//   // typings:expect-error
+//   genericAssembleTakeaway('dessert', {amuse: AmuseBouche.CocktailWeiner}, jillOrder)
 // })

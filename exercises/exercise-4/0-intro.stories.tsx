@@ -4,9 +4,9 @@ import { action } from "@storybook/addon-actions";
 import { StaticExample } from "./example";
 
 import "./styles.css";
-import { Protein } from "../exercise-4/code";
+import { Protein } from "../exercise-3/code";
 import { Icon, AllComponents, TotalSection } from "./code";
 
-storiesOf("Exercise 5.0 Receipt", module).add("static example", () => (
+storiesOf("Exercise 4.0 Receipt", module).add("static example", () => (
   <StaticExample />
 ));
