@@ -23,11 +23,10 @@ describe("orderToReceipt", () => {
       lineItems: [
         {
           type: EntreeType.Taco,
-          protein: Protein.Beef,
+          protein: Protein.Chicken,
           salsa: true,
           extraTaco: true,
           awesomeSauce: false,
-          extraNapkins: false
         }
       ]
     }
@@ -39,7 +38,7 @@ describe("orderToReceipt", () => {
           entreeType: EntreeType.Taco,
           additions: [
             {
-              additionType: Protein.Beef,
+              additionType: Protein.Chicken,
               additionPrice: 0,
             },
           ],

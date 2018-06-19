@@ -139,24 +139,12 @@ describe("More types", () => {
 
   test("infers different types based on keywords", () => {
     let regularString = "hello";
-    if (regularString !== "world") {
-      regularString.slice(1);
-    }
     
     /** 
      * Check out the type of literalString! It's a string literal, 
      * which means TS knows it can only be this exact value.
      */
     const literalString = "goodnight";
-
-    // /** 
-    //  * TS also understands control flow. Note the type of literalString 
-    //  * inside of this block. 
-    //  * */
-    // if (literalString !== "goodnight") {
-    // // typings: expect-error
-    //   literalString.slice(1);
-    // }
 
     /** This holds for other types of primatives, too. */
     const literalBool = true;
@@ -197,19 +185,39 @@ describe("More types", () => {
 
 describe("Object types", () => {
   test("interfaces describe objects", () => {
+    /**
+     * TypeScript gets more interesting when we introduce structural typing.
+     * We can describe object shapes as types.
+     */
     interface FoodItem {
       name: string;
-      cost: number;
+      cost: {
+        dollars: number;
+        cents: number;
+      }
     }
 
     let muffin: FoodItem = {
-      cost: 2,
+      cost: {dollars: 1, cents: 50},
       name: "Muffin"
     };
+
+    /** 
+     * This helps us be clear with ourselves and others about what properties
+     * an object should have.
+     */
+    // typings:expect-error
+    let notAFoodItem: FoodItem = {
+      name: "plate",
+    }
   });
 
   test("structural compatibility", () => {
-    // Type annotations are just there to help us describe object shapes
+    /** 
+     * Type annotations are just there to help us describe object shapes. 
+     * We can use differently named types interchangably, as long as they 
+     * are structurally compatible.
+    */
     interface DeliItem {
       name: string;
       cost: number;
@@ -263,7 +271,10 @@ describe("Object types", () => {
       flavorProfile: Flavor.Salty
     };
 
-    // Flavored food is structurally compatible with regular food
+    /** 
+     * Flavored food is structurally compatible with regular food because 
+     * its properties are a superset of regular food's.
+    */
     let freshBakedCheezits = bakeryPriceStatement(cheezits);
 
     function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
@@ -276,7 +287,7 @@ describe("Object types", () => {
 
     // In the future, we'll use AssertAssignable to prove structural compatibility or lack thereof:
     type _t1 = AssertAssignable<BakeryItem, FlavoredFoodItem>;
-    // typings:excpect-error
-    type _t2 = AssertAssignable<BakeryItem, FlavoredFoodItem>;
+    // typings:expect-error
+    type _t2 = AssertAssignable<FlavoredFoodItem, BakeryItem>;
   });
 });

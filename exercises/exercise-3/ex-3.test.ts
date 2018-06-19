@@ -50,8 +50,6 @@ describe("function types", () => {
     let bestPairing: MealMaker = REPLACEME;
     let wildCard: MealMaker = REPLACEME;
     let alwaysRice: MealMaker = REPLACEME;
-
-    // I want to demo that types can be structurally compatible here without being the same?
   });
   test("pass functions around", () =>{})
   test("generic functions", () => {
@@ -147,10 +145,3 @@ describe("TacoBuilder", () => {
     //Test that it disallows an order for a burrito w/ corn tortilla
   });
 });
-
-
-// Describe a taco shop menu
-// Here are some basic types
-
-
-// + sides, extras, recipes

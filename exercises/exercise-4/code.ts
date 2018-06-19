@@ -9,28 +9,12 @@ Add AwesomeSauce to anything for $1!
 Taco....................$5
   Protein
     Chicken
-    Beef
     BBQ jackfruit
-    Extra veggies
     Carnitas (+$2)
   Add a second taco for +$3 (+$4 for Carnitas)
-Burrito.................$7 
-  Protein    
-    Chicken
-    Beef
-    BBQ jackfruit
-    Extra veggies
-    Carnitas (+$2)
-  Beans
-    Black Beans
-    Pinto Beans
-  Rice
-    White Rice
-    Brown Rice (+$1) 
 Sushi ..................$8
   Protein    
     Tuna
-    Tofu
     King Salmon (+$2)
   Rice
     White Rice
@@ -38,28 +22,19 @@ Sushi ..................$8
 Sandwich................$4
   Protein
     Chicken
-    Turkey
-    Beef
-    Extra Veggies
+    BBQ Jackfruit
     Portabello Cap ($2)
   Choose up to 3 toppings, extra toppings +$0.50
     Cheese
-    Spinach
-    Peppers
-    Mushrooms
+    Lettuce
     Tomato
-    Cucumber
 */
 
 
 export enum Protein {
   Chicken = "Chicken", // 🐓
-  Tofu = "Tofu",     // 
   Jackfruit = "Jackfruit", // 🍈
-  Beef = "Beef", // 🐄
   Tuna = "Tuna", // 🐟
-  Turkey = "Turkey", //🦃
-  ExtraVeggies = "ExtraVeggies", // 🥗
 
   // Pricey Proteins
   Carnitas = "Carnitas", // 🐖
@@ -69,7 +44,6 @@ export enum Protein {
 
 export enum EntreeType {
   Taco = "Taco", // 🌮
-  Burrito = "Burrito", // 🌯
   Sushi = "Sushi", // 🍣
   Sandwich = "Sandwich", // 🥪 
 }
@@ -78,30 +52,10 @@ interface Taco {
   type: EntreeType.Taco;
   protein:
     | Protein.Chicken
-    | Protein.Beef
-    | Protein.ExtraVeggies
     | Protein.Jackfruit
     | Protein.Carnitas;
   extraTaco: boolean;
   salsa: boolean;
-}
-
-interface Burrito {
-  type: EntreeType.Burrito;
-  protein:
-    | Protein.Chicken
-    | Protein.Beef
-    | Protein.ExtraVeggies
-    | Protein.Jackfruit
-    | Protein.Carnitas;
-  salsa: boolean;
-  riceType: RiceType;
-  beanType: BeanType;
-}
-
-export enum BeanType {
-  BlackBeans = "BlackBeans",
-  PintoBeans = "PintoBeans"
 }
 
 export enum RiceType {
@@ -111,35 +65,28 @@ export enum RiceType {
 
 interface Sushi {
   type: EntreeType.Sushi;
-  protein: Protein.KingSalmon | Protein.Tuna | Protein.Tofu;
+  protein: Protein.KingSalmon | Protein.Tuna;
   riceType: RiceType;
 }
 
 export enum Topping {
   Cheese = "Cheese", // 🧀
-  Spinach = "Spinach", // 🍃
-  Peppers = "Peppers", // 🌶
-  Mushrooms = "Mushrooms", // 🍄
+  Lettuce = "Lettuce", // 🍃
   Tomato = "Tomato", // 🍅
-  Cucumber = "Cucumber" // 🥒
 }
 
 interface Sandwich {
   type: EntreeType.Sandwich;
   protein:
     | Protein.Chicken
-    | Protein.Turkey
     | Protein.PortabelloCap
-    | Protein.ExtraVeggies
-    | Protein.Beef;
   toppings: Topping[];
 }
 
-type MenuItem = Taco | Burrito | Sushi | Sandwich;
+type MenuItem = Taco | Sushi | Sandwich;
 
 interface Extras {
   awesomeSauce: boolean; // 🤯
-  extraNapkins: boolean;
 }
 
 type LineItem = MenuItem & Extras;
