@@ -9,7 +9,7 @@ import {
   AmuseBouche,
   Appetizer
 } from "../chez-eclectic";
-import { Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType } from "./code";
+import { Takeaway, JackOrderType, jackSavedCourse, JackSavedCourseType, assembleTakeaway } from "./code";
 import { AssertAssignable } from "../util";
 
 const jillOrder: ClassicDinnerOrder = {
@@ -77,8 +77,9 @@ Update assembleTakeaway so that it can accept any dinner type which includes a s
 //     jack: Salad.Caesar,
 //     jill: Salad.Fattoush
 //   })
-//  // Comment out this test before moving on.
-// })
+
+ // Comment out this test before moving on.
+})
 
 /*
 This works well enough, but now Jack wants to switch to a dinner option that doesn't even
@@ -98,36 +99,37 @@ Hint: Doing this will require declaring `jackSavedCourse` with `const`
 so that its type is a string literal and not just `string`.
 
 */
-// test("6.3", () => {
-//   // Jack wants the whole enchilada
-//   type _1 = AssertAssignable<JackOrderType, WholeEnchiladaOrder>
+test("6.3", () => {
+  // Jack wants the whole enchilada
+  type _1 = AssertAssignable<JackOrderType, WholeEnchiladaOrder>
 
-//   // We should track which course Jack wants to save.
-//   expect(jackSavedCourse).toEqual("amuse")
+  // We should track which course Jack wants to save.
+  expect(jackSavedCourse).toEqual("amuse")
 
-//   // The type associated with jack's saved course must match
-//   // the type of the field we've named.
-//   type _2 = AssertAssignable<JackSavedCourseType, JackOrderType[typeof jackSavedCourse]>
+  // The type associated with jack's saved course must match
+  // the type of the field we've named.
+  type _2 = AssertAssignable<JackSavedCourseType, JackOrderType[typeof jackSavedCourse]>
 
-//   let jack: JackOrderType = {
-//     amuse: AmuseBouche.BruschettaBite,
-//     appetizer: Appetizer.FriedCauliflower,
-//     salad: Salad.Caesar,
-//     entree: Entree.Lasagna,
-//     dessert: Dessert.FlourlessChocolateCake
-//   }
+  let jack: JackOrderType = {
+    amuse: AmuseBouche.BruschettaBite,
+    appetizer: Appetizer.FriedCauliflower,
+    salad: Salad.Caesar,
+    entree: Entree.Lasagna,
+    dessert: Dessert.FlourlessChocolateCake
+  }
 
-//   expect(assembleTakeaway(jack, jillOrder)).toEqual({
-//     jack: AmuseBouche.BruschettaBite,
-//     jill: Salad.Fattoush
-//   })
+  expect(assembleTakeaway(jack, jillOrder)).toEqual({
+    jack: AmuseBouche.BruschettaBite,
+    jill: Salad.Fattoush
+  })
   
-//   // Why are these assertions here? Puzzling. Maybe they are tricks
-//   // that could simplify the implementation?
-//   type _x1 = AssertAssignable<"amuse", typeof jackSavedCourse>
-//   type _x2 = AssertAssignable<AmuseBouche, JackOrderType["amuse"]>
-//  // Comment out this test before moving on.
-// })
+  // Why are these assertions here? Puzzling. Maybe they are tricks
+  // that could simplify the implementation?
+  type _x1 = AssertAssignable<"amuse", typeof jackSavedCourse>
+  type _x2 = AssertAssignable<AmuseBouche, JackOrderType["amuse"]>
+
+ // Comment out this test before moving on.
+})
 
 /*
 

@@ -1,7 +1,7 @@
-import { storiesOf } from "../../node_modules/@types/storybook__react";
+import { storiesOf } from "@storybook/react";
 import { orderToReceipt } from "./code";
-import { Order, EntreeType, Protein, RiceType } from "../exercise-4/code";
-import { Receipt } from "../exercise-5/code";
+import { Order, EntreeType, Protein, RiceType } from "../exercise-3/code";
+import { Receipt } from "../exercise-4/code";
 import React from "react";
 
 storiesOf("orderToReceipt", module)
