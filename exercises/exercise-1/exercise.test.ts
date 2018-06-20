@@ -111,25 +111,25 @@ describe("More types", () => {
     /** We'll come back to 'any' in the next exercise. */
   });
 
-  test("a custom type", () => {
+  test("a type alias", () => {
     /**
-     * We can declare our own types made up of primitives.
+     * We can declare names for our own types made up of primitives.
      */
     type MySpecialString = string;
 
     function sayHello(name: string) {
-      console.log(`Hello, ${name}!`);
+      return `Hello, ${name}!`;
     }
     /** And we can use them where they're compatible with other types */
     let specialName: MySpecialString = "Dixie the Good";
     sayHello(specialName);
 
     /** 
-     * But, notice that declaring a named type doesn't inherently 
+     * But, notice that declaring a type alias doesn't inherently 
      * change the way the type operates.
      */
     function specialSayHello(name: MySpecialString) {
-      console.log(`Hello, ${specialName}, Your Excellence.`);
+      return `Hello, ${specialName}, Your Excellence.`;
     }
 
     let aCommonerName: string = "John";
@@ -141,9 +141,10 @@ describe("More types", () => {
   });
 
   test("literal types", () => {
+    /** Type aliases get more useful when we move beyond primative types. */
     type ALiteralString = "just this one";
 
-    // typings: expect-error
+    // typings:expect-error
     let notThatLiteral: ALiteralString = "some other string";
   });
 
@@ -169,13 +170,13 @@ describe("More types", () => {
 
     let hello: FixThisType = "hello";
 
-    // typings: expect-error
+    // typings:expect-error
     let world: FixThisType = "world";
 
-    // typings: expect-error
+    // typings:expect-error
     let goodnight: FixThisType = "goodnight";
 
-    // typings: expect-error
+    // typings:expect-error
     let moon: FixThisType = "moon";
   });
 

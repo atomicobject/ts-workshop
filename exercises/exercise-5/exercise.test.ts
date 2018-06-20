@@ -22,8 +22,8 @@ describe("orderToReceipt", () => {
     const argument: Order = {
       lineItems: [
         {
-          type: EntreeType.Taco,
-          protein: Protein.Chicken,
+          type: "taco",
+          protein: "chicken",
           salsa: true,
           extraTaco: true,
           awesomeSauce: false,
@@ -35,10 +35,10 @@ describe("orderToReceipt", () => {
       items: [
         {
           basePrice: 6,
-          entreeType: EntreeType.Taco,
+          entreeType: "taco",
           additions: [
             {
-              additionType: Protein.Chicken,
+              additionType: "chicken",
               additionPrice: 0,
             },
           ],

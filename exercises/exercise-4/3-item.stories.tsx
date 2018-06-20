@@ -63,12 +63,12 @@ storiesOf("Exercise 4.3: Item", module)
         // with
         <ItemSummary
           basePrice={7}
-          entreeType={EntreeType.Taco}
+          entreeType={"taco"}
           mindBlowing={true}
           itemTotal={9}
           additions={[
             {
-              additionType: Protein.Carnitas,
+              additionType: "carnitas",
               additionPrice: 1,
               annotation: Annotation.Pricey
             },
@@ -77,7 +77,7 @@ storiesOf("Exercise 4.3: Item", module)
               additionPrice: 0
             },
             {
-              additionType: RiceType.BrownRice,
+              additionType: "brownRice",
               additionPrice: 0
             },
             {
@@ -123,12 +123,12 @@ storiesOf("Exercise 4.3: Item", module)
         // with
         // <ItemSummary
         //   basePrice={6}
-        //   entreeType={EntreeType.Taco}
+        //   entreeType={"taco"}
         //   mindBlowing={false}
         //   itemTotal={6}
         //   additions={[
         //     {
-        //       additionType: Protein.Chicken,
+        //       additionType: "chicken",
         //       additionPrice: 0
         //     },
         //     {

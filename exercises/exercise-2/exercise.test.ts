@@ -10,20 +10,6 @@ describe("composite types", () => {
         if (n > 0) return "positive";
         return "zero";
       }
-
-      
-      function describeNumber(num: number){
-        // The type of "value" indicates that it will be one of three literals.
-        const value = classify(3);
-
-        if (value === "negative") {
-          return `${num} is a negative number`;
-        } else if (value === "positive") {
-          return `${num} is a positive number`;
-        } else {
-          type _t1 = AssertAssignable<"zero", typeof value>
-        }
-      }
     });
 
     test("manually creating union types", () => {
@@ -50,129 +36,136 @@ describe("composite types", () => {
       // typings: expect-error
       let aNull: FixThisType = null;
     });
-    test("writing our own unions", () => {
-      type FixThisType = any;
-      
-      let hello: FixThisType = "hello";
-      let apples: FixThisType = 4;
-      let pears: FixThisType = 1.5;
-      
-      // typings: expect-error
-      let world: FixThisType = "world";
-      
-      // typings: expect-error
-      let goodnight: FixThisType = "goodnight";
-      
-      // typings: expect-error
-      let moon: FixThisType = "moon";
-    });
     test("unions can be between types of any shape", () => {
       type AnObjectOrAString =
-      | {
-        type: "animal" | "mineral" | "vegetable";
-        name: string;
-      }
-      | "NOT OF EARTH";
-      
+        | {
+            type: "animal" | "mineral" | "vegetable";
+            name: string;
+          }
+        | "NOT OF EARTH";
+
       let fido: AnObjectOrAString = { type: "animal", name: "Fido" };
       let zucchini: AnObjectOrAString = { type: "vegetable", name: "Zucchini" };
       let quartz: AnObjectOrAString = { type: "mineral", name: "Quartz" };
       let nebula: AnObjectOrAString = "NOT OF EARTH";
-      
+
       // typings:expect-error
       let neon: AnObjectOrAString = { type: "gas", name: "Neon" };
-      
+
       // typings:expect-error
       let noneOfTheAbove: AnObjectOrAString = "this is just a string";
+    });
+    test("type narrowing", () => {
+      function classify(n: number) {
+        if (n < 0) return "negative";
+        if (n > 0) return "positive";
+        return "zero";
+      }
+
+      /**TS can narrow types as we move through control flow.*/
+      function describeNumber(num: number) {
+        // The type of "value" indicates that it will be one of three literals.
+        const value = classify(3);
+
+        if (value === "negative") {
+          return `${num} is a negative number`;
+        } else if (value === "positive") {
+          return `${num} is a positive number`;
+        } else {
+          type _t1 = AssertAssignable<"zero", typeof value>;
+        }
+      }
+
+      // Try changing this type to prove that the function below will always
+      // return one of these two strings.
+      type FixThisType = any;
+
+      function appleOrBanana(fruitColor: FixThisType): "apple" | "banana" {
+        switch (fruitColor) {
+          case "red":
+            return "apple";
+          case "yellow":
+            return "banana";
+        }
+      }
     });
     test("discriminated unions", () => {
       /**
        * TS can narrow types as we move through control flow. This gives
-       * us a way to prove that we're not going to accidentally pass around 
+       * us a way to prove that we're not going to accidentally pass around
        * invalid objects.
        */
-      type FixThisType = {
-        type: "apple" | "banana";
-        color: "red" | "yellow";
-      };
+      type FixThisType = any;
 
-      function appleOrBanana(fruit: FixThisType): "That is an apple" | "That is a banana" {
-        if (fruit.color === "red") {
-          type _t1 = AssertAssignable<{ type: "apple" }, typeof fruit>;
-          return "That is an apple";
-        } else {
-          type _t1 = AssertAssignable<{ type: "banana" }, typeof fruit>;
-          return "That is a banana";
+      function doSomething(fruit: FixThisType) {
+        switch (fruit.color) {
+          case "apple":
+            type _t1 = AssertAssignable<{ color: "red" }, typeof fruit>;
+            // typings:expect-error
+            type _t2 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
+
+            fruit.polish();
+            // typings:expect-error
+            fruit.peel();
+          case "banana":
+            type _t3 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
+            // typings:expect-error
+            type _t4 = AssertAssignable<{ color: "red" }, typeof fruit>;
+
+            fruit.peel();
+            // typings:expect-error
+            fruit.polish();
         }
       }
     });
-    describe("intersections", () => {
-      test("basic intersection", () => {})
+  });
+  describe("intersections", () => {
+    test("basic intersection", () => {
+      /** 
+       * Intersections allow us to combine type definitions to 
+       * create a single type with all the attributes of both types.
+       * This is useful when we have some set of properties that are 
+       * shared among many different types.
+       */
+      type Cat = {
+        breedName: string;
+        coloration: "tabby" | "solid" | "spotted";
+      };
+      type Dog = { breedName: string; size: "small" | "medium" | "large" };
+      type Pet = { name: string; familyName: string };
+
+      type PetCat = Pet & Cat;
+      type PetDog = Pet & Dog;
+
+      // Describe a valid PatCat and PetDog below.
+      const sukiTheCat: PetCat = {}
+      const dixieTheDog: PetDog = {}
+    });
+
+    test("Distributive property", () => {
+      /** Intersections and unions can be combined to  */
     });
   });
-  
-    enum Herb {
-      Cilantro,
-      Basil,
-      GreenOnions
-    }
-
-    enum Sauce {
-      Pico,
-      Roja,
-      Verde
-    }
-
-    interface Item {}
-
-    interface Order {
-      item: Item;
-      cost: number;
-    }
-
-    interface BaseProteinOrder extends Order {
-      protein: Protein;
-      cost: number;
-    }
-
-    interface ChickenOrder extends BaseProteinOrder {
-      protein: Protein.Chicken,
-      cost: 5
-    }
-
-    interface BeefOrder extends BaseProteinOrder {
-      protein: Protein.Beef,
-      cost: 6
-    }
-
-    type ProteinOrder = ChickenOrder;
-
-    enum Protein {
-      Chicken,
-      Tempeh,
-      Fish,
-      Beef,
-      Carnitas
-    }
-
-    enum Shell {
-      CornTortilla,
-      FlourTortilla
-    }
-
-    type TacoOrder = {
-      protein: ProteinOrder;
-      sauce: Sauce;
-      herb: Herb;
-      shell: Shell;
-    };
-
-    type BurritoOrder = {
-      protein: ProteinOrder;
-      sauce: Sauce;
-      herb: Herb;
-      shell: Shell.FlourTortilla;
-    };
-
-    // type Order = TacoOrder | BurritoOrder
 });
+
+type Herb = "Cilantro" | "Basil" | "Green Onions";
+
+type Sauce = "Pico" | "Salsa Roja" | "Salsa Verde";
+
+type Supreme = {
+  tomato: boolean;
+  sourCream: boolean;
+  lettuce: boolean;
+};
+
+type Protein =
+  "Chicken"|
+  "Tempeh"|
+  "Fish"|
+  "Beef"|
+  "Carnitas"
+
+enum Shell {
+  CornTortilla,
+  FlourTortilla
+}

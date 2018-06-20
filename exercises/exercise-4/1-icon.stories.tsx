@@ -16,19 +16,19 @@ storiesOf("Exercise 4.1: Icon", module)
   ))
   .add(
     "Carnitas",
-    expectToLookLike("🐖", () => <Icon type={Protein.Carnitas} />)
+    expectToLookLike("🐖", () => <Icon type={"carnitas"} />)
   )
   .add(
     "Chicken",
-    expectToLookLike("🐓", () => <Icon type={Protein.Chicken} />)
+    expectToLookLike("🐓", () => <Icon type={"chicken"} />)
   )
   .add("Tofu", expectToLookLike("", () => <Icon type={Protein.Tofu} />))
   .add(
     "Jackfruit",
-    expectToLookLike("🍈", () => <Icon type={Protein.Jackfruit} />)
+    expectToLookLike("🍈", () => <Icon type={"jackfruit"} />)
   )
   .add("Beef", expectToLookLike("🐄", () => <Icon type={Protein.Beef} />))
-  .add("Tuna", expectToLookLike("🐟", () => <Icon type={Protein.Tuna} />))
+  .add("Tuna", expectToLookLike("🐟", () => <Icon type={"tuna"} />))
   .add("Turkey", expectToLookLike("🦃", () => <Icon type={Protein.Turkey} />))
   .add(
     "ExtraVeggies",

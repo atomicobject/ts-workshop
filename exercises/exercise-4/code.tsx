@@ -57,7 +57,7 @@ export interface IconProps {
 
 // function iconFor(type: AllComponents): string {
 //   switch (type) {
-//     case Protein.Carnitas:
+//     case "carnitas":
 //       return "🐖";
 //     // implement me
 //   }

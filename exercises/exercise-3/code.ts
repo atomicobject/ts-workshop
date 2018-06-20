@@ -1,6 +1,6 @@
 import { AssertAssignable } from "../util";
 
-type Foo = Protein | EntreeType
+type Foo = Protein | EntreeType;
 
 /* Monster's Foodie Truck Menu
 
@@ -30,76 +30,63 @@ Sandwich................$4
     Tomato
 */
 
-
-export enum Protein {
-  Chicken = "Chicken", // 🐓
-  Jackfruit = "Jackfruit", // 🍈
-  Tuna = "Tuna", // 🐟
+export type Protein =
+  | "chicken" // 🐓
+  | "jackfruit" // 🍈
+  | "tuna" // 🐟
 
   // Pricey Proteins
-  Carnitas = "Carnitas", // 🐖
-  KingSalmon = "KingSalmon", // 🐟
-  PortabelloCap = "PortabelloCap" // 🍄
-}
+  | "carnitas" // 🐖
+  | "kingSalmon" // 🐟
+  | "portabelloCap"; // 🍄
 
-export enum EntreeType {
-  Taco = "Taco", // 🌮
-  Sushi = "Sushi", // 🍣
-  Sandwich = "Sandwich", // 🥪 
-}
+export type EntreeType =
+  | "taco" // 🌮
+  | "sushi" // 🍣
+  | "sandwich"; // 🥪
 
-interface Taco {
-  type: EntreeType.Taco;
-  protein:
-    | Protein.Chicken
-    | Protein.Jackfruit
-    | Protein.Carnitas;
+export interface Taco {
+  type: "taco";
+  protein: "chicken" | "jackfruit" | "carnitas";
   extraTaco: boolean;
   salsa: boolean;
 }
 
-export enum RiceType {
-  BrownRice = "BrownRice",
-  WhiteRice = "WhiteRice"
-}
+export type RiceType = "brownRice" | "whiteRice";
 
-interface Sushi {
-  type: EntreeType.Sushi;
-  protein: Protein.KingSalmon | Protein.Tuna;
+export interface Sushi {
+  type: "sushi";
+  protein: "kingSalmon" | "tuna";
   riceType: RiceType;
 }
 
-export enum Topping {
-  Cheese = "Cheese", // 🧀
-  Lettuce = "Lettuce", // 🍃
-  Tomato = "Tomato", // 🍅
-}
+export type Topping =
+  | "cheese" // 🧀
+  | "lettuce" // 🍃
+  | "tomato"; // 🍅
 
-interface Sandwich {
-  type: EntreeType.Sandwich;
-  protein:
-    | Protein.Chicken
-    | Protein.PortabelloCap
+export interface Sandwich {
+  type: "sandwich";
+  protein: "chicken" | "portabelloCap";
   toppings: Topping[];
 }
 
-type MenuItem = Taco | Sushi | Sandwich;
+export type MenuItem = Taco | Sushi | Sandwich;
 
-interface Extras {
+export interface Extras {
   awesomeSauce: boolean; // 🤯
 }
 
-type LineItem = MenuItem & Extras;
+export type LineItem = MenuItem & Extras;
 
 export interface Order {
   lineItems: LineItem[];
 }
 
-
 function priceMenuItem(item: MenuItem): number {
   const basePrice = hasPriceyProtein(item) ? 7 : 5;
 
-  if (item.type === EntreeType.Taco) {
+  if (item.type === "taco") {
     const extraTacoPrice = item.extraTaco ? 3 : 0;
     const salsaPrice = item.salsa ? 0.5 : 0;
     return basePrice + extraTacoPrice + salsaPrice;
@@ -114,11 +101,7 @@ function priceLineItem(item: LineItem): number {
 }
 
 function hasPriceyProtein(item: { protein: Protein }) {
-  return [
-    Protein.KingSalmon,
-    Protein.Carnitas,
-    Protein.PortabelloCap
-  ].includes(item.protein);
+  return ["kingSalmon", "carnitas", "portabelloCap"].includes(item.protein);
 }
 
 function priceOrder(order: Order): number {
