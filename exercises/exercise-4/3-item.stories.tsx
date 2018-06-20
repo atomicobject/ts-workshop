@@ -3,13 +3,7 @@ import React from "react";
 import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { ItemSummary, Annotation } from "./code";
-import {
-  EntreeType,
-  Protein,
-  RiceType,
-  BeanType,
-  Topping
-} from "../exercise-4/code";
+import { EntreeType, Protein, RiceType, Topping } from "../exercise-3/code";
 
 storiesOf("Exercise 4.3: Item", module)
   .add("Intro", () => (
@@ -25,64 +19,54 @@ storiesOf("Exercise 4.3: Item", module)
     "Static example 1",
     expectToLookLike(
       // Something that looks like:
-      <div className="line-item">
-        <h3 className="item-kind">
-          🌮 Taco
-          <div className="item-price">$7 </div>
-        </h3>
+    <div className="line-item">
+      <h3 className="item-kind">
+        🌮 Taco
+      </h3>
 
-        <ul className="addition-list">
-          <li>
-            <div className="crown-marker">👑</div>
-            <div className="addition-label">🐖 Carnitas</div>
-            <div className="item-price">+$1 </div>
-          </li>
-          <li>
-            <div className="crown-marker">&nbsp;</div>
-            <div className="addition-label">Pinto Beans</div>
-          </li>
-          <li>
-            <div className="crown-marker">&nbsp;</div>
-            <div className="addition-label">Brown rice</div>
-          </li>
-          <li>
-            <div className="crown-marker">☢️</div>
-            <div className="addition-label awesome-sauce">Awesome Sauce</div>
-            <div className="item-price">+$1 </div>
-          </li>
-        </ul>
+      <ul className="addition-list">
+        <li>
+          <div className="crown-marker">👑</div>
+          <div className="addition-label">🐖 Carnitas</div>
+        </li>
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">💃 Salsa</div>
+        </li>
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🌮 Extra Taco</div>
+        </li>
+        <li>
+          <div className="crown-marker">☢️</div>
+          <div className="addition-label awesome-sauce">Awesome Sauce</div>
+        </li>
+      </ul>
 
-        <div className="item-total">Total: $9</div>
+      <div className="item-total">Total: $11</div>
 
-        <div className="awesome-sauce-backdrop">🤯</div>
-      </div>,
+      <div className="awesome-sauce-backdrop">🤯</div>
+    </div>,
 
       // Should be produced by:
       () => (
-        // <ReplaceMe />
-        // with
         <ItemSummary
-          basePrice={7}
           entreeType={"taco"}
           mindBlowing={true}
-          itemTotal={9}
+          itemTotal={11}
           additions={[
             {
               additionType: "carnitas",
-              additionPrice: 1,
               annotation: Annotation.Pricey
             },
             {
-              additionType: BeanType.PintoBeans,
-              additionPrice: 0
+              additionType: "salsa"
             },
             {
-              additionType: "brownRice",
-              additionPrice: 0
+              additionType: "extraTaco"
             },
             {
-              additionType: Protein.Beef,
-              additionPrice: 1,
+              additionType: "awesomeSauce",
               annotation: Annotation.Nuclear
             }
           ]}
@@ -95,10 +79,7 @@ storiesOf("Exercise 4.3: Item", module)
     expectToLookLike(
       // Something that looks like:
       <div className="line-item">
-        <h3 className="item-kind">
-          🥪 Sandwich
-          <div className="item-price">$6 </div>
-        </h3>
+        <h3 className="item-kind">🥪 Sandwich</h3>
 
         <ul className="addition-list">
           <li>
@@ -107,40 +88,34 @@ storiesOf("Exercise 4.3: Item", module)
           </li>
           <li>
             <div className="crown-marker">&nbsp;</div>
-            <div className="addition-label">🌶 Peppers</div>
+            <div className="addition-label">🍃 Lettuce</div>
           </li>
           <li>
             <div className="crown-marker">&nbsp;</div>
-            <div className="addition-label">Mayo</div>
+            <div className="addition-label">🍅 Tomato</div>
           </li>
         </ul>
 
-        <div className="item-total">Total: $7</div>
+        <div className="item-total">Total: $5</div>
       </div>,
       // Should be produced by:
       () => (
-        <ReplaceMe />
-        // with
-        // <ItemSummary
-        //   basePrice={6}
-        //   entreeType={"taco"}
-        //   mindBlowing={false}
-        //   itemTotal={6}
-        //   additions={[
-        //     {
-        //       additionType: "chicken",
-        //       additionPrice: 0
-        //     },
-        //     {
-        //       additionType: Topping.Peppers,
-        //       additionPrice: 0
-        //     },
-        //     {
-        //       additionType: Topping.Mayo,
-        //       additionPrice: 0
-        //     }
-        //   ]}
-        // />
+        <ItemSummary
+          entreeType={"sandwich"}
+          mindBlowing={false}
+          itemTotal={5}
+          additions={[
+            {
+              additionType: "chicken",
+            },
+            {
+              additionType: "cheese",
+            },
+            {
+              additionType: "tomato",
+            }
+          ]}
+        />
       )
     )
   )

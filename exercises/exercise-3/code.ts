@@ -23,8 +23,8 @@ Sandwich................$4
   Protein
     Chicken
     BBQ Jackfruit
-    Portabello Cap ($2)
-  Choose up to 3 toppings, extra toppings +$0.50
+    Portabello Cap (+$2)
+  Optional 1 topping, extra toppings +$0.50
     Cheese
     Lettuce
     Tomato
@@ -48,11 +48,13 @@ export type EntreeType =
 export interface Taco {
   type: "taco";
   protein: "chicken" | "jackfruit" | "carnitas";
-  extraTaco: boolean;
-  salsa: boolean;
+  extraTaco: boolean; // 🌮
+  salsa: boolean; // 💃
 }
 
-export type RiceType = "brownRice" | "whiteRice";
+export type RiceType = 
+| "brownRice"  // 🍘
+| "whiteRice"; // 🍙
 
 export interface Sushi {
   type: "sushi";
@@ -74,7 +76,7 @@ export interface Sandwich {
 export type MenuItem = Taco | Sushi | Sandwich;
 
 export interface Extras {
-  awesomeSauce: boolean; // 🤯
+  awesomeSauce: boolean; // ☢️ and 🤯
 }
 
 export type LineItem = MenuItem & Extras;

@@ -7,9 +7,8 @@ import {
   EntreeType,
   Protein,
   RiceType,
-  BeanType,
   Topping
-} from "../exercise-4/code";
+} from "../exercise-3/code";
 import { StaticExample } from "./example";
 
 storiesOf("Exercise 4.4: The full Receipt", module)
@@ -30,62 +29,53 @@ storiesOf("Exercise 4.4: The full Receipt", module)
 
       // Should be produced by:
       () => (
-        <ReplaceMe />
+        // <ReplaceMe />
         // with
 
-        // <Receipt
-        //   subtotal={24}
-        //   tip={3.6}
-        //   total={27.6}
-        //   items={[
-        //     {
-        //       basePrice: 7,
-        //       entreeType: "taco",
-        //       mindBlowing: true,
-        //       itemTotal: 9,
-        //       additions: [
-        //         {
-        //           additionType: "carnitas",
-        //           additionPrice: 1,
-        //           annotation: Annotation.Pricey
-        //         },
-        //         {
-        //           additionType: BeanType.PintoBeans,
-        //           additionPrice: 0
-        //         },
-        //         {
-        //           additionType: "brownRice",
-        //           additionPrice: 0
-        //         },
-        //         {
-        //           additionType: Protein.Beef,
-        //           additionPrice: 1,
-        //           annotation: Annotation.Nuclear
-        //         }
-        //       ]
-        //     },
-        //     {
-        //       basePrice: 6,
-        //       entreeType: "taco",
-        //       mindBlowing: false,
-        //       itemTotal: 6,
-        //       additions: [
-        //         {
-        //           additionType: "chicken",
-        //           additionPrice: 0
-        //         },
-        //         {
-        //           additionType: Topping.Peppers,
-        //           additionPrice: 0
-        //         },
-        //         {
-        //           additionType: Topping.Mayo,
-        //           additionPrice: 0
-        //         }
-        //       ]
-        //     }
-        //   ]}
-        // />
+        <Receipt
+          subtotal={16}
+          tip={4}
+          total={20}
+          items={[
+            {
+              entreeType: "taco",
+              mindBlowing: true,
+              itemTotal: 11,
+              additions: [
+                {
+                  additionType: "carnitas",
+                  annotation: Annotation.Pricey
+                },
+                {
+                  additionType: "salsa"
+                },
+                {
+                  additionType: "extraTaco"
+                },
+                {
+                  additionType: "awesomeSauce",
+                  annotation: Annotation.Nuclear
+                }
+              ]
+            },
+            {
+              entreeType: "sandwich",
+              mindBlowing: false,
+              itemTotal: 5,
+              additions: [
+            {
+              additionType: "chicken",
+            },
+            {
+              additionType: "cheese",
+            },
+            {
+              additionType: "tomato",
+            }
+              ]
+            }
+          ]}
+        />
       )
     )
   )

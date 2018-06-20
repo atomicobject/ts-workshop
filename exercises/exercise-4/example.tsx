@@ -12,31 +12,28 @@ export const StaticExample: React.SFC<{}> = props => (
     <div className="line-item">
       <h3 className="item-kind">
         🌮 Taco
-        <div className="item-price">$7 </div>
       </h3>
 
       <ul className="addition-list">
         <li>
           <div className="crown-marker">👑</div>
           <div className="addition-label">🐖 Carnitas</div>
-          <div className="item-price">+$1 </div>
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
-          <div className="addition-label">Pinto Beans</div>
+          <div className="addition-label">💃 Salsa</div>
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
-          <div className="addition-label">Brown rice</div>
+          <div className="addition-label">🌮 Extra Taco</div>
         </li>
         <li>
           <div className="crown-marker">☢️</div>
           <div className="addition-label awesome-sauce">Awesome Sauce</div>
-          <div className="item-price">+$1 </div>
         </li>
       </ul>
 
-      <div className="item-total">Total: $9</div>
+      <div className="item-total">Total: $11</div>
 
       <div className="awesome-sauce-backdrop">🤯</div>
     </div>
@@ -44,7 +41,6 @@ export const StaticExample: React.SFC<{}> = props => (
     <div className="line-item">
       <h3 className="item-kind">
         🥪 Sandwich
-        <div className="item-price">$6 </div>
       </h3>
 
       <ul className="addition-list">
@@ -54,24 +50,24 @@ export const StaticExample: React.SFC<{}> = props => (
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
-          <div className="addition-label">🌶 Peppers</div>
+          <div className="addition-label">🍃 Lettuce</div>
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
-          <div className="addition-label">Mayo</div>
+          <div className="addition-label">🍅 Tomato</div>
         </li>
       </ul>
 
-      <div className="item-total">Total: $7</div>
+      <div className="item-total">Total: $5</div>
     </div>
 
     <hr className="divider" />
 
     <div className="total-section">
-      <div className="subtotal-info">Subtotal: $24</div>
-      <div className="subtotal-info">Tip: $3.60</div>
+      <div className="subtotal-info">Subtotal: $16</div>
+      <div className="subtotal-info">Tip: $4</div>
 
-      <div className="grand-total">Total: $27.60</div>
+      <div className="grand-total">Total: $20.00</div>
     </div>
   </div>
 );

@@ -22,8 +22,6 @@ export interface ReceiptProps {
 export interface ItemSummaryProps {
   /** Entree type – determines emoji/label */
   entreeType: EntreeType;
-  /** Base entree price, next to e.g. Taco/Sandwich */
-  basePrice: Dollars;
   /** List of additions - protein, toppings, extras */
   additions: AdditionSummaryProps[];
   /** Backdrop on/off */
@@ -34,8 +32,6 @@ export interface ItemSummaryProps {
 export interface AdditionSummaryProps {
   /** Type of protein/topping/etc. */
   additionType: AllComponents;
-  /** Addition cost. 0 for free items. */
-  additionPrice: Dollars;
   /** Special indicator, pricey or nuclear? */
   annotation?: Annotation;
 }
@@ -46,24 +42,30 @@ export enum Annotation {
   Nuclear = "Nuclear"
 }
 
+export type Extras =
+  "extraTaco" | 
+  "awesomeSauce" |
+  "salsa"
+
 export type AllComponents =
   | Protein
   | Topping
   | EntreeType
-  | RiceType;
+  | RiceType
+  | Extras;
 export interface IconProps {
   type: AllComponents;
 }
 
-// function iconFor(type: AllComponents): string {
+// function descFor(type: AllComponents): string {
 //   switch (type) {
 //     case "carnitas":
-//       return "🐖";
+//       return "🐖 Carnitas";
 //     // implement me
 //   }
 // }
-export const Icon: React.SFC<IconProps> = props => {
-  return <span>{/* {iconFor(props.type)} */}</span>;
+export const ComponentDesc: React.SFC<IconProps> = props => {
+  return <span>{/* {descFor(props.type)} */}</span>;
 };
 
 type TotalsProps = {
