@@ -50,81 +50,21 @@ export type Topping =
   | "lettuce" // 🍃
   | "tomato"; // 🍅
 
-interface Taco {
-  type: "taco";
-  protein: "chicken" | "jackfruit" | "carnitas";
-  extraTaco: boolean; // 🌮
-  salsa: boolean; // 💃
-}
-
 export type RiceType =
   | "brownRice" // 🍘
   | "whiteRice"; // 🍙
 
-export interface Sushi {
-  type: "sushi";
-  protein: "kingSalmon" | "tuna";
-  riceType: RiceType;
-}
-
-export interface Sandwich {
-  type: "sandwich";
-  protein: "chicken" | "portabelloCap";
-  toppings: Topping[];
-}
-
-interface Extras {
-  awesomeSauce: boolean; // ☢️ and 🤯
-}
-
-type MenuItem = Taco | Sushi | Sandwich;
-export type LineItem = MenuItem & Extras;
+export type LineItem = any;
 
 export interface Order {
   lineItems: LineItem[];
 }
 
-export function priceMenuItem(item: MenuItem): number {
-  let itemPrice;
-  if (item.type === "taco") {
-    const basePrice = 5;
-    const extraTacoPrice = item.extraTaco
-      ? hasPriceyProtein(item)
-        ? 4
-        : 3
-      : 0;
-    const priceyPrice = hasPriceyProtein(item) ? 2 : 0;
-    return basePrice + extraTacoPrice + priceyPrice;
-  }
+function priceLineItem(item: LineItem): number {}
 
-  if (item.type === "sandwich") {
-    const basePrice = 4;
-    const extraToppingsPrice =
-      item.toppings.length > 1 ? (item.toppings.length - 1) * 0.5 : 0;
-    const priceyPrice = hasPriceyProtein(item) ? 2 : 0;
-    return basePrice + extraToppingsPrice + priceyPrice;
-  } else {
-    const basePrice = 8;
-    const ricePrice = item.riceType === "brownRice" ? 1 : 0;
-    const priceyPrice = hasPriceyProtein(item) ? 2 : 0;
-    return basePrice + ricePrice + priceyPrice;
-  }
-}
+function hasPriceyProtein(item: { protein: Protein }) {}
 
-function priceLineItem(item: LineItem): number {
-  const awesomeSaucePrice = item.awesomeSauce ? 1 : 0;
-  return priceMenuItem(item) + awesomeSaucePrice;
-}
-
-function hasPriceyProtein(item: { protein: Protein }) {
-  return ["kingSalmon", "carnitas", "portabelloCap"].includes(item.protein);
-}
-
-export function priceOrder(order: Order): number {
-  return order.lineItems.reduce((runningTotal, item) => {
-    return runningTotal + priceLineItem(item);
-  }, 0);
-}
+export function priceOrder(order: Order): number {}
 
 /* Monster's foodie truck takes orders on paper slips, 
    but sometimes people don't read the menu before they
@@ -139,4 +79,4 @@ type PaperLineItem = {
   toppings?: Topping[];
 };
 
-type _t1 = AssertAssignable<PaperLineItem, LineItem>
+type _t1 = AssertAssignable<PaperLineItem, LineItem>;

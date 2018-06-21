@@ -17,8 +17,7 @@ describe("composite types", () => {
        * We can also describe union types ourselves, and
        * we can union together any valid types. Update
        * FixThisType to allow strings or numbers. */
-      // type FixThisType = any;
-      type FixThisType = string | number;
+      type FixThisType = any;
 
       let aString: FixThisType = "hello";
       let anotherString: FixThisType = "world";
@@ -35,8 +34,7 @@ describe("composite types", () => {
        * literals, too. Update FixThisType to make this type
        * test pass.
        */
-      // type FixThisType = any;
-      type FixThisType = boolean | "this string";
+      type FixThisType = any;
 
       let aBool: FixThisType = true;
 
@@ -49,10 +47,7 @@ describe("composite types", () => {
     });
 
     test("unions can be between types of any shape", () => {
-      // type EarthlingsAndAliens = any;
-      type EarthlingsAndAliens =
-        | { type: "animal" | "vegetable" | "mineral"; name: string }
-        | { homePlanet: string; phaser: boolean };
+      type EarthlingsAndAliens = any;
 
       /**
        * Update EarthlingsAndAliens to allow these values... */
@@ -118,22 +113,8 @@ describe("composite types", () => {
       /**
        * Describe a valid PetCat and PetDog below.
        * HINT: Use autocompletion to help you fill in the properties. */
-      // const sukiTheCat: PetCat = {};
-      const sukiTheCat: PetCat = {
-        animalType: "cat",
-        breedName: "american shorthair",
-        coloration: "spotted",
-        familyName: "McQuater",
-        name: "Suki"
-      };
-      // const finnTheDog: PetDog = {};
-      const finnTheDog: PetDog = {
-        animalType: "dog",
-        breedName: "floofer",
-        familyName: "Colthorp",
-        name: "Finn",
-        size: "standard"
-      };
+      const sukiTheCat: PetCat = {};
+      const finnTheDog: PetDog = {};
 
       function announcePet(pet: PetInfo) {
         return `This is ${pet.familyName} family pet, ${pet.name}.`;
@@ -175,8 +156,7 @@ describe("composite types", () => {
       /**
        * Try changing the input FruitType to prove that the
        * function below will always return one of these two strings.*/
-      // type FruitType = string;
-      type FruitType = "red" | "yellow";
+      type FruitType = string;
 
       function appleOrBanana(fruitColor: FruitType): "apple" | "banana" {
         switch (fruitColor) {
@@ -211,19 +191,12 @@ describe("composite types", () => {
        * apples are red and can be polished, and bananas are yellow
        * and can be peeled.
        */
-      // type FruitType = {
-      //   type: string;
-      //   color: string;
-      //   polish: () => {} | null;
-      //   peel: () => {} | null;
-      // };
-      type FruitType =
-        | {
-            type: "apple";
-            color: "red";
-            polish: () => {};
-          }
-        | { type: "banana"; color: "yellow"; peel: () => {} };
+      type FruitType = {
+        type: string;
+        color: string;
+        polish: () => {} | null;
+        peel: () => {} | null;
+      };
 
       function doSomething(fruit: FruitType) {
         switch (fruit.type) {
@@ -237,7 +210,7 @@ describe("composite types", () => {
             fruit.peel();
             break;
           case "banana":
-            fruit
+            fruit;
             type _t3 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
             // typings:expect-error
             type _t4 = AssertAssignable<{ color: "red" }, typeof fruit>;
@@ -271,22 +244,14 @@ test("unions & intersections", () => {
   /**
    * Write a type that describes both pet cats and pet dogs.
    */
-  // type Pet = any;
-  type Pet = (Cat | Dog) & PetInfo;
+  type Pet = any;
 
   /**
    * What if we want to be able to announce cats and dogs in more detail?
    * Write a function that takes pet cats and pet dogs and announces
    * them in detail. Use the tests below to drive your implementation.
    */
-  // function announcePetDetail(pet: Pet) {}
-  function announcePetDetail(pet: Pet & Cat | Pet & Dog) {
-    return `This is the ${pet.familyName} family ${pet.animalType}, ${
-      pet.name
-    } the ${pet.animalType === "cat" ? pet.coloration : pet.size} ${
-      pet.breedName
-    }.`;
-  }
+  function announcePetDetail(pet: Pet) {}
 
   expect(
     announcePetDetail({

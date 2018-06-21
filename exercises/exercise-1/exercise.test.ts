@@ -87,8 +87,13 @@ describe("More types", () => {
   });
   test("the 'any' type", () => {
     /** 
-     * TS describes types that it can't identify as 'any'. 
-     * 
+     * TS uses the keyword 'any' for a type that could be anything.
+     */
+    let anything: any = "foo";
+    anything = true;
+    anything = 5;
+
+    /** 
      * In this example, we haven't told TS what the args of this function 
      * should be, so it infers them to be 'any'. Implicit 'any' types
      * aren't allowed for function args, so we get an error:
@@ -113,7 +118,7 @@ describe("More types", () => {
 
   test("a type alias", () => {
     /**
-     * We can declare names for our own types made up of primitives.
+     * We can declare names for our own types.
      */
     type MySpecialString = string;
 
