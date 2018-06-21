@@ -45,7 +45,7 @@ storiesOf("Exercise 4.3: Item", module)
 
       <div className="item-total">Total: $11</div>
 
-      <div className="awesome-sauce-backdrop">🤯</div>
+      <div className="awesome-sauce-backdrop">😻</div>
     </div>,
 
       // Should be produced by:
@@ -79,7 +79,7 @@ storiesOf("Exercise 4.3: Item", module)
     expectToLookLike(
       // Something that looks like:
       <div className="line-item">
-        <h3 className="item-kind">🥪 Sandwich</h3>
+        <h3 className="item-kind">🍞 Sandwich</h3>
 
         <ul className="addition-list">
           <li>

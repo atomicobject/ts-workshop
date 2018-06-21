@@ -24,7 +24,7 @@ storiesOf("Exercise 4.1: ComponentDesc", module)
   )
   .add(
     "Sandwich",
-    expectToLookLike("🥪 Sandwich", () => <ComponentDesc type={"sandwich"} />)
+    expectToLookLike("🍞 Sandwich", () => <ComponentDesc type={"sandwich"} />)
   )
   .add(
     "Chicken",
