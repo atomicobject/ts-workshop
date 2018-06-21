@@ -1,7 +1,7 @@
 import { AssertAssignable } from "../util";
 
 test("has type inference", () => {
-  /**
+  /*
    * TypeScript infers the types of variables.
    * Hover over these variable declarations to see them.
    */
@@ -18,7 +18,7 @@ test("has type inference", () => {
 });
 
 test("and type annotations", () => {
-  /**
+  /*
    * Rather than letting TS infer the types, we can add
    * type annotations that explicitly describe the variable type.
    */
@@ -35,7 +35,7 @@ test("and type annotations", () => {
 });
 
 test("types enforce constraints", () => {
-  /**
+  /*
    * Once a variable has a type, the type checker will fail
    * if we try to assign it to a value of a different type.
    */
@@ -44,7 +44,7 @@ test("types enforce constraints", () => {
   // typings:expect-error
   hello = 5;
 
-  /**
+  /*
    * Type annotations are useful because they allow us to
    * express our intent to TypeScript, so it can catch mistakes.
    */
@@ -53,20 +53,26 @@ test("types enforce constraints", () => {
 });
 
 test("object types", () => {
-  /**
+  /*
    * TypeScript gets more interesting when we introduce 
    * structural typing. Object shapes are types.
    */
   let apple = { name: "apple", color: "red" };
   apple.color;
 
-  /** 
+  /* 
    * TypeScript knows what the properties on apple are, so
    * it will tell us if we ask for one that doesn't exist.
    */
   // typings:expect-error
   apple.nooooo;
 
+  /*
+  * We can also define types inline. This variable is declared to have
+  * a new, ad hoc object type before we even assign a value.
+  * 
+  * Object type syntax looks a lot like object literal syntax:
+  */
   let orange: { name: string; color: string } = { name: "orange", color: "orange" };
 
   // typings:expect-error
@@ -78,7 +84,8 @@ test("object types", () => {
 });
 
 test("type aliases", () => {
-  /**
+  
+  /*
    * These types are a little more complicated to write than the primatives.
    * What if we want to use them again? We can describe aliases for types,
    * and we can use them anywhere that we would use a type.
@@ -93,7 +100,8 @@ test("type aliases", () => {
 });
 
 test("interfaces", () => {
-  /**
+  
+  /*
    * Interfaces are another way to describe object types.
    * Functionally speaking, they operate just like a type
    * alias for an object. There are some subtle differences
@@ -131,7 +139,8 @@ test("interfaces", () => {
     name: "plate"
   };
 
-  /**
+  
+  /*
    * Remember that you can use any kind of type definition
    * anywhere that you would use the others.
    */
@@ -152,16 +161,17 @@ test("interfaces", () => {
 });
 
 test("function types", () => {
-  /**
+  
+  /*
    * Type annotations get more powerful when we start using
    * them with functions. Check out the type of declareFavoriteFood.
    */
-  function declareFavoriteFood(name: string, food: string) {
+  function declareFavoriteFood(name: string, food: string): string {
     return `${name}'s favorite food is ${food}.`;
   }
-  /** TS knows the return type of declareFavoriteFood. */
+   /* TS knows the return type of declareFavoriteFood. */
   let waldosFavorite = declareFavoriteFood("Waldo", "chips");
-  /**
+  /*
    * If we try to pass a value of the wrong type as an arg, we'll 
    * get an error- just like we did when assigning a variable 
    * to the wrong type.
@@ -169,26 +179,31 @@ test("function types", () => {
   // typings:expect-error
   let invalidInput = declareFavoriteFood("Waldo", true);
 
-  /**
-   * We can describe the type of the _function_, too.
+  /*
+   * We can describe the type of the _function_, too. The syntax 
+   * looks a lot like an arrow function:
    */
-  let declarationFunction: (
-    name: string,
-    food: string
-  ) => string = declareFavoriteFood;
+  let declarationFunction: (name: string, food: string) => string = declareFavoriteFood;
 
-  let declareNotLikeFood: (name: string, food: string) => string = (
-    name: string,
-    food: string
-  ) => {
-    return `${name} doesn't like ${food}.`;
-  };
 
-  /** 
+  /*
+  * And we can alias function types just like any other:
+  */
+  type ExplanationFunction = (name: string, food: string) => string;
+
+  /*
+  * When TypeScript sees a lambda in a position where it knows the exact type,
+  * type annotations on the function arguments aren't necessary.
+  */
+  let declareNotLikeFood: ExplanationFunction = (name, food) => 
+    `${name} doesn't like ${food}.`;
+
+   
+  /*
    * Being able to describe function signatures as types
    * makes it much easier to treat functions like data. 
    */
-  function announceFeelings(foodFeelings: (name: string, food: string) => string) {
+  function announceFeelings(foodFeelings: ExplanationFunction) {
     const result = foodFeelings("Rachael", "bell peppers");
     return `I asked, and ${result}`
   }
@@ -198,38 +213,42 @@ test("function types", () => {
 });
 
 test("the 'any' type", () => {
-  /**
+  /*
    * TS uses the keyword 'any' for a type that could be anything.
+   * 
+   * Values of this type are just like JavaScript. There's no compile-
+   * time constraints on what can be done with them.
    */
   let anything: any = "foo";
   anything = true;
   anything = 5;
 
-  /**
-   * In this example, we haven't told TS what the args of this function
-   * should be, so it infers them to be 'any'. Implicit 'any' types
-   * aren't allowed for function args, so we get an error:
-   */
+  /*
+  * Are strictness level doesn't let variables explicitly be any,
+  * so JavaScript-style functions aren't allowed. (This is a
+  * setting.)
+  */
   // typings:expect-error
   function declareFavoriteFood(name, food) {
     return `${name}'s favorite food is ${food}`;
   }
 
-  /** But it does allow _explicit_ any for function args: */
+   /* But it does allow _explicit_ any for function args: */
   function typedDeclareFavoriteFood(name: any, food: any) {
-    return `${name}'s favorite food is ${food}`;
+    return `${name}'s favorite food is ${food.toLocaleUpperCase()}`;
   }
-  /**
+  /*
    * Using 'any' is risky, because it effectively disables
    * type checking:
-   * */
-  let thisWillBlowUp = typedDeclareFavoriteFood(null, 2);
+   */
+  expect(() => { let thisWillBlowUp = typedDeclareFavoriteFood(null, 2); }).toThrowError()
 
-  /** We'll come back to 'any' in the next exercise. */
+   /* We'll come back to 'any' in the next exercise. */
 });
 
 test("structural compatibility", () => {
-  /**
+  
+  /*
    * Type annotations are just there to help us describe object shapes.
    * We can use differently named types interchangably, as long as they
    * are structurally compatible.
@@ -280,7 +299,8 @@ test("structural compatibility", () => {
     flavorProfile: "salty"
   };
 
-  /**
+  
+  /*
    * Flavored food is structurally compatible with regular food because
    * its properties are a superset of regular food's.
    */
@@ -301,7 +321,7 @@ test("structural compatibility", () => {
 });
 
 // test("Writing our own types", () => {
-//   /** 
+//   /* 
 //    * ======================================================
 //    * TODO: Update FixThisType to allow strings or numbers.    
 //    * ======================================================*/
@@ -313,7 +333,7 @@ test("structural compatibility", () => {
 // })
 
 // test("Writing some object types", () => {
-//   /** 
+//   /*
 //    * ======================================================
 //    * TODO: Update FixThisOneToo to allow objects with a type
 //    * and a disposition.    
@@ -328,7 +348,7 @@ test("structural compatibility", () => {
 // })
 
 // test("Writing some function types", ()=>{
-//   /** 
+//   /*
 //    * ======================================================
 //    * TODO: Update AndThisOne to allow a function that takes 
 //    * a string and returns a string.    

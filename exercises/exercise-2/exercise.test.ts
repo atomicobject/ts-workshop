@@ -1,7 +1,7 @@
 import { AssertAssignable } from "../util";
 
 test("literal types", () => {
-  /** Type aliases get more useful when we move beyond primative types. */
+  /* Type aliases get more useful when we move beyond primative types. */
   type ALiteralString = "just this one";
 
   let theRightLiteral: ALiteralString = "just this one";
@@ -13,19 +13,21 @@ test("literal types", () => {
 test("infers different types based on keywords", () => {
   let regularString = "hello";
 
-  /**
+  
+  /*
    * Check out the type of literalString! It's a string literal,
    * which means TS knows it can only be this exact value.
    */
   const literalString = "goodnight";
 
-  /** This holds for other types of primatives, too. */
+   /* This holds for other types of primatives, too. */
   const literalBool = true;
   const literalNumber = 2;
 });
 
 test("describes a literal", () => {
-  /**
+  
+  /*
    * Let's try writing our own type. Update FixThisType to allow only a single literal.
    */
   type FixThisType = "hello";
@@ -43,7 +45,7 @@ test("describes a literal", () => {
 });
 
 test("literals in control flow", () => {
-  /**
+  /*
    * TS understands control flow. Take a look at the type of 'fruit' inside of these blocks.
    */
   function isBanana(fruit: string) {
@@ -56,7 +58,8 @@ test("literals in control flow", () => {
 });
 
 test("manually creating union types", () => {
-  /**
+  
+  /*
    * We can describe union types ourselves, and
    * we can union together any valid types. 
    * ======================================================
@@ -74,7 +77,8 @@ test("manually creating union types", () => {
 });
 
 test("this allows us to constrain types in interesting ways", () => {
-  /**
+  
+  /*
    * Being able to union together any valid types means
    * literals, too. 
    * ======================================================
@@ -95,7 +99,8 @@ test("this allows us to constrain types in interesting ways", () => {
 });
 
 test("unions can be between types of any shape", () => {
-  /**
+  
+  /*
    * ======================================================
    * TODO: Update Earthlings to allow these values:
    * ======================================================*/
@@ -110,7 +115,8 @@ test("unions can be between types of any shape", () => {
   let quartz: Earthlings = { type: "mineral", name: "Quartz" };
   let diamond: Earthlings = { type: "mineral", name: "Diamond" };
 
-  /**
+  
+  /*
    * ======================================================
    * TODO: Update Earthlings to allow these values:
    * ======================================================*/
@@ -125,7 +131,8 @@ test("unions can be between types of any shape", () => {
     phaser: false
   };
   
-  /**
+  
+  /*
    * ======================================================
    * TODO: Confirm that EarthlingsAndAliens disallows these types
    * ======================================================*/
@@ -147,7 +154,8 @@ test("unions can be between types of any shape", () => {
 });
 
 test("basic intersection", () => {
-  /**
+  
+  /*
    * Intersections allow us to combine type definitions to
    * create a single type with all the attributes of both types.
    * This is useful when we have some set of properties that are
@@ -167,7 +175,8 @@ test("basic intersection", () => {
   type PetCat = PetInfo & Cat;
   type PetDog = PetInfo & Dog;
 
-  /**
+  
+  /*
    * Describe a valid PetCat and PetDog below.
    * HINT: Use autocompletion to help you fill in the properties. */
   const sukiTheCat: PetCat = {};
@@ -176,7 +185,8 @@ test("basic intersection", () => {
   function announcePet(pet: PetInfo) {
     return `This is ${pet.familyName} family pet, ${pet.name}.`;
   }
-  /**
+  
+  /*
    * Notice that announcePet will take any object that's
    * structurally compatible with type Pet. */
   announcePet(sukiTheCat);
@@ -190,7 +200,8 @@ test("type narrowing and exhaustiveness", () => {
     return "zero";
   }
 
-  /**
+  
+  /*
    * TS can narrow types as we move through control flow.
    * This makes it easy to tell if we've handled all cases.
    * 
@@ -213,7 +224,8 @@ test("type narrowing and exhaustiveness", () => {
     }
   }
 
-  /**
+  
+  /*
    * Try changing the input FruitType to prove that the
    * function below will always return one of these two strings.*/
   type FruitType = string;
@@ -227,7 +239,8 @@ test("type narrowing and exhaustiveness", () => {
     }
   }
 
-  /**
+  
+  /*
    * So, if we carefully constrain our input and output types,
    * TypeScript can do a lot of the work for us: no more
    * checking if a property exists, or for "this shouldn't happen"
@@ -242,7 +255,8 @@ test("discriminated union", () => {
 });
 
 test("build a discriminated union", () => {
-  /**
+  
+  /*
    * TS can narrow types as we move through control flow. When
    * we're handling different cases of a union type, it's helpful
    * to have a single property that is shared between all the cases,
@@ -284,7 +298,8 @@ test("build a discriminated union", () => {
 });
 
 test("unions & intersections", () => {
-  /**
+  
+  /*
    * Unions and intersections can be combined to make complex types.
    * Let's revisit our pet types.
    */
@@ -300,12 +315,14 @@ test("unions & intersections", () => {
   };
   type PetInfo = { name: string; familyName: string };
 
-  /**
+  
+  /*
    * Write a type that describes both pet cats and pet dogs.
    */
   type Pet = any;
 
-  /**
+  
+  /*
    * What if we want to be able to announce cats and dogs in more detail?
    * Write a function that takes pet cats and pet dogs and announces
    * them in detail. Use the tests below to drive your implementation.
@@ -333,7 +350,7 @@ test("unions & intersections", () => {
     })
   ).toEqual("This is the Brockett family dog, Stella the standard Pitbull.");
 
-  /** Extra credit: Find a different way to describe your Pet type. */
+   /* Extra credit: Find a different way to describe your Pet type. */
   type AltPet = any;
   
   type _t1 = AssertAssignable<AltPet, Pet>;

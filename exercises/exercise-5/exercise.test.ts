@@ -2,6 +2,8 @@ import { Order, EntreeType, Protein } from "../exercise-3/code";
 import { orderToReceipt } from "./code";
 import { ReceiptProps } from "../exercise-4/code";
 
+// npm run exercise-6a
+
 describe("orderToReceipt", () => {
   it("Converts an empty order to a valid receipt", () => {
     const argument: Order = {

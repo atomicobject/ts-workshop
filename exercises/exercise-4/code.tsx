@@ -39,11 +39,12 @@ export interface IconProps {
 }
 
 
-// 
 function descFor(type: AllComponents): string {
   switch (type) {
     case "carnitas":
       return "🐖 Carnitas";
+    
+    // TODO: Fill me in by copying and pasting examples from the stories file
 
     default:
       throw new Error(`Not implemented case ${type}`);
@@ -57,15 +58,18 @@ type TotalsProps = {
   /* Replace Me */
 };
 export const TotalSection: React.SFC<TotalsProps> = props => {
+  // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
   const examplePrice = 3.50;
   return <div>{3.50.toFixed(2)}</div>;
 };
 
 export const AdditionSummary: React.SFC<AdditionSummaryProps> = props => (
+  // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
   <li>An item</li>
 );
 
 export const ItemSummary: React.SFC<ItemSummaryProps> = props => (
+  // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
   <div className="line-item">
     <ul className="addition-list">
       {/* Render an AdditionSummary using each addition as props */}

@@ -53,7 +53,7 @@ this using classes and interfaces.
 import { AssertAssignable } from "../util";
 import { Starving, Hungry, Peckish, Full, HungerState, Transition, quickestRouteToSleep } from "./code";
 
-/** This value is used in tests to represent something you should do
+ /* This value is used in tests to represent something you should do
  * in the exercise.
  */
 const REPLACEME: any = null;
