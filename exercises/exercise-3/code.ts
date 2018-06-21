@@ -11,6 +11,7 @@ Taco....................$5
     Chicken
     BBQ jackfruit
     Carnitas (+$2)
+    Salsa (+$0.50)
   Add a second taco for +$3 (+$4 for Carnitas)
 Sushi ..................$8
   Protein    
@@ -59,10 +60,6 @@ export type LineItem = any;
 export interface Order {
   lineItems: LineItem[];
 }
-
-function priceLineItem(item: LineItem): number {}
-
-function hasPriceyProtein(item: { protein: Protein }) {}
 
 export function priceOrder(order: Order): number {}
 

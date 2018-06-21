@@ -127,7 +127,7 @@ describe("Food Truck", () => {
           }
         ]
       };
-      expect(priceOrder(order)).toEqual(28)
+      expect(priceOrder(order)).toEqual(28.5)
     });
   });
 });
