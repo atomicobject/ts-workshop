@@ -3,9 +3,6 @@ import { AssertAssignable } from "../util";
 type Foo = Protein | EntreeType;
 
 /* Monster Foodies Food Truck Menu
-
-Add AwesomeSauce to anything for $1!
-
 Taco....................$5
   Protein
     Chicken
@@ -29,6 +26,8 @@ Sandwich................$4
     Cheese
     Lettuce
     Tomato
+
+Add AwesomeSauce to anything for $1!
 */
 
 export type Protein =

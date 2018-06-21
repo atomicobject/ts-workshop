@@ -1,5 +1,60 @@
 import { AssertAssignable } from "../util";
 
+test("literal types", () => {
+  /** Type aliases get more useful when we move beyond primative types. */
+  type ALiteralString = "just this one";
+
+  let theRightLiteral: ALiteralString = "just this one";
+
+  // typings:expect-error
+  let notThatLiteral: ALiteralString = "some other string";
+});
+
+test("infers different types based on keywords", () => {
+  let regularString = "hello";
+
+  /**
+   * Check out the type of literalString! It's a string literal,
+   * which means TS knows it can only be this exact value.
+   */
+  const literalString = "goodnight";
+
+  /** This holds for other types of primatives, too. */
+  const literalBool = true;
+  const literalNumber = 2;
+});
+
+test("describes a literal", () => {
+  /**
+   * Let's try writing our own type. Update FixThisType to allow only a single literal.
+   */
+  type FixThisType = "hello";
+
+  let hello: FixThisType = "hello";
+
+  // typings:expect-error
+  let world: FixThisType = "world";
+
+  // typings:expect-error
+  let goodnight: FixThisType = "goodnight";
+
+  // typings:expect-error
+  let moon: FixThisType = "moon";
+});
+
+test("literals in control flow", () => {
+  /**
+   * TS understands control flow. Take a look at the type of 'fruit' inside of these blocks.
+   */
+  function isBanana(fruit: string) {
+    if (fruit === "banana") {
+      return `${fruit} is a banana`;
+    } else {
+      return ` ${fruit} is not a banana`;
+    }
+  }
+});
+
 test("manually creating union types", () => {
   /**
    * We can describe union types ourselves, and
