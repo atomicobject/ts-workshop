@@ -18,7 +18,6 @@ const jillOrder: ClassicDinnerOrder = {
 };
 
 /*
-
 Jack and Jill went up the hill to have dinner at Chez Eclectic.
 
 Jack and Jill love midnight snacks, so they've agreed ahead of time
@@ -30,7 +29,7 @@ them to take home after dinner.
 
 And define a function assembleTakeaway that takes their orders and boxes them up.
 */
-// it("6.1", () => {
+// it("7.1", () => {
 //   const jackOrder: ClassicDinnerOrder = {
 //     salad: Salad.Caesar,
 //     entree: Entree.Lasagna
@@ -57,7 +56,7 @@ The most direct way to do this in TypeScript is to take advantage of structural 
 
 Update assembleTakeaway so that it can accept any dinner type which includes a salad.
 */
-// test("6.2", () => {
+// test("7.2", () => {
 //   let jackOrder: DinnerWithDessert = {
 //     salad: Salad.Caesar,
 //     entree: Entree.Lasagna,
@@ -99,7 +98,7 @@ Hint: Doing this will require declaring `jackSavedCourse` with `const`
 so that its type is a string literal and not just `string`.
 
 */
-// test("6.3", () => {
+// test("7.3", () => {
 //   // Jack wants the whole enchilada
 //   type _1 = AssertAssignable<JackOrderType, WholeEnchiladaOrder>
 
@@ -148,7 +147,7 @@ The first will be the entree type, the second the string literal type for the sa
 course.
 
 */
-// test("6.4 - generic assembleTakeaway", () => {
+// test("7.4 - generic assembleTakeaway", () => {
 //   // This generic function could be called with explicit type arguments to assemble takeaway with
 //   // an arbitrary Jack order/course.
 //   const saladTakeaway = genericAssembleTakeaway<{salad: Salad}, 'salad'>('salad', {salad: Salad.Caesar}, jillOrder)

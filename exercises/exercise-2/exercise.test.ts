@@ -275,6 +275,10 @@ test("build a discriminated union", () => {
   function doSomething(fruit: FruitType) {
     switch (fruit.type) {
       case "apple":
+        // NOTE: typeof fruit is the type representing the type of the fruit variable.
+        // We'll be using this to check that variables are inferred to the right type.
+
+        // Assert that fruit is statically known to have the color "red"
         type _t1 = AssertAssignable<{ color: "red" }, typeof fruit>;
         // typings:expect-error
         type _t2 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
