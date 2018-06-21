@@ -109,7 +109,7 @@ describe("More types", () => {
     }
     /** 
      * Using 'any' is risky, because it effectively disables 
-     * type checking:
+     * type checking: fix this
      * */
     let thisWillBlowUp = typedDeclareFavoriteFood(1, 2)
 
@@ -121,6 +121,10 @@ describe("More types", () => {
      * We can declare names for our own types.
      */
     type MySpecialString = string;
+
+    type Foo = {
+      bar: string;
+    }
 
     function sayHello(name: string) {
       return `Hello, ${name}!`;
@@ -149,6 +153,8 @@ describe("More types", () => {
     /** Type aliases get more useful when we move beyond primative types. */
     type ALiteralString = "just this one";
 
+    let theRightLiteral: ALiteralString = "just this one"
+    
     // typings:expect-error
     let notThatLiteral: ALiteralString = "some other string";
   });
@@ -171,7 +177,7 @@ describe("More types", () => {
     /**
      * Let's try writing our own type. Update FixThisType to allow only a single literal.
      */
-    type FixThisType = any;
+    type FixThisType = "hello";
 
     let hello: FixThisType = "hello";
 
@@ -214,7 +220,7 @@ describe("Object types", () => {
     }
 
     let muffin: FoodItem = {
-      cost: {dollars: 1, cents: 50},
+      cost: { cents: 50, dollars: 3 },
       name: "Muffin"
     };
 
@@ -268,13 +274,14 @@ describe("Object types", () => {
     // Or even anonymous types
     let mysteryMeat = deliPriceStatement({ name: "Mystery Meat", cost: 1 });
 
-    enum Flavor {
-      Sweet = "sweet",
-      Sour = "sour",
-      Salty = "salty",
-      Bitter = "bitter",
-      Savory = "savory"
-    }
+    type Flavor = string;
+    // { //remove this
+    //   Sweet = "sweet",
+    //   Sour = "sour",
+    //   Salty = "salty",
+    //   Bitter = "bitter",
+    //   Savory = "savory"
+    // }
     interface FlavoredFoodItem {
       name: string;
       cost: number;
@@ -284,7 +291,7 @@ describe("Object types", () => {
     let cheezits: FlavoredFoodItem = {
       name: "Box of Cheezits",
       cost: 4,
-      flavorProfile: Flavor.Salty
+      flavorProfile: "salty"
     };
 
     /** 
