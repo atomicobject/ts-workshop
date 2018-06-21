@@ -15,6 +15,10 @@ storiesOf("Exercise 4.1: ComponentDesc", module)
     </div>
   ))
   .add(
+    "Carnitas",
+    expectToLookLike("🐖 Carnitas", () => <ComponentDesc type={"carnitas"} />)
+  )
+  .add(
     "Taco",
     expectToLookLike("🌮 Taco", () => <ComponentDesc type={"taco"} />)
   )
@@ -36,10 +40,6 @@ storiesOf("Exercise 4.1: ComponentDesc", module)
   )
   .add("Tuna", expectToLookLike("🐟 Tuna", () => <ComponentDesc type={"tuna"} />))
 
-  .add(
-    "Carnitas",
-    expectToLookLike("🐖 Carnitas", () => <ComponentDesc type={"carnitas"} />)
-  )
   .add("King Salmon", expectToLookLike("🐟 King Salmon", () => <ComponentDesc type={"kingSalmon"} />))
   .add(
     "Portobello Cap",

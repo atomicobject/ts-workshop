@@ -15,8 +15,7 @@ storiesOf("Exercise 4.4: The full Receipt", module)
     <div>
       <h1>Create a Receipt Component</h1>
       <p>
-        Let's start by creating an Icon component that we can use to render our
-        emoji icons.
+        Now let's create our full Receipt example.
       </p>
     </div>
   ))

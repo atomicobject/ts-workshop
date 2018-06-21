@@ -2,8 +2,6 @@ import React from "react";
 
 import "./styles.css";
 import { Protein, Topping, EntreeType } from "../exercise-3/code";
-import { Flavor } from "../util";
-import { Dollars } from "./code";
 
 export const StaticExample: React.SFC<{}> = props => (
   <div className="order-summary">
