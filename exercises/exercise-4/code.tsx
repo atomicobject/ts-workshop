@@ -42,6 +42,8 @@ export interface IconProps {
   type: AllComponents;
 }
 
+
+// 
 function descFor(type: AllComponents): string {
   switch (type) {
     case "carnitas":

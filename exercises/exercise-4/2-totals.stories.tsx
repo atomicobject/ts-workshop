@@ -31,6 +31,7 @@ storiesOf("Exercise 4.2: Totals", module)
         // <TotalSection subtotal={24} tip={3.6} total={27.6} />
     )
   )
-  .add("Your example 1", () => <ReplaceMe />)
-  .add("Your example 2", () => <ReplaceMe />)
-  .add("Your example 3", () => <ReplaceMe />);
+  .add("Your example 1", () => 
+    <ReplaceMe />
+      // with your own TotalSection example
+  )

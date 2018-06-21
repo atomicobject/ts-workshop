@@ -77,5 +77,7 @@ storiesOf("Exercise 4.4: The full Receipt", module)
       )
     )
   )
-  .add("Your example 1", () => <ReplaceMe />)
-  .add("Your example 2", () => <ReplaceMe />);
+  .add("Your example 1", () =>
+    <ReplaceMe />
+    // with your own Receipt
+  )
