@@ -56,7 +56,7 @@ storiesOf("Exercise 4.3: Item", module)
           additions={[
             {
               additionType: "carnitas",
-              annotation: Annotation.Pricey
+              annotation: "pricey"
             },
             {
               additionType: "salsa"
@@ -66,7 +66,7 @@ storiesOf("Exercise 4.3: Item", module)
             },
             {
               additionType: "awesomeSauce",
-              annotation: Annotation.Nuclear
+              annotation: "nuclear"
             }
           ]}
         />

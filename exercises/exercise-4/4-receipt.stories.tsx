@@ -42,7 +42,7 @@ storiesOf("Exercise 4.4: The full Receipt", module)
               additions: [
                 {
                   additionType: "carnitas",
-                  annotation: Annotation.Pricey
+                  annotation: "pricey"
                 },
                 {
                   additionType: "salsa"
@@ -52,7 +52,7 @@ storiesOf("Exercise 4.4: The full Receipt", module)
                 },
                 {
                   additionType: "awesomeSauce",
-                  annotation: Annotation.Nuclear
+                  annotation: "nuclear"
                 }
               ]
             },

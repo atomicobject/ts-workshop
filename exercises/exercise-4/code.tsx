@@ -29,13 +29,7 @@ export interface AdditionSummaryProps {
   additionType: AllComponents;
 }
 
-// export type Annotation = "pricey" | "nuclear";
-export enum Annotation {
-  /** Gets a crown */
-  Pricey = "Pricey",
-  /** Nuclear */
-  Nuclear = "Nuclear"
-}
+export type Annotation = "pricey" | "nuclear";
 
 export type Extras = "extraTaco" | "awesomeSauce" | "salsa";
 
