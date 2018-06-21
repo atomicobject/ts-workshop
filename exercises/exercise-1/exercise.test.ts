@@ -54,10 +54,20 @@ test("types enforce constraints", () => {
 
 test("object types", () => {
   /**
-   * TypeScript gets more interesting when we introduce structural typing.
-   * We can describe object shapes as types.
+   * TypeScript gets more interesting when we introduce 
+   * structural typing. Object shapes are types.
    */
-  let fruit: { name: string; color: string } = { name: "apple", color: "red" };
+  let apple = { name: "apple", color: "red" };
+  apple.color;
+
+  /** 
+   * TypeScript knows what the properties on apple are, so
+   * it will tell us if we ask for one that doesn't exist.
+   */
+  // typings:expect-error
+  apple.nooooo;
+
+  let orange: { name: string; color: string } = { name: "orange", color: "orange" };
 
   // typings:expect-error
   let notAFruit: { name: string; color: string } = { color: "red" };
@@ -66,6 +76,7 @@ test("object types", () => {
   // typings:expect-error
   let reallyNotAFruit: { name: string; color: string } = { foo: false };
 });
+
 test("type aliases", () => {
   /**
    * These types are a little more complicated to write than the primatives.
@@ -289,28 +300,42 @@ test("structural compatibility", () => {
   type _t2 = AssertAssignable<FlavoredFoodItem, BakeryItem>;
 });
 
-test("Writing our own types", () => {
-  /**
-   * Let's write a few types that enforce constraints.
-   */
-  type FixThisType = any;
-  const jaime: FixThisType = "Jaime"
-  const meredith: FixThisType = "Meredith"
-  // typings:expect-error
-  const yes: FixThisType = true;
+// test("Writing our own types", () => {
+//   /** 
+//    * ======================================================
+//    * TODO: Update FixThisType to allow strings or numbers.    
+//    * ======================================================*/
+//   type FixThisType = any;
+//   const jaime: FixThisType = "Jaime"
+//   const meredith: FixThisType = "Meredith"
+//   // typings:expect-error
+//   const yes: FixThisType = true;
+// })
 
-  type FixThisOneToo = any;
-  const nellie = { type: "dog", disposition: "good" }
-  const roxy = { type: "dog", disposition: "aloof" }
-  // typings:expect-error
-  const friday = { type: "cat", fluffy: "very" }
-  // typings:expect-error
-  const cauchy = { type: "cat", fluffy: "not really" }
+// test("Writing some object types", () => {
+//   /** 
+//    * ======================================================
+//    * TODO: Update FixThisOneToo to allow objects with a type
+//    * and a disposition.    
+//    * ======================================================*/
+//   type FixThisOneToo = any;
+//   const nellie = { type: "dog", disposition: "good" }
+//   const roxy = { type: "dog", disposition: "aloof" }
+//   // typings:expect-error
+//   const friday = { type: "cat", fluffy: "very" }
+//   // typings:expect-error
+//   const cauchy = { type: "cat", fluffy: "not really" }
+// })
 
-  type AndThisOne = any;
-  const sayHello: AndThisOne = (name: string) => { return `Hello, ${name}.`}
-  const sayGoodbye: AndThisOne = (name: string) => { return `Goodbye, ${name}.`}
-  // typings:expect-error
-  const isFido: AndThisOne = (name: string) => { return name === "Fido"};
-
-})
+// test("Writing some function types", ()=>{
+//   /** 
+//    * ======================================================
+//    * TODO: Update AndThisOne to allow a function that takes 
+//    * a string and returns a string.    
+//    * ======================================================*/
+//   type AndThisOne = any;
+//   const sayHello: AndThisOne = (name: string) => { return `Hello, ${name}.`}
+//   const sayGoodbye: AndThisOne = (name: string) => { return `Goodbye, ${name}.`}
+//   // typings:expect-error
+//   const isFido: AndThisOne = (name: string) => { return name === "Fido"};
+// })
