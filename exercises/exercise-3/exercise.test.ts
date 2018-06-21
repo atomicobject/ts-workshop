@@ -100,6 +100,8 @@ describe("Food Truck", () => {
       };
     });
   });
+
+  
   describe("priceOrder", () => {
     test("correctly prices an order", () => {
       const order: Order = {

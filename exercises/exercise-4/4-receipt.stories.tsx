@@ -6,7 +6,6 @@ import { ItemSummary, Annotation, Receipt } from "./code";
 import {
   EntreeType,
   Protein,
-  RiceType,
   Topping
 } from "../exercise-3/code";
 import { StaticExample } from "./example";
