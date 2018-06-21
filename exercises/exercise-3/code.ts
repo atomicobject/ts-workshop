@@ -45,56 +45,70 @@ export type EntreeType =
   | "sushi" // 🍣
   | "sandwich"; // 🥪
 
-export interface Taco {
+export type Topping =
+  | "cheese" // 🧀
+  | "lettuce" // 🍃
+  | "tomato"; // 🍅
+
+interface Taco {
   type: "taco";
   protein: "chicken" | "jackfruit" | "carnitas";
   extraTaco: boolean; // 🌮
   salsa: boolean; // 💃
 }
 
-export type RiceType = 
-| "brownRice"  // 🍘
-| "whiteRice"; // 🍙
+type RiceType =
+  | "brownRice" // 🍘
+  | "whiteRice"; // 🍙
 
-export interface Sushi {
+interface Sushi {
   type: "sushi";
   protein: "kingSalmon" | "tuna";
   riceType: RiceType;
 }
 
-export type Topping =
-  | "cheese" // 🧀
-  | "lettuce" // 🍃
-  | "tomato"; // 🍅
-
-export interface Sandwich {
+interface Sandwich {
   type: "sandwich";
   protein: "chicken" | "portabelloCap";
   toppings: Topping[];
 }
 
-export type MenuItem = Taco | Sushi | Sandwich;
-
-export interface Extras {
+interface Extras {
   awesomeSauce: boolean; // ☢️ and 🤯
 }
 
+type MenuItem = Taco | Sushi | Sandwich;
 export type LineItem = MenuItem & Extras;
 
 export interface Order {
   lineItems: LineItem[];
 }
 
-function priceMenuItem(item: MenuItem): number {
-  const basePrice = hasPriceyProtein(item) ? 7 : 5;
-
+export function priceMenuItem(item: MenuItem): number {
+  let itemPrice;
   if (item.type === "taco") {
-    const extraTacoPrice = item.extraTaco ? 3 : 0;
-    const salsaPrice = item.salsa ? 0.5 : 0;
-    return basePrice + extraTacoPrice + salsaPrice;
+    const basePrice = 5;
+    const extraTacoPrice = item.extraTaco
+      ? hasPriceyProtein(item)
+        ? 4
+        : 3
+      : 0;
+    const priceyPrice = hasPriceyProtein(item) ? 2 : 0;
+    return basePrice + extraTacoPrice + priceyPrice;
   }
 
-  return basePrice;
+  if (item.type === "sandwich") {
+    const basePrice = 4;
+    const extraToppingsPrice =
+      item.toppings.length > 1 ? (item.toppings.length - 1) * 0.5 : 0;
+    const priceyPrice = hasPriceyProtein(item) ? 2 : 0;
+    return basePrice + extraToppingsPrice + priceyPrice;
+  } else {
+    const basePrice = 8;
+    const ricePrice = item.riceType === "brownRice" ? 1 : 0;
+    const priceyPrice = hasPriceyProtein(item) ? 2 : 0;
+    return basePrice + ricePrice + priceyPrice;
+  }
 }
 
 function priceLineItem(item: LineItem): number {
@@ -106,7 +120,7 @@ function hasPriceyProtein(item: { protein: Protein }) {
   return ["kingSalmon", "carnitas", "portabelloCap"].includes(item.protein);
 }
 
-function priceOrder(order: Order): number {
+export function priceOrder(order: Order): number {
   return order.lineItems.reduce((runningTotal, item) => {
     return runningTotal + priceLineItem(item);
   }, 0);
@@ -119,15 +133,10 @@ function priceOrder(order: Order): number {
 //   type?: EntreeType;
 //   protein?: Protein;
 //   awesomeSauce?: boolean;
-//   beanType?: BeanType;
-//   extraNapkins?: boolean;
 //   extraTaco?: boolean;
-//   noodleStyle?: NoodleStyle;
 //   riceType?: RiceType;
 //   salsa?: boolean;
 //   toppings?: Topping[];
 // };
 
 // function validateItem(order: PaperOrder): LineItem {}
-
-// function takeOrder(orders: PaperOrder[]): Order {}

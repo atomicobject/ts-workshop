@@ -13,8 +13,13 @@ describe("composite types", () => {
     });
 
     test("manually creating union types", () => {
-      /** We can also describe union types ourselves, and we can union together any valid types. */
-      type FixThisType = any;
+      /**
+       * We can also describe union types ourselves, and
+       * we can union together any valid types. Update
+       * FixThisType to allow strings or numbers. */
+      // type FixThisType = any;
+      type FixThisType = string | number;
+
       let aString: FixThisType = "hello";
       let anotherString: FixThisType = "world";
       let aNumber: FixThisType = 2;
@@ -25,7 +30,13 @@ describe("composite types", () => {
     });
 
     test("this allows us to constrain types in interesting ways", () => {
-      type FixThisType = any;
+      /**
+       * Being able to union together any valid types means
+       * literals, too. Update FixThisType to make this type
+       * test pass.
+       */
+      // type FixThisType = any;
+      type FixThisType = boolean | "this string";
 
       let aBool: FixThisType = true;
 
@@ -36,51 +47,138 @@ describe("composite types", () => {
       // typings: expect-error
       let aNull: FixThisType = null;
     });
+
     test("unions can be between types of any shape", () => {
-      type AnObjectOrAString =
-        | {
-            type: "animal" | "mineral" | "vegetable";
-            name: string;
-          }
-        | "NOT OF EARTH";
+      // type EarthlingsAndAliens = any;
+      type EarthlingsAndAliens =
+        | { type: "animal" | "vegetable" | "mineral"; name: string }
+        | { homePlanet: string; phaser: boolean };
 
-      let fido: AnObjectOrAString = { type: "animal", name: "Fido" };
-      let zucchini: AnObjectOrAString = { type: "vegetable", name: "Zucchini" };
-      let quartz: AnObjectOrAString = { type: "mineral", name: "Quartz" };
-      let nebula: AnObjectOrAString = "NOT OF EARTH";
+      /**
+       * Update EarthlingsAndAliens to allow these values... */
+      let dog: EarthlingsAndAliens = { type: "animal", name: "Fido" };
+      let cat: EarthlingsAndAliens = { type: "animal", name: "Suki" };
+      let zucchini: EarthlingsAndAliens = {
+        type: "vegetable",
+        name: "Zucchini"
+      };
+      let rose: EarthlingsAndAliens = { type: "vegetable", name: "Rose" };
+      let quartz: EarthlingsAndAliens = { type: "mineral", name: "Quartz" };
+      let diamond: EarthlingsAndAliens = { type: "mineral", name: "Diamond" };
+      let alienBlaxnor: EarthlingsAndAliens = {
+        homePlanet: "Jupiter",
+        phaser: true
+      };
+      let alienXanter: EarthlingsAndAliens = {
+        homePlanet: "Mars",
+        phaser: false
+      };
+
+      /**
+       * ...But not these values */
+      // typings:expect-error
+      let star: EarthlingsAndAliens = "Sirius";
 
       // typings:expect-error
-      let neon: AnObjectOrAString = { type: "gas", name: "Neon" };
+      let galaxy: EarthlingsAndAliens = {
+        type: "LocalGalaxy",
+        name: "Milky Way"
+      };
 
       // typings:expect-error
-      let noneOfTheAbove: AnObjectOrAString = "this is just a string";
+      let asteroid: EarthlingsAndAliens = {
+        homePlanet: false,
+        name: "Asteroid"
+      };
     });
-    test("type narrowing", () => {
+  });
+
+  describe("intersections", () => {
+    test("basic intersection", () => {
+      /**
+       * Intersections allow us to combine type definitions to
+       * create a single type with all the attributes of both types.
+       * This is useful when we have some set of properties that are
+       * shared among many different types. */
+      type Cat = {
+        animalType: "cat";
+        breedName: string;
+        coloration: "tabby" | "solid-colored" | "spotted";
+      };
+      type Dog = {
+        animalType: "dog";
+        breedName: string;
+        size: "teacup" | "toy" | "standard";
+      };
+      type PetInfo = { name: string; familyName: string };
+
+      type PetCat = PetInfo & Cat;
+      type PetDog = PetInfo & Dog;
+
+      /**
+       * Describe a valid PetCat and PetDog below.
+       * HINT: Use autocompletion to help you fill in the properties. */
+      // const sukiTheCat: PetCat = {};
+      const sukiTheCat: PetCat = {
+        animalType: "cat",
+        breedName: "american shorthair",
+        coloration: "spotted",
+        familyName: "McQuater",
+        name: "Suki"
+      };
+      // const finnTheDog: PetDog = {};
+      const finnTheDog: PetDog = {
+        animalType: "dog",
+        breedName: "floofer",
+        familyName: "Colthorp",
+        name: "Finn",
+        size: "standard"
+      };
+
+      function announcePet(pet: PetInfo) {
+        return `This is ${pet.familyName} family pet, ${pet.name}.`;
+      }
+      /**
+       * Notice that announcePet will take any object that's
+       * structurally compatible with type Pet. */
+      announcePet(sukiTheCat);
+      announcePet(finnTheDog);
+    });
+    test("type narrowing and exhaustiveness", () => {
       function classify(n: number) {
         if (n < 0) return "negative";
         if (n > 0) return "positive";
         return "zero";
       }
 
-      /**TS can narrow types as we move through control flow.*/
-      function describeNumber(num: number) {
-        // The type of "value" indicates that it will be one of three literals.
+      /**
+       * TS can narrow types as we move through control flow.
+       * This makes it easy to tell if we've handled all cases.
+       * Try commenting out one of the return statements in
+       * describeNumber and see what happens.
+       */
+      function describeNumber(num: number): string {
         const value = classify(3);
 
         if (value === "negative") {
+          value;
           return `${num} is a negative number`;
         } else if (value === "positive") {
+          value;
           return `${num} is a positive number`;
         } else {
-          type _t1 = AssertAssignable<"zero", typeof value>;
+          value;
+          return `${num} is zero`;
         }
       }
 
-      // Try changing this type to prove that the function below will always
-      // return one of these two strings.
-      type FixThisType = any;
+      /**
+       * Try changing the input FruitType to prove that the
+       * function below will always return one of these two strings.*/
+      // type FruitType = string;
+      type FruitType = "red" | "yellow";
 
-      function appleOrBanana(fruitColor: FixThisType): "apple" | "banana" {
+      function appleOrBanana(fruitColor: FruitType): "apple" | "banana" {
         switch (fruitColor) {
           case "red":
             return "apple";
@@ -88,17 +186,47 @@ describe("composite types", () => {
             return "banana";
         }
       }
+
+      /**
+       * So, if we carefully constrain our input and output types,
+       * TypeScript can do a lot of the work for us: no more
+       * checking if a property exists, or for "this shouldn't happen"
+       * states. We validate object shapes once - when we create them -
+       * and TypeScript proves that our constraints are met throughout
+       * the codebase.
+       */
     });
     test("discriminated unions", () => {
       /**
-       * TS can narrow types as we move through control flow. This gives
-       * us a way to prove that we're not going to accidentally pass around
-       * invalid objects.
+       * TS can narrow types as we move through control flow. When
+       * we're handling different cases of a union type, it's helpful
+       * to have a single property that is shared between all the cases,
+       * but has a different value for each case in the union. This allows
+       * us to use type narrowing to determine which case we're dealing with.
+       *
+       * This is great for when we have a bunch of similar objects with
+       * different constraints.
+       *
+       * Change FruitType so this test passes- so that it proves that
+       * apples are red and can be polished, and bananas are yellow
+       * and can be peeled.
        */
-      type FixThisType = any;
+      // type FruitType = {
+      //   type: string;
+      //   color: string;
+      //   polish: () => {} | null;
+      //   peel: () => {} | null;
+      // };
+      type FruitType =
+        | {
+            type: "apple";
+            color: "red";
+            polish: () => {};
+          }
+        | { type: "banana"; color: "yellow"; peel: () => {} };
 
-      function doSomething(fruit: FixThisType) {
-        switch (fruit.color) {
+      function doSomething(fruit: FruitType) {
+        switch (fruit.type) {
           case "apple":
             type _t1 = AssertAssignable<{ color: "red" }, typeof fruit>;
             // typings:expect-error
@@ -107,7 +235,9 @@ describe("composite types", () => {
             fruit.polish();
             // typings:expect-error
             fruit.peel();
+            break;
           case "banana":
+            fruit
             type _t3 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
             // typings:expect-error
             type _t4 = AssertAssignable<{ color: "red" }, typeof fruit>;
@@ -115,57 +245,81 @@ describe("composite types", () => {
             fruit.peel();
             // typings:expect-error
             fruit.polish();
+            break;
         }
       }
     });
   });
-  describe("intersections", () => {
-    test("basic intersection", () => {
-      /** 
-       * Intersections allow us to combine type definitions to 
-       * create a single type with all the attributes of both types.
-       * This is useful when we have some set of properties that are 
-       * shared among many different types.
-       */
-      type Cat = {
-        breedName: string;
-        coloration: "tabby" | "solid" | "spotted";
-      };
-      type Dog = { breedName: string; size: "small" | "medium" | "large" };
-      type Pet = { name: string; familyName: string };
+});
+test("unions & intersections", () => {
+  /**
+   * Unions and intersections can be combined to make complex types.
+   * Let's revisit our pet types.
+   */
+  type Cat = {
+    animalType: "cat";
+    breedName: string;
+    coloration: "tabby" | "solid-colored" | "spotted";
+  };
+  type Dog = {
+    animalType: "dog";
+    breedName: string;
+    size: "teacup" | "toy" | "standard";
+  };
+  type PetInfo = { name: string; familyName: string };
 
-      type PetCat = Pet & Cat;
-      type PetDog = Pet & Dog;
+  /**
+   * Write a type that describes both pet cats and pet dogs.
+   */
+  // type Pet = any;
+  type Pet = (Cat | Dog) & PetInfo;
 
-      // Describe a valid PatCat and PetDog below.
-      const sukiTheCat: PetCat = {}
-      const dixieTheDog: PetDog = {}
-    });
+  /**
+   * What if we want to be able to announce cats and dogs in more detail?
+   * Write a function that takes pet cats and pet dogs and announces
+   * them in detail. Use the tests below to drive your implementation.
+   */
+  // function announcePetDetail(pet: Pet) {}
+  function announcePetDetail(pet: PetCat | PetDog) {
+    return `This is the ${pet.familyName} family ${pet.animalType}, ${
+      pet.name
+    } the ${pet.animalType === "cat" ? pet.coloration : pet.size} ${
+      pet.breedName
+    }.`;
+  }
 
-    test("Distributive property", () => {
-      /** Intersections and unions can be combined to  */
-    });
-  });
+  expect(
+    announcePetDetail({
+      animalType: "cat",
+      breedName: "American Shorthair",
+      coloration: "tabby",
+      name: "Isabow",
+      familyName: "Robb"
+    })
+  ).toEqual(
+    "This is the Robb family cat, Isabow the tabby American Shorthair."
+  );
+  expect(
+    announcePetDetail({
+      animalType: "dog",
+      breedName: "Pitbull",
+      size: "standard",
+      name: "Stella",
+      familyName: "Brockett"
+    })
+  ).toEqual("This is the Brockett family dog, Stella the standard Pitbull.");
+
+  /** Extra credit: Find a different way to describe your Pet type. */
+  // type AltPet = any;
+  type AltPet = (PetInfo & Cat) | (PetInfo & Dog);
+  type _t1 = AssertAssignable<AltPet, Pet>;
+  type _t2 = AssertAssignable<Pet, AltPet>;
 });
 
-type Herb = "Cilantro" | "Basil" | "Green Onions";
-
-type Sauce = "Pico" | "Salsa Roja" | "Salsa Verde";
-
-type Supreme = {
-  tomato: boolean;
-  sourCream: boolean;
-  lettuce: boolean;
-};
-
-type Protein =
-  "Chicken"|
-  "Tempeh"|
-  "Fish"|
-  "Beef"|
-  "Carnitas"
-
-enum Shell {
-  CornTortilla,
-  FlourTortilla
+function describeNumber(value: "negative" | "positive" | "zero") {
+  if (value === "negative") {
+    return "that is a negative number";
+  } else if (value === "positive") {
+    return "that is a positive number";
+  }
 }

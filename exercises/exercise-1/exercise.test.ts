@@ -121,7 +121,7 @@ describe("More types", () => {
       return `Hello, ${name}!`;
     }
     /** And we can use them where they're compatible with other types */
-    let specialName: MySpecialString = "Dixie the Good";
+    let specialName: MySpecialString = "Dixie the Good Dog";
     sayHello(specialName);
 
     /** 
