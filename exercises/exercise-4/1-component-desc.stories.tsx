@@ -7,7 +7,7 @@ import { ComponentDesc } from "./code";
 storiesOf("Exercise 4.1: ComponentDesc", module)
   .add("Intro", () => (
     <div>
-      <h1>Create an Component to describe meal constituents</h1>
+      <h1>Create a ComponentDesc component to describe meal constituents</h1>
       <p>
         Let's start by creating an component to describe food components with
         their emoji icon.

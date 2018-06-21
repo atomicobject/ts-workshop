@@ -7,10 +7,9 @@ import "./styles.css";
 storiesOf("Exercise 4.2: Totals", module)
   .add("Intro", () => (
     <div>
-      <h1>Create a component for showing </h1>
+      <h1>TotalSection</h1>
       <p>
-        Let's start by creating an Icon component that we can use to render our
-        emoji icons.
+        Create a component for showing the Subtotal, Tip, and Total at the bottom of the receipt.
       </p>
     </div>
   ))

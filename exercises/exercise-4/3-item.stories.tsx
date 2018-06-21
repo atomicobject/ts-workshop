@@ -8,10 +8,9 @@ import { EntreeType, Protein, RiceType, Topping } from "../exercise-3/code";
 storiesOf("Exercise 4.3: Item", module)
   .add("Intro", () => (
     <div>
-      <h1>Create an Icon Component</h1>
+      <h1>ItemSummary component</h1>
       <p>
-        Let's start by creating an Icon component that we can use to render our
-        emoji icons.
+        Now for rendering individual line items in our receipt.
       </p>
     </div>
   ))
