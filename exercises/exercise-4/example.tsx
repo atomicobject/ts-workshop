@@ -35,12 +35,12 @@ export const StaticExample: React.SFC<{}> = props => (
 
       <div className="item-total">Total: $11</div>
 
-      <div className="awesome-sauce-backdrop">🤯</div>
+      <div className="awesome-sauce-backdrop">😻</div>
     </div>
 
     <div className="line-item">
       <h3 className="item-kind">
-        🥪 Sandwich
+        🍞 Sandwich
       </h3>
 
       <ul className="addition-list">
@@ -50,7 +50,7 @@ export const StaticExample: React.SFC<{}> = props => (
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
-          <div className="addition-label">🍃 Lettuce</div>
+          <div className="addition-label">🥗 Lettuce</div>
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>

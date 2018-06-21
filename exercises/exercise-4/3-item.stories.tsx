@@ -8,10 +8,9 @@ import { EntreeType, Protein, RiceType, Topping } from "../exercise-3/code";
 storiesOf("Exercise 4.3: Item", module)
   .add("Intro", () => (
     <div>
-      <h1>Create an Icon Component</h1>
+      <h1>ItemSummary component</h1>
       <p>
-        Let's start by creating an Icon component that we can use to render our
-        emoji icons.
+        Now for rendering individual line items in our receipt.
       </p>
     </div>
   ))
@@ -45,7 +44,7 @@ storiesOf("Exercise 4.3: Item", module)
 
       <div className="item-total">Total: $11</div>
 
-      <div className="awesome-sauce-backdrop">🤯</div>
+      <div className="awesome-sauce-backdrop">😻</div>
     </div>,
 
       // Should be produced by:
@@ -79,7 +78,7 @@ storiesOf("Exercise 4.3: Item", module)
     expectToLookLike(
       // Something that looks like:
       <div className="line-item">
-        <h3 className="item-kind">🥪 Sandwich</h3>
+        <h3 className="item-kind">🍞 Sandwich</h3>
 
         <ul className="addition-list">
           <li>
@@ -88,7 +87,7 @@ storiesOf("Exercise 4.3: Item", module)
           </li>
           <li>
             <div className="crown-marker">&nbsp;</div>
-            <div className="addition-label">🍃 Lettuce</div>
+            <div className="addition-label">🥗 Lettuce</div>
           </li>
           <li>
             <div className="crown-marker">&nbsp;</div>

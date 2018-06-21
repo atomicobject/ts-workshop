@@ -1,4 +1,7 @@
 {
   "editor.formatOnSave": false,
-  "typescript.showUnused": false
+  "typescript.showUnused": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false
+  }
 }

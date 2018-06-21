@@ -42,11 +42,11 @@ export type Protein =
 export type EntreeType =
   | "taco" // 🌮
   | "sushi" // 🍣
-  | "sandwich"; // 🥪
+  | "sandwich"; // 🍞
 
 export type Topping =
   | "cheese" // 🧀
-  | "lettuce" // 🍃
+  | "lettuce" // 🥗
   | "tomato"; // 🍅
 
 export type RiceType =
