@@ -28,6 +28,8 @@ export interface AdditionSummaryProps {
   /** Type of protein/topping/etc. */
   additionType: AllComponents;
 }
+
+// export type Annotation = "pricey" | "nuclear";
 export enum Annotation {
   /** Gets a crown */
   Pricey = "Pricey",
