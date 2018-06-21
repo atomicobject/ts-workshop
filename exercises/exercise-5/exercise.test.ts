@@ -15,7 +15,7 @@ describe("orderToReceipt", () => {
       total: 0
     }
 
-    expect(orderToReceipt(argument)).toEqual(expected);
+    expect(orderToReceipt(argument, 0)).toEqual(expected);
   })
 
   it("Converts an empty order to a valid receipt", () => {
@@ -40,19 +40,53 @@ describe("orderToReceipt", () => {
               additionType: "chicken",
             },
           ],
-          itemTotal: 6,
+          itemTotal: 7.50,
           mindBlowing: false
         }
       ],
-      subtotal: 0,
-      tip: 0,
-      total: 0
+      subtotal: 7.5,
+      tip: 5,
+      total: 12.5
     }
 
-    expect(orderToReceipt(argument)).toEqual(expected);
+    expect(orderToReceipt(argument, 5)).toEqual(expected);
   })
   
-  pending("Translates sandwiches")
+  // it("Translates sandwiches", () => {
+  //   const argument: Order = {
+  //     lineItems: [
+  //       {
+  //         type: "sandwich",
+  //         protein: "portabelloCap",
+  //         toppings: ["cheese", "lettuce"],
+  //         awesomeSauce: true,
+  //       }
+  //     ]
+  //   }
+
+  //   const expected: ReceiptProps = {
+  //     items: [
+  //       {
+  //         entreeType: "sandwich",
+  //         additions: [
+  //           {
+  //             additionType: "portabelloCap",
+  //             annotation: "Pricey"
+  //           },
+  //         ],
+  //         itemTotal: 7.50,
+  //         mindBlowing: false
+  //       }
+  //     ],
+  //     subtotal: 0,
+  //     tip: 5,
+  //     total: 0
+  //   }
+
+  //   expect(orderToReceipt(argument, 3)).toEqual(expected);
+
+  // })
+
   pending("Translates sushi")
   pending("Handles awesome sauce, which makes the order mind blowing")
   pending("Marks pricey proteins")
