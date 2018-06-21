@@ -129,14 +129,14 @@ export function priceOrder(order: Order): number {
 /* Monster's foodie truck takes orders on paper slips, 
    but sometimes people don't read the menu before they
    order. */
-// type PaperOrder = {
-//   type?: EntreeType;
-//   protein?: Protein;
-//   awesomeSauce?: boolean;
-//   extraTaco?: boolean;
-//   riceType?: RiceType;
-//   salsa?: boolean;
-//   toppings?: Topping[];
-// };
+type PaperLineItem = {
+  type: EntreeType;
+  protein: Protein;
+  awesomeSauce: boolean;
+  extraTaco?: boolean;
+  riceType?: RiceType;
+  salsa?: boolean;
+  toppings?: Topping[];
+};
 
-// function validateItem(order: PaperOrder): LineItem {}
+type _t1 = AssertAssignable<PaperLineItem, LineItem>

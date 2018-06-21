@@ -280,7 +280,7 @@ test("unions & intersections", () => {
    * them in detail. Use the tests below to drive your implementation.
    */
   // function announcePetDetail(pet: Pet) {}
-  function announcePetDetail(pet: PetCat | PetDog) {
+  function announcePetDetail(pet: Pet & Cat | Pet & Dog) {
     return `This is the ${pet.familyName} family ${pet.animalType}, ${
       pet.name
     } the ${pet.animalType === "cat" ? pet.coloration : pet.size} ${
