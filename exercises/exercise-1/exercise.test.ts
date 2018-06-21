@@ -34,34 +34,6 @@ test("and type annotations", () => {
   let arrayOfBools: boolean[] = [true, false];
 });
 
-test("interfaces describe objects", () => {
-  /**
-   * TypeScript gets more interesting when we introduce structural typing.
-   * We can describe object shapes as types.
-   */
-  interface FoodItem {
-    name: string;
-    cost: {
-      dollars: number;
-      cents: number;
-    }
-  }
-
-  let muffin: FoodItem = {
-    cost: { cents: 50, dollars: 3 },
-    name: "Muffin"
-  };
-
-  /** 
-   * This helps us be clear with ourselves and others about what properties
-   * an object should have.
-   */
-  // typings:expect-error
-  let notAFoodItem: FoodItem = {
-    name: "plate",
-  }
-});
-
 test("types enforce constraints", () => {
   /**
    * Once a variable has a type, the type checker will fail
@@ -80,37 +52,150 @@ test("types enforce constraints", () => {
   let shouldBeAString: string = true;
 });
 
+test("object types", () => {
+  /**
+   * TypeScript gets more interesting when we introduce structural typing.
+   * We can describe object shapes as types.
+   */
+  let fruit: { name: string; color: string } = { name: "apple", color: "red" };
+
+  // typings:expect-error
+  let notAFruit: { name: string; color: string } = { color: "red" };
+  // typings:expect-error
+  let stillNotAFruit: { name: string; color: string } = "hello";
+  // typings:expect-error
+  let reallyNotAFruit: { name: string; color: string } = { foo: false };
+});
+test("type aliases", () => {
+  /**
+   * These types are a little more complicated to write than the primatives.
+   * What if we want to use them again? We can describe aliases for types,
+   * and we can use them anywhere that we would use a type.
+   */
+  type Fruit = { name: string; color: string };
+
+  let strawberry: Fruit = { color: "red", name: "Strawberry" };
+  let lemon: Fruit = { color: "yellow", name: "Lemon" };
+
+  // typings:expect-error
+  let plate: Fruit = { size: "small", color: "blue" };
+});
+
+test("interfaces", () => {
+  /**
+   * Interfaces are another way to describe object types.
+   * Functionally speaking, they operate just like a type
+   * alias for an object. There are some subtle differences
+   * in how error messages are formatted, and a few other
+   * differences we'll touch on later, but for now you can
+   * think of these syntaxes as interchangeable.
+   */
+  type FoodItemAlias = {
+    name: string;
+    cost: {
+      dollars: number;
+      cents: number;
+    };
+  };
+
+  interface FoodItemInterface {
+    name: string;
+    cost: {
+      dollars: number;
+      cents: number;
+    };
+  }
+
+  let muffin: FoodItemAlias = {
+    cost: { cents: 50, dollars: 3 },
+    name: "Muffin"
+  };
+  let altMuffin: FoodItemInterface = {
+    cost: { cents: 50, dollars: 3 },
+    name: "Muffin"
+  };
+
+  // typings:expect-error
+  let notAFoodItem: FoodItemAlias = {
+    name: "plate"
+  };
+
+  /**
+   * Remember that you can use any kind of type definition
+   * anywhere that you would use the others.
+   */
+  type Money = {
+    dollars: number;
+    cents: number;
+  };
+
+  type AltFoodItem = {
+    name: string;
+    cost: Money;
+  };
+
+  let altAltMuffin: AltFoodItem = {
+    cost: { cents: 50, dollars: 3 },
+    name: "Muffin"
+  };
+});
+
 test("function types", () => {
   /**
-   * Type annotations get more powerful when we start using 
+   * Type annotations get more powerful when we start using
    * them with functions. Check out the type of declareFavoriteFood.
    */
   function declareFavoriteFood(name: string, food: string) {
-    return `${name}'s favorite food is ${food}`;
+    return `${name}'s favorite food is ${food}.`;
   }
-  type declareFavoriteFoodType = typeof declareFavoriteFood;
-
   /** TS knows the return type of declareFavoriteFood. */
   let waldosFavorite = declareFavoriteFood("Waldo", "chips");
-
   /**
-   * If we try to pass a value of the wrong type, we'll get an error- 
-   * just like we did when assigning a variable to the wrong type.
+   * If we try to pass a value of the wrong type as an arg, we'll 
+   * get an error- just like we did when assigning a variable 
+   * to the wrong type.
    */
   // typings:expect-error
   let invalidInput = declareFavoriteFood("Waldo", true);
+
+  /**
+   * We can describe the type of the _function_, too.
+   */
+  let declarationFunction: (
+    name: string,
+    food: string
+  ) => string = declareFavoriteFood;
+
+  let declareNotLikeFood: (name: string, food: string) => string = (
+    name: string,
+    food: string
+  ) => {
+    return `${name} doesn't like ${food}.`;
+  };
+
+  /** 
+   * Being able to describe function signatures as types
+   * makes it much easier to treat functions like data. 
+   */
+  function announceFeelings(foodFeelings: (name: string, food: string) => string) {
+    const result = foodFeelings("Rachael", "bell peppers");
+    return `I asked, and ${result}`
+  }
+
+  expect(announceFeelings(declareFavoriteFood)).toEqual("I asked, and Rachael's favorite food is bell peppers.")
+  expect(announceFeelings(declareNotLikeFood)).toEqual("I asked, and Rachael doesn't like bell peppers.")
 });
 
 test("the 'any' type", () => {
-  /** 
+  /**
    * TS uses the keyword 'any' for a type that could be anything.
    */
   let anything: any = "foo";
   anything = true;
   anything = 5;
 
-  /** 
-   * In this example, we haven't told TS what the args of this function 
+  /**
+   * In this example, we haven't told TS what the args of this function
    * should be, so it infers them to be 'any'. Implicit 'any' types
    * aren't allowed for function args, so we get an error:
    */
@@ -123,109 +208,21 @@ test("the 'any' type", () => {
   function typedDeclareFavoriteFood(name: any, food: any) {
     return `${name}'s favorite food is ${food}`;
   }
-  /** 
-   * Using 'any' is risky, because it effectively disables 
-   * type checking: fix this
+  /**
+   * Using 'any' is risky, because it effectively disables
+   * type checking:
    * */
-  let thisWillBlowUp = typedDeclareFavoriteFood(1, 2)
+  let thisWillBlowUp = typedDeclareFavoriteFood(null, 2);
 
   /** We'll come back to 'any' in the next exercise. */
 });
 
-test("a type alias", () => {
-  /**
-   * We can declare names for our own types.
-   */
-  type MySpecialString = string;
-
-  type Foo = {
-    bar: string;
-  }
-
-  function sayHello(name: string) {
-    return `Hello, ${name}!`;
-  }
-  /** And we can use them where they're compatible with other types */
-  let specialName: MySpecialString = "Dixie the Good Dog";
-  sayHello(specialName);
-
-  /** 
-   * But, notice that declaring a type alias doesn't inherently 
-   * change the way the type operates.
-   */
-  function specialSayHello(name: MySpecialString) {
-    return `Hello, ${specialName}, Your Excellence.`;
-  }
-
-  let aCommonerName: string = "John";
-  specialSayHello(aCommonerName); // No type error
-  /** 
-   * string and MySpecialString are compatible; we can pass either one 
-   * in any place the other is expected.
-   */
-});
-
-test("literal types", () => {
-  /** Type aliases get more useful when we move beyond primative types. */
-  type ALiteralString = "just this one";
-
-  let theRightLiteral: ALiteralString = "just this one"
-  
-  // typings:expect-error
-  let notThatLiteral: ALiteralString = "some other string";
-});
-
-test("infers different types based on keywords", () => {
-  let regularString = "hello";
-  
-  /** 
-   * Check out the type of literalString! It's a string literal, 
-   * which means TS knows it can only be this exact value.
-   */
-  const literalString = "goodnight";
-
-  /** This holds for other types of primatives, too. */
-  const literalBool = true;
-  const literalNumber = 2;
-});
-
-test("describes a literal", () => {
-  /**
-   * Let's try writing our own type. Update FixThisType to allow only a single literal.
-   */
-  type FixThisType = "hello";
-
-  let hello: FixThisType = "hello";
-
-  // typings:expect-error
-  let world: FixThisType = "world";
-
-  // typings:expect-error
-  let goodnight: FixThisType = "goodnight";
-
-  // typings:expect-error
-  let moon: FixThisType = "moon";
-});
-
-test("literals in control flow", () => {
-  /**
-   * TS understands control flow. Take a look at the type of 'fruit' inside of these blocks.
-   */
-  function isBanana(fruit: string){
-    if (fruit === "banana") {
-      return `${fruit} is a banana`
-    } else {
-      return ` ${fruit} is not a banana`
-    }
-  } 
-})
-
 test("structural compatibility", () => {
-  /** 
-   * Type annotations are just there to help us describe object shapes. 
-   * We can use differently named types interchangably, as long as they 
+  /**
+   * Type annotations are just there to help us describe object shapes.
+   * We can use differently named types interchangably, as long as they
    * are structurally compatible.
-  */
+   */
   interface DeliItem {
     name: string;
     cost: number;
@@ -259,7 +256,7 @@ test("structural compatibility", () => {
 
   // Or even anonymous types
   let mysteryMeat = deliPriceStatement({ name: "Mystery Meat", cost: 1 });
-  
+
   interface FlavoredFoodItem {
     name: string;
     cost: number;
@@ -272,14 +269,14 @@ test("structural compatibility", () => {
     flavorProfile: "salty"
   };
 
-  /** 
-   * Flavored food is structurally compatible with regular food because 
+  /**
+   * Flavored food is structurally compatible with regular food because
    * its properties are a superset of regular food's.
-  */
+   */
   let freshBakedCheezits = bakeryPriceStatement(cheezits);
 
   function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
-    return `That ${item.flavorProfile} ${item.name} will be ${item.cost}.`;
+    return `That ${item.flavorProfile} ${item.name} will be $${item.cost}.`;
   }
 
   // But regular food isn't assignable to a type that expects flavored food
@@ -292,3 +289,28 @@ test("structural compatibility", () => {
   type _t2 = AssertAssignable<FlavoredFoodItem, BakeryItem>;
 });
 
+test("Writing our own types", () => {
+  /**
+   * Let's write a few types that enforce constraints.
+   */
+  type FixThisType = any;
+  const jaime: FixThisType = "Jaime"
+  const meredith: FixThisType = "Meredith"
+  // typings:expect-error
+  const yes: FixThisType = true;
+
+  type FixThisOneToo = any;
+  const nellie = { type: "dog", disposition: "good" }
+  const roxy = { type: "dog", disposition: "aloof" }
+  // typings:expect-error
+  const friday = { type: "cat", fluffy: "very" }
+  // typings:expect-error
+  const cauchy = { type: "cat", fluffy: "not really" }
+
+  type AndThisOne = any;
+  const sayHello: AndThisOne = (name: string) => { return `Hello, ${name}.`}
+  const sayGoodbye: AndThisOne = (name: string) => { return `Goodbye, ${name}.`}
+  // typings:expect-error
+  const isFido: AndThisOne = (name: string) => { return name === "Fido"};
+
+})
