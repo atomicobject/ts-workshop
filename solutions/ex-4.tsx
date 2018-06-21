@@ -1,18 +1,15 @@
 import { Protein, Topping, EntreeType, RiceType } from "../exercises/exercise-3/code";
 import React from "react";
-import { Flavor } from "../exercises/util";
-
-export type Dollars = Flavor<number, "dollars">;
 
 export interface ReceiptProps {
   /** Array of line item summaries */
   items: ItemSummaryProps[];
   /** Order subtotal */
-  subtotal: Dollars;
+  subtotal: number;
   /** Tip amount */
-  tip: Dollars;
+  tip: number;
   /** Order total */
-  total: Dollars;
+  total: number;
 }
 export interface ItemSummaryProps {
   /** Entree type – determines emoji/label */
@@ -22,13 +19,13 @@ export interface ItemSummaryProps {
   /** Backdrop on/off */
   mindBlowing: boolean;
   /** Item total beneath extras */
-  itemTotal: Dollars;
+  itemTotal: number;
 }
 export interface AdditionSummaryProps {
-  /** Type of protein/topping/etc. */
-  additionType: AllComponents;
   /** Special indicator, pricey or nuclear? */
   annotation?: Annotation;
+  /** Type of protein/topping/etc. */
+  additionType: AllComponents;
 }
 export enum Annotation {
   /** Gets a crown */
@@ -91,12 +88,13 @@ type TotalsProps = {
   total: number;
   subtotal: number;
 };
+
 export const TotalSection: React.SFC<TotalsProps> = props => (
   <div className="total-section">
-    <div className="subtotal-info">{`Subtotal: $${props.subtotal}`}</div>
-    <div className="subtotal-info">{`Tip: $${props.tip}`}</div>
+    <div className="subtotal-info">{`Subtotal: $${props.subtotal.toFixed(2)}`}</div>
+    <div className="subtotal-info">{`Tip: $${props.tip.toFixed(2)}`}</div>
 
-    <div className="grand-total">{`Total: $${props.total}`}</div>
+    <div className="grand-total">{`Total: $${props.total.toFixed(2)}`}</div>
   </div>
 );
 
