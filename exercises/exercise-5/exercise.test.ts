@@ -96,6 +96,4 @@ describe("orderToReceipt", () => {
 
     expect(orderToReceipt(argument, 3)).toEqual(expected);
   })
-
-  pending("Translates sushi")
 })
