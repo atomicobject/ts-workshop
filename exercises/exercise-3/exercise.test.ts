@@ -122,7 +122,7 @@ test("correctly prices a simple order", () => {
       }
     ]
   };
-  expect(priceOrder(order)).toEqual(17);
+  expect(priceOrder(order)).toEqual(18);
 });
 
 test("correctly prices a complicated order", () => {
@@ -155,5 +155,5 @@ test("correctly prices a complicated order", () => {
       }
     ]
   };
-  expect(priceOrder(order)).toEqual(28.5);
+  expect(priceOrder(order)).toEqual(38.5);
 });
