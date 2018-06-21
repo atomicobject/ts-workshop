@@ -3,20 +3,14 @@ import React from "react";
 import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { ItemSummary, Annotation, Receipt } from "./code";
-import {
-  EntreeType,
-  Protein,
-  Topping
-} from "../exercise-3/code";
+import { EntreeType, Protein, Topping } from "../exercise-3/code";
 import { StaticExample } from "./example";
 
 storiesOf("Exercise 4.4: The full Receipt", module)
   .add("Intro", () => (
     <div>
       <h1>Create a Receipt Component</h1>
-      <p>
-        Now let's create our full Receipt example.
-      </p>
+      <p>Now let's create our full Receipt example.</p>
     </div>
   ))
   .add(
@@ -27,9 +21,6 @@ storiesOf("Exercise 4.4: The full Receipt", module)
 
       // Should be produced by:
       () => (
-        // <ReplaceMe />
-        // with
-
         <Receipt
           subtotal={16}
           tip={4}
@@ -61,15 +52,15 @@ storiesOf("Exercise 4.4: The full Receipt", module)
               mindBlowing: false,
               itemTotal: 5,
               additions: [
-            {
-              additionType: "chicken",
-            },
-            {
-              additionType: "cheese",
-            },
-            {
-              additionType: "tomato",
-            }
+                {
+                  additionType: "chicken"
+                },
+                {
+                  additionType: "cheese"
+                },
+                {
+                  additionType: "tomato"
+                }
               ]
             }
           ]}
@@ -77,7 +68,8 @@ storiesOf("Exercise 4.4: The full Receipt", module)
       )
     )
   )
-  .add("Your example 1", () =>
-    <ReplaceMe />
+  .add(
+    "Your example 1",
+    () => <ReplaceMe />
     // with your own Receipt
-  )
+  );
