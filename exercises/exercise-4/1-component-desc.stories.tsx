@@ -45,11 +45,11 @@ storiesOf("Exercise 4.1: ComponentDesc", module)
     "Portobello Cap",
     expectToLookLike("🍄 Portobello Cap", () => <ComponentDesc type={"portabelloCap"} />)
   )
- .add("brownRice", expectToLookLike( "🍘 brownRice", () => <ComponentDesc type={"brownRice"} />))
- .add("whiteRice", expectToLookLike("🍙 whiteRice", () => <ComponentDesc type={"whiteRice"} />))
- .add("cheese", expectToLookLike("🧀 cheese", () => <ComponentDesc type={"cheese"} />))
- .add("lettuce", expectToLookLike("🍃 lettuce", () => <ComponentDesc type={"lettuce"} />))
- .add("tomato", expectToLookLike("🍅 tomato", () => <ComponentDesc type={"tomato"} />))
+ .add("brown rice", expectToLookLike( "🍘 Brown Rice", () => <ComponentDesc type={"brownRice"} />))
+ .add("white rice", expectToLookLike("🍙 White Rice", () => <ComponentDesc type={"whiteRice"} />))
+ .add("cheese", expectToLookLike("🧀 Cheese", () => <ComponentDesc type={"cheese"} />))
+ .add("lettuce", expectToLookLike("🥗 Lettuce", () => <ComponentDesc type={"lettuce"} />))
+ .add("tomato", expectToLookLike("🍅 Tomato", () => <ComponentDesc type={"tomato"} />))
   .add(
     "Extra Taco",
     expectToLookLike("🌮 Extra Taco", () => <ComponentDesc type={"extraTaco"} />)

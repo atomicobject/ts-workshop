@@ -47,7 +47,7 @@ export type EntreeType =
 
 export type Topping =
   | "cheese" // 🧀
-  | "lettuce" // 🍃
+  | "lettuce" // 🥗
   | "tomato"; // 🍅
 
 export type RiceType =
@@ -60,7 +60,7 @@ export interface Order {
   lineItems: LineItem[];
 }
 
-export function priceOrder(order: Order): number {}
+// export function priceOrder(order: Order): number {}
 
 /* Monster's foodie truck takes orders on paper slips, 
    but sometimes people don't read the menu before they

@@ -50,7 +50,7 @@ export const StaticExample: React.SFC<{}> = props => (
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
-          <div className="addition-label">🍃 Lettuce</div>
+          <div className="addition-label">🥗 Lettuce</div>
         </li>
         <li>
           <div className="crown-marker">&nbsp;</div>
