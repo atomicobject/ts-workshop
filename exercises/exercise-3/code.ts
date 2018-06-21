@@ -26,7 +26,6 @@ Sandwich................$4
     Cheese
     Lettuce
     Tomato
-
 Add AwesomeSauce to anything for $1!
 */
 
@@ -60,7 +59,7 @@ export interface Order {
   lineItems: LineItem[];
 }
 
-// export function priceOrder(order: Order): number {}
+export function priceOrder(order: Order): number { return 1; }
 
 /* Monster's foodie truck takes orders on paper slips, 
    but sometimes people don't read the menu before they
