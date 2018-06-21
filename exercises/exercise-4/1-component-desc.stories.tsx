@@ -2,12 +2,12 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 import { Protein } from "../exercise-3/code";
 import { expectToLookLike } from "../util/story-helpers";
-import { ComponentDesc } from "./code";
+import { Description } from "./code";
 
-storiesOf("Exercise 4.1: ComponentDesc", module)
+storiesOf("Exercise 4.1: Description", module)
   .add("Intro", () => (
     <div>
-      <h1>Create a ComponentDesc component to describe meal constituents</h1>
+      <h1>Create a Description component to describe meal constituents</h1>
       <p>
         Let's start by creating an component to describe food components with
         their emoji icon.
@@ -16,49 +16,49 @@ storiesOf("Exercise 4.1: ComponentDesc", module)
   ))
   .add(
     "Carnitas",
-    expectToLookLike("🐖 Carnitas", () => <ComponentDesc type={"carnitas"} />)
+    expectToLookLike("🐖 Carnitas", () => <Description type={"carnitas"} />)
   )
   .add(
     "Taco",
-    expectToLookLike("🌮 Taco", () => <ComponentDesc type={"taco"} />)
+    expectToLookLike("🌮 Taco", () => <Description type={"taco"} />)
   )
   .add(
     "Sushi",
-    expectToLookLike("🍣 Sushi", () => <ComponentDesc type={"sushi"} />)
+    expectToLookLike("🍣 Sushi", () => <Description type={"sushi"} />)
   )
   .add(
     "Sandwich",
-    expectToLookLike("🍞 Sandwich", () => <ComponentDesc type={"sandwich"} />)
+    expectToLookLike("🍞 Sandwich", () => <Description type={"sandwich"} />)
   )
   .add(
     "Chicken",
-    expectToLookLike("🐓 Chicken", () => <ComponentDesc type={"chicken"} />)
+    expectToLookLike("🐓 Chicken", () => <Description type={"chicken"} />)
   )
   .add(
     "Jackfruit",
-    expectToLookLike("🍈 Jackfruit", () => <ComponentDesc type={"jackfruit"} />)
+    expectToLookLike("🍈 Jackfruit", () => <Description type={"jackfruit"} />)
   )
-  .add("Tuna", expectToLookLike("🐟 Tuna", () => <ComponentDesc type={"tuna"} />))
+  .add("Tuna", expectToLookLike("🐟 Tuna", () => <Description type={"tuna"} />))
 
-  .add("King Salmon", expectToLookLike("🐟 King Salmon", () => <ComponentDesc type={"kingSalmon"} />))
+  .add("King Salmon", expectToLookLike("🐟 King Salmon", () => <Description type={"kingSalmon"} />))
   .add(
     "Portobello Cap",
-    expectToLookLike("🍄 Portobello Cap", () => <ComponentDesc type={"portabelloCap"} />)
+    expectToLookLike("🍄 Portobello Cap", () => <Description type={"portabelloCap"} />)
   )
- .add("brown rice", expectToLookLike( "🍘 Brown Rice", () => <ComponentDesc type={"brownRice"} />))
- .add("white rice", expectToLookLike("🍙 White Rice", () => <ComponentDesc type={"whiteRice"} />))
- .add("cheese", expectToLookLike("🧀 Cheese", () => <ComponentDesc type={"cheese"} />))
- .add("lettuce", expectToLookLike("🥗 Lettuce", () => <ComponentDesc type={"lettuce"} />))
- .add("tomato", expectToLookLike("🍅 Tomato", () => <ComponentDesc type={"tomato"} />))
+ .add("brown rice", expectToLookLike( "🍘 Brown Rice", () => <Description type={"brownRice"} />))
+ .add("white rice", expectToLookLike("🍙 White Rice", () => <Description type={"whiteRice"} />))
+ .add("cheese", expectToLookLike("🧀 Cheese", () => <Description type={"cheese"} />))
+ .add("lettuce", expectToLookLike("🥗 Lettuce", () => <Description type={"lettuce"} />))
+ .add("tomato", expectToLookLike("🍅 Tomato", () => <Description type={"tomato"} />))
   .add(
     "Extra Taco",
-    expectToLookLike("🌮 Extra Taco", () => <ComponentDesc type={"extraTaco"} />)
+    expectToLookLike("🌮 Extra Taco", () => <Description type={"extraTaco"} />)
   )
   .add(
     "Salsa",
-    expectToLookLike("💃 Salsa", () => <ComponentDesc type={"salsa"} />)
+    expectToLookLike("💃 Salsa", () => <Description type={"salsa"} />)
   )
   .add(
     "Awesome sauce",
-    expectToLookLike("Awesome Sauce", () => <ComponentDesc type={"awesomeSauce"} />)
+    expectToLookLike("Awesome Sauce", () => <Description type={"awesomeSauce"} />)
   )

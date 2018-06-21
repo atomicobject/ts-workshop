@@ -5,7 +5,7 @@ import { StaticExample } from "./example";
 
 import "./styles.css";
 import { Protein } from "../exercise-3/code";
-import { ComponentDesc, AllComponents, TotalSection } from "./code";
+import { Description, FoodStuffs, TotalSection } from "./code";
 
 /*
 

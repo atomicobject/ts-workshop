@@ -26,20 +26,20 @@ export interface AdditionSummaryProps {
   /** Special indicator, pricey or nuclear? */
   annotation?: Annotation;
   /** Type of protein/topping/etc. */
-  additionType: AllComponents;
+  additionType: FoodStuffs;
 }
 
 export type Annotation = "pricey" | "nuclear";
 
 export type Extras = "extraTaco" | "awesomeSauce" | "salsa";
 
-export type AllComponents = Protein | Topping | EntreeType | RiceType | Extras;
+export type FoodStuffs = Protein | Topping | EntreeType | RiceType | Extras;
 export interface IconProps {
-  type: AllComponents;
+  type: FoodStuffs;
 }
 
 
-function descFor(type: AllComponents): string {
+function descFor(type: FoodStuffs): string {
   switch (type) {
     case "carnitas":
       return "🐖 Carnitas";
@@ -50,7 +50,7 @@ function descFor(type: AllComponents): string {
       throw new Error(`Not implemented case ${type}`);
   }
 }
-export const ComponentDesc: React.SFC<IconProps> = props => {
+export const Description: React.SFC<IconProps> = props => {
   return <span>{descFor(props.type)}</span>;
 };
 
