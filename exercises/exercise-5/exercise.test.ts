@@ -96,6 +96,4 @@ describe("orderToReceipt", () => {
   })
 
   pending("Translates sushi")
-  pending("Handles awesome sauce, which makes the order mind blowing")
-  pending("Marks pricey proteins")
 })
