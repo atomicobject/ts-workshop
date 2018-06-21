@@ -2,7 +2,7 @@ import { AssertAssignable } from "../util";
 
 type Foo = Protein | EntreeType;
 
-/* Monster's Foodie Truck Menu
+/* Monster Foodies Food Truck Menu
 
 Add AwesomeSauce to anything for $1!
 
@@ -57,17 +57,17 @@ interface Taco {
   salsa: boolean; // 💃
 }
 
-type RiceType =
+export type RiceType =
   | "brownRice" // 🍘
   | "whiteRice"; // 🍙
 
-interface Sushi {
+export interface Sushi {
   type: "sushi";
   protein: "kingSalmon" | "tuna";
   riceType: RiceType;
 }
 
-interface Sandwich {
+export interface Sandwich {
   type: "sandwich";
   protein: "chicken" | "portabelloCap";
   toppings: Topping[];

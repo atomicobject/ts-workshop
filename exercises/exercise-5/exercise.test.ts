@@ -34,12 +34,10 @@ describe("orderToReceipt", () => {
     const expected: ReceiptProps = {
       items: [
         {
-          basePrice: 6,
           entreeType: "taco",
           additions: [
             {
               additionType: "chicken",
-              additionPrice: 0,
             },
           ],
           itemTotal: 6,
@@ -55,7 +53,7 @@ describe("orderToReceipt", () => {
   })
   
   pending("Translates sandwiches")
-  pending("Translates burritos")
+  pending("Translates sushi")
   pending("Handles awesome sauce, which makes the order mind blowing")
   pending("Marks pricey proteins")
 })

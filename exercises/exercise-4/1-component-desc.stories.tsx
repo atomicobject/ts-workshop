@@ -9,8 +9,8 @@ storiesOf("Exercise 4.1: ComponentDesc", module)
     <div>
       <h1>Create an Component to describe meal constituents</h1>
       <p>
-        Let's start by creating an Icon component that we can use to render our
-        emoji icons.
+        Let's start by creating an component to describe food components with
+        their emoji icon.
       </p>
     </div>
   ))
