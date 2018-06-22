@@ -8,17 +8,17 @@ describe("orderToReceipt", () => {
   it("Converts an empty order to a valid receipt", () => {
     const argument: Order = {
       lineItems: []
-    }
+    };
 
     const expected: ReceiptProps = {
       items: [],
       subtotal: 0,
       tip: 0,
       total: 0
-    }
+    };
 
     expect(orderToReceipt(argument, 0)).toEqual(expected);
-  })
+  });
 
   it("Translates tacos", () => {
     const argument: Order = {
@@ -28,10 +28,10 @@ describe("orderToReceipt", () => {
           protein: "chicken",
           salsa: true,
           extraTaco: true,
-          awesomeSauce: false,
+          awesomeSauce: false
         }
       ]
-    }
+    };
 
     const expected: ReceiptProps = {
       items: [
@@ -39,21 +39,27 @@ describe("orderToReceipt", () => {
           entreeType: "taco",
           additions: [
             {
-              additionType: "chicken",
+              additionType: "chicken"
             },
+            {
+              additionType: "salsa"
+            },
+            {
+              additionType: "extraTaco"
+            }
           ],
-          itemTotal: 7.50,
+          itemTotal: 8.5,
           mindBlowing: false
         }
       ],
-      subtotal: 7.5,
+      subtotal: 8.5,
       tip: 5,
-      total: 12.5
-    }
+      total: 13.5
+    };
 
     expect(orderToReceipt(argument, 5)).toEqual(expected);
-  })
-  
+  });
+
   it("Translates sandwiches", () => {
     const argument: Order = {
       lineItems: [
@@ -61,10 +67,10 @@ describe("orderToReceipt", () => {
           type: "sandwich",
           protein: "portabelloCap",
           toppings: ["cheese", "lettuce"],
-          awesomeSauce: true,
+          awesomeSauce: true
         }
       ]
-    }
+    };
 
     const expected: ReceiptProps = {
       items: [
@@ -82,20 +88,21 @@ describe("orderToReceipt", () => {
               additionType: "lettuce"
             },
             {
-              additionType: "tomato"
+              additionType: "awesomeSauce",
+              annotation: "nuclear"
             }
           ],
-          itemTotal: 8,
+          itemTotal: 7.5,
           mindBlowing: true
         }
       ],
-      subtotal: 8,
+      subtotal: 7.5,
       tip: 3,
-      total: 11
-    }
+      total: 10.5
+    };
 
     expect(orderToReceipt(argument, 3)).toEqual(expected);
-  })
+  });
   test("Translates sushi", () => {
     const argument: Order = {
       lineItems: [
@@ -103,10 +110,10 @@ describe("orderToReceipt", () => {
           type: "sushi",
           protein: "kingSalmon",
           riceType: "brownRice",
-          awesomeSauce: true,
+          awesomeSauce: true
         }
       ]
-    }
+    };
 
     const expected: ReceiptProps = {
       items: [
@@ -120,6 +127,10 @@ describe("orderToReceipt", () => {
             {
               additionType: "brownRice"
             },
+            {
+              additionType: "awesomeSauce",
+              annotation: "nuclear"
+            }
           ],
           itemTotal: 12,
           mindBlowing: true
@@ -128,8 +139,8 @@ describe("orderToReceipt", () => {
       subtotal: 12,
       tip: 3,
       total: 15
-    }
+    };
 
-    expect(orderToReceipt(argument, 3)).toEqual(expected); 
-  })
-})
+    expect(orderToReceipt(argument, 3)).toEqual(expected);
+  });
+});
