@@ -47,7 +47,7 @@ test("types enforce constraints", () => {
    * Once a variable has a type, the type checker will fail
    * if we try to assign it to a value of a different type.
    */
-  let hello: string = "a string";
+  let hello = "a string";
 
   // typings:expect-error
   hello = 5;
@@ -235,7 +235,7 @@ test("the 'any' type", () => {
   anything = 5;
 
   /*
-  * Are strictness level doesn't let variables explicitly be any,
+  * Our strictness level doesn't let variables explicitly be any,
   * so JavaScript-style functions aren't allowed. (This is a
   * setting.)
   */
@@ -284,9 +284,9 @@ test("supersets and structural compatibility", () => {
   let cheezits: FlavoredFoodItem = {
     name: "Box of Cheezits",
     cost: 4,
-    flavorProfile: "salty"
+    flavorProfile: "cheesy"
   };
-  let freshBakedCheezits = priceStatement(cheezits);
+  let cheesyCheezits = priceStatement(cheezits);
 
   /*
    * But, we can't pass a FoodItem where we expect a FlavoredFoodItem. 
