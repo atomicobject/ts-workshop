@@ -1,0 +1,128 @@
+body {
+  font-family:  -apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  color: #4C4845;
+}
+
+table {
+  border-collapse: collapse;
+}
+table,td,th {
+  border: solid 1px #4C4845;
+}
+td {
+  padding: 1rem;  
+}
+td:first-of-type, th:first-of-type {
+  border-left: 0;
+}
+
+th {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.order-summary {
+  max-width: 3in;
+  border: solid 1px #4C4845;
+  padding: 0.25in;
+}
+
+h1 {
+  margin: 0;
+  font-weight: 900;
+}
+
+.order-summary .line-item {
+  margin-top: 0.5in;
+}
+
+.line-item {
+  width: 2.5in;
+  position: relative;
+}
+
+h3.item-kind {
+  font-weight: 700;
+  line-height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-kind .item-price {
+  line-height: 2rem;
+}
+
+.item-price {
+  float: right;
+  font-weight: 200;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.addition-list {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+.addition-list > li {
+  display: block;
+  clear: both;
+  width: 100%;
+  height: 1rem;
+  margin-bottom: 0.40rem;
+}
+
+.crown-marker {
+  width: 1rem;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.crown-marker, .addition-label {
+  float: left;
+}
+
+.addition-label.awesome-sauce {
+  color: #F5A623;
+  font-weight: 700;
+}
+
+.item-total {
+  margin-top: 1rem;
+  text-align: right;
+  font-weight: 300;
+}
+
+.awesome-sauce-backdrop {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 0.7in;
+  text-align: center;
+  z-index: -1;
+  opacity: 0.2;
+  padding-right: 1rem;
+}
+
+.divider {
+  margin-top: 0.5in;
+}
+
+.total-section {
+  width: 2.5in;
+  text-align: right;
+}
+
+.subtotal-info {
+  font-weight: 200;
+  line-height: 130%;
+}
+.grand-total {
+  margin-top: 1rem;
+  font-weight: 800;
+}

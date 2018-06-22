@@ -1,4 +1,7 @@
 {
   "editor.formatOnSave": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.showUnused": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false
+  }
 }
