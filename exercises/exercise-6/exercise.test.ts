@@ -1,5 +1,7 @@
+// npm run exercise-5
 
 /*
+
 The Hunger Cycle
 ------------------
 

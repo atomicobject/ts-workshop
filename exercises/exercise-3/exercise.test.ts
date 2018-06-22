@@ -1,5 +1,7 @@
 import { LineItem, Order, priceOrder } from "./code";
 
+// npm run exercise-3
+
 test("it allows a valid taco", () => {
   const taco_1: LineItem = {
     protein: "chicken",
