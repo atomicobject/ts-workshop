@@ -15,6 +15,10 @@ test("has type inference", () => {
   let arrayOfFruits = ["apple", "orange", "pear"];
 
   let arrayOfBools = [true, false];
+
+  let aNull = null;
+
+  let anUndefined = undefined;
 });
 
 test("and type annotations", () => {
@@ -32,6 +36,10 @@ test("and type annotations", () => {
   let arrayOfFruits: string[] = ["apple", "orange", "pear"];
 
   let arrayOfBools: boolean[] = [true, false];
+
+  let aNull: null = null;
+
+  let anUndefined: undefined = undefined;
 });
 
 test("types enforce constraints", () => {
@@ -169,7 +177,7 @@ test("function types", () => {
   function declareFavoriteFood(name: string, food: string): string {
     return `${name}'s favorite food is ${food}.`;
   }
-   /* TS knows the return type of declareFavoriteFood. */
+  /* TS knows the return type of declareFavoriteFood. */
   let waldosFavorite = declareFavoriteFood("Waldo", "chips");
   /*
    * If we try to pass a value of the wrong type as an arg, we'll 
@@ -197,7 +205,6 @@ test("function types", () => {
   */
   let declareNotLikeFood: ExplanationFunction = (name, food) => 
     `${name} doesn't like ${food}.`;
-
    
   /*
    * Being able to describe function signatures as types
@@ -205,11 +212,15 @@ test("function types", () => {
    */
   function announceFeelings(foodFeelings: ExplanationFunction) {
     const result = foodFeelings("Rachael", "bell peppers");
-    return `I asked, and ${result}`
+    return `I asked, and ${result}`;
   }
 
-  expect(announceFeelings(declareFavoriteFood)).toEqual("I asked, and Rachael's favorite food is bell peppers.")
-  expect(announceFeelings(declareNotLikeFood)).toEqual("I asked, and Rachael doesn't like bell peppers.")
+  expect(announceFeelings(declareFavoriteFood)).toEqual(
+    "I asked, and Rachael's favorite food is bell peppers."
+  );
+  expect(announceFeelings(declareNotLikeFood)).toEqual(
+    "I asked, and Rachael doesn't like bell peppers."
+  );
 });
 
 test("the 'any' type", () => {
@@ -246,84 +257,58 @@ test("the 'any' type", () => {
    /* We'll come back to 'any' in the next exercise. */
 });
 
-test("structural compatibility", () => {
-  
-  /*
-   * Type annotations are just there to help us describe object shapes.
-   * We can use differently named types interchangably, as long as they
-   * are structurally compatible.
-   */
-  interface DeliItem {
-    name: string;
-    cost: number;
-  }
-  interface BakeryItem {
+test("supersets and structural compatibility", () => {
+  interface FoodItem {
     name: string;
     cost: number;
   }
 
-  let lunchMeat: DeliItem = {
-    name: "Sliced Turkey",
-    cost: 3
-  };
-
-  let croissant: BakeryItem = {
-    name: "Croissant",
+  let apple: FoodItem = {
+    name: "apple",
     cost: 2
   };
-
-  function bakeryPriceStatement(item: BakeryItem) {
-    return `That fresh-baked ${item.name} will be $${item.cost}.`;
+  function priceStatement(item: FoodItem) {
+    return `That ${item.name} will be $${item.cost}`;
   }
-
-  function deliPriceStatement(item: DeliItem) {
-    return `That juicy ${item.name} will be $${item.cost}.`;
-  }
-
-  // We can substitute one type for another anytime they're structurally compatible
-  let freshBakedCheese = bakeryPriceStatement(lunchMeat);
-  let juicyCroissant = deliPriceStatement(croissant);
-
-  // Or even anonymous types
-  let mysteryMeat = deliPriceStatement({ name: "Mystery Meat", cost: 1 });
-
+  
   interface FlavoredFoodItem {
     name: string;
     cost: number;
     flavorProfile: string;
   }
-
+  /*
+   * The type FlavoredFoodItem has a superset of the properties
+   * of FoodItem, so we can pass a FlavoredFoodItem anywhere
+   * that we expect a FoodItem.
+   */
   let cheezits: FlavoredFoodItem = {
     name: "Box of Cheezits",
     cost: 4,
     flavorProfile: "salty"
   };
+  let freshBakedCheezits = priceStatement(cheezits);
 
-  
   /*
-   * Flavored food is structurally compatible with regular food because
-   * its properties are a superset of regular food's.
+   * But, we can't pass a FoodItem where we expect a FlavoredFoodItem. 
    */
-  let freshBakedCheezits = bakeryPriceStatement(cheezits);
-
   function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
     return `That ${item.flavorProfile} ${item.name} will be $${item.cost}.`;
   }
 
   // But regular food isn't assignable to a type that expects flavored food
   // typings:expect-error
-  let noCroissants = flavoredFoodPriceStatement(croissant);
+  let noApples = flavoredFoodPriceStatement(apple);
 
   // In the future, we'll use AssertAssignable to prove structural compatibility or lack thereof:
-  type _t1 = AssertAssignable<BakeryItem, FlavoredFoodItem>;
+  type _t1 = AssertAssignable<FoodItem, FlavoredFoodItem>;
   // typings:expect-error
-  type _t2 = AssertAssignable<FlavoredFoodItem, BakeryItem>;
+  type _t2 = AssertAssignable<FlavoredFoodItem, FoodItem>;
 });
 
 // test("Writing our own types", () => {
 //   /* 
 //    * ======================================================
-//    * TODO: Update FixThisType to allow strings or numbers.    
+//    * TODO: Update FixThisType to allow strings or numbers.
 //    * ======================================================*/
 //   type FixThisType = any;
 //   const jaime: FixThisType = "Jaime"
@@ -336,7 +321,7 @@ test("structural compatibility", () => {
 //   /*
 //    * ======================================================
 //    * TODO: Update FixThisOneToo to allow objects with a type
-//    * and a disposition.    
+//    * and a disposition.
 //    * ======================================================*/
 //   type FixThisOneToo = any;
 //   const nellie = { type: "dog", disposition: "good" }
@@ -350,8 +335,8 @@ test("structural compatibility", () => {
 // test("Writing some function types", ()=>{
 //   /*
 //    * ======================================================
-//    * TODO: Update AndThisOne to allow a function that takes 
-//    * a string and returns a string.    
+//    * TODO: Update AndThisOne to allow a function that takes
+//    * a string and returns a string.
 //    * ======================================================*/
 //   type AndThisOne = any;
 //   const sayHello: AndThisOne = (name: string) => { return `Hello, ${name}.`}

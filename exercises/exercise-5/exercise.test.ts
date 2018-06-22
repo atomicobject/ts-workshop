@@ -20,7 +20,7 @@ describe("orderToReceipt", () => {
     expect(orderToReceipt(argument, 0)).toEqual(expected);
   })
 
-  it("Converts an empty order to a valid receipt", () => {
+  it("Translates tacos", () => {
     const argument: Order = {
       lineItems: [
         {
@@ -95,5 +95,41 @@ describe("orderToReceipt", () => {
     }
 
     expect(orderToReceipt(argument, 3)).toEqual(expected);
+  })
+  test("Translates sushi", () => {
+    const argument: Order = {
+      lineItems: [
+        {
+          type: "sushi",
+          protein: "kingSalmon",
+          riceType: "brownRice",
+          awesomeSauce: true,
+        }
+      ]
+    }
+
+    const expected: ReceiptProps = {
+      items: [
+        {
+          entreeType: "sushi",
+          additions: [
+            {
+              additionType: "kingSalmon",
+              annotation: "pricey"
+            },
+            {
+              additionType: "brownRice"
+            },
+          ],
+          itemTotal: 12,
+          mindBlowing: true
+        }
+      ],
+      subtotal: 12,
+      tip: 3,
+      total: 15
+    }
+
+    expect(orderToReceipt(argument, 3)).toEqual(expected); 
   })
 })
