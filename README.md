@@ -8,7 +8,7 @@ We're happy you're joining us. This repository will serve as our workspace for t
 Before the workshop, we'd appreciate if you could do the following:
 
 1. Install Visual Studio Code. This editor from Microsoft has excellent built-in support for TypeScript. If you choose to use a different editor, ensure it has built-in syntax highlighting and type checking for TypeScript. It may be wise to have Code around if you're unsure whether your editor has first class TypeScript support.
-2. Set up this git repository and install dependencies using the steps below.
+2. Clone up this git repository and install dependencies using the steps below.
 
 Doing this will help things kick off smoothly. Thanks for your help!
 
@@ -18,7 +18,7 @@ To make sure you're prepared for the workshop, please do the following:
 
 * Ensure you have node 8 or newer installed. We've tested with both node 8 and 10. (Use `node --version`	)
 
-* Clone this repo locally
+* Clone this repo locally. We will be asking you to pull changes the morning of the workshop, so please clone with `git`, as opposed to downloading a zip file.
 
 * Run `npm install` from this repository. This will download the dependencies for the workspace and help us avoid overly straining the conference wifi.
 
