@@ -103,7 +103,7 @@ test("describes a literal", () => {
 //    * ======================================================
 //    * TODO: Update Earthlings to allow these values:
 //    * ======================================================*/
-//   type Earthlings = { type: "animal" | "vegetable" | "mineral"; name: string };
+//   type Earthlings = {};
 //   let dog: Earthlings = { type: "animal", name: "Fido" };
 //   let cat: Earthlings = { type: "animal", name: "Suki" };
 //   let zucchini: Earthlings = {
@@ -114,11 +114,16 @@ test("describes a literal", () => {
 //   let quartz: Earthlings = { type: "mineral", name: "Quartz" };
 //   let diamond: Earthlings = { type: "mineral", name: "Diamond" };
 
+//   /* typings:expect-error */
+//   const invalidEarthling: Earthlings = { type: "martian", name: "Quux" }
+//   /* typings:expect-error */
+//   const invalidEarthling2: Earthlings = { type: "plutonian" }
+
 //   /*
 //    * ======================================================
-//    * TODO: Update Earthlings to allow these values:
+//    * TODO: Update Aliens to allow these values:
 //    * ======================================================*/
-//   type Aliens = { homePlanet: string; phaser: boolean };
+//   type Aliens = {};
 
 //   let alienBlaxnor: Aliens = {
 //     homePlanet: "Jupiter",
