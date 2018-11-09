@@ -14,10 +14,9 @@ test("infers different types based on keywords", () => {
   let regularString = "hello";
 
   /*
-   * ======================================================
-   * TODO: Check out the type of literalString! It's a string literal,
+   * Check out the type of literalString! It's a string literal,
    * which means TS knows it can only be this exact value.
-   * ======================================================*/
+   */
   const literalString = "goodnight";
 
   /* This holds for other types of primatives, too. */
@@ -25,46 +24,48 @@ test("infers different types based on keywords", () => {
   const literalNumber = 2;
 });
 
-test("describes a literal", () => {
+test("literals in control flow", () => {
   /*
-   * ====================================================== 
-   * TODO: Update FixThisType to allow only a single literal.
-   * ======================================================*/
-  type FixThisType = "hello";
-
-  let hello: FixThisType = "hello";
-
-  // typings:expect-error
-  let world: FixThisType = "world";
-
-  // typings:expect-error
-  let goodnight: FixThisType = "goodnight";
-
-  // typings:expect-error
-  let moon: FixThisType = "moon";
+   * TS understands control flow.
+   * Take a look at the type of 'fruit' inside of these blocks.
+   */
+  function isBanana(fruit: string) {
+    if (fruit === "banana") {
+      return `${fruit} is a banana`;
+    } else {
+      return ` ${fruit} is not a banana`;
+    }
+  }
 });
 
-// test("literals in control flow", () => {
+// /**************************************************************************/
+// test("describes a literal", () => {
 //   /*
-//    * TS understands control flow. 
 //    * ======================================================
-//    * TODO: Take a look at the type of 'fruit' inside of these blocks.
+//    * TODO: Update FixThisType to allow only a single literal.
 //    * ======================================================*/
-//   function isBanana(fruit: string) {
-//     if (fruit === "banana") {
-//       return `${fruit} is a banana`;
-//     } else {
-//       return ` ${fruit} is not a banana`;
-//     }
-//   }
-// });
+//   type FixThisType = string;
 
+//   let hello: FixThisType = "hello";
+
+//   // typings:expect-error
+//   let world: FixThisType = "world";
+
+//   // typings:expect-error
+//   let goodnight: FixThisType = "goodnight";
+
+//   // typings:expect-error
+//   let moon: FixThisType = "moon";
+// });
+// /**************************************************************************/
+
+// /**************************************************************************/
 // test("manually creating union types", () => {
 //   /*
 //    * We can describe union types ourselves, and
-//    * we can union together any valid types. 
+//    * we can union together any valid types.
 //    * ======================================================
-//    * TODO: Update FixThisType to allow strings or numbers.    
+//    * TODO: Update FixThisType to allow strings or numbers.
 //    * ======================================================*/
 //   type FixThisType = any;
 
@@ -76,11 +77,13 @@ test("describes a literal", () => {
 //   // typings:expect-error
 //   let aBool: FixThisType = true;
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("this allows us to constrain types in interesting ways", () => {
 //   /*
 //    * Being able to union together any valid types means
-//    * literals, too. 
+//    * literals, too.
 //    * ======================================================
 //    * TODO: Update FixThisType to make this type test pass.
 //    * ======================================================*/
@@ -97,7 +100,9 @@ test("describes a literal", () => {
 //   // typings:expect-error
 //   let aFalse: FixThisType = false;
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("unions can be between types of any shape", () => {
 //   /*
 //    * ======================================================
@@ -154,7 +159,9 @@ test("describes a literal", () => {
 //     name: "Asteroid"
 //   };
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("basic intersection", () => {
 //   /*
 //    * Intersections allow us to combine type definitions to
@@ -179,7 +186,7 @@ test("describes a literal", () => {
 //   /*
 //    * ======================================================
 //    * TODO: Describe a valid PetCat and PetDog below.
-//    * HINT: Use autocompletion to help you fill in the properties. 
+//    * HINT: Use autocompletion to help you fill in the properties.
 //    * ======================================================*/
 //   const sukiTheCat: PetCat = {};
 //   const finnTheDog: PetDog = {};
@@ -194,7 +201,9 @@ test("describes a literal", () => {
 //   announcePet(sukiTheCat);
 //   announcePet(finnTheDog);
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("type narrowing and exhaustiveness", () => {
 //   function classify(n: number) {
 //     if (n < 0) return "negative";
@@ -205,7 +214,7 @@ test("describes a literal", () => {
 //   /*
 //    * TS can narrow types as we move through control flow.
 //    * This makes it easy to tell if we've handled all cases.
-//    * 
+//    *
 //    * ======================================================
 //    * TODO: Try commenting out one of the return statements in
 //    *       describeNumber and see what happens.
@@ -250,7 +259,9 @@ test("describes a literal", () => {
 //    * the codebase.
 //    */
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("working with discriminated unions", () => {
 //   /*
 //    * Let's take a look at the HotDrink type described in the slides.
@@ -270,7 +281,7 @@ test("describes a literal", () => {
 
 //   /*
 //    * ======================================================
-//    * TODO: Write a function that takes a HotDrink and 
+//    * TODO: Write a function that takes a HotDrink and
 //    * returns the style, for tea, or the roast, for coffee.
 //    * ======================================================
 //    */
@@ -284,7 +295,9 @@ test("describes a literal", () => {
 //   expect(describe(rachaelsDrink)).toEqual("herbal");
 //   expect(describe(drewsDrink)).toEqual("light");
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("build a discriminated union", () => {
 //   /*
 //    * TS can narrow types as we move through control flow. When
@@ -297,8 +310,8 @@ test("describes a literal", () => {
 //    * different constraints.
 //    *
 //    * ======================================================
-//    * TODO: Change FruitType so this test passes- so that 
-//    * the type proves that apples are red and can be polished, 
+//    * TODO: Change FruitType so this test passes- so that
+//    * the type proves that apples are red and can be polished,
 //    * and bananas are yellow and can be peeled.
 //    * ======================================================
 //    */
@@ -332,7 +345,9 @@ test("describes a literal", () => {
 //     }
 //   }
 // });
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("unions & intersections", () => {
 //   /*
 //    * Unions and intersections can be combined to make complex types.
@@ -351,7 +366,7 @@ test("describes a literal", () => {
 //   type PetInfo = { name: string; familyName: string };
 
 //   /*
-//    * ====================================================== 
+//    * ======================================================
 //    * TODO: Write a type that describes both pet cats and pet dogs.
 //    * ======================================================
 //    */
@@ -393,3 +408,4 @@ test("describes a literal", () => {
 //   type _t1 = AssertAssignable<AltPet, Pet>;
 //   type _t2 = AssertAssignable<Pet, AltPet>;
 // });
+// /**************************************************************************/

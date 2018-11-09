@@ -53,13 +53,24 @@ export type RiceType =
   | "brownRice" // 🍘
   | "whiteRice"; // 🍙
 
+/*
+ * ======================================================
+ * TODO: Update LineItem to represent an order from the
+ * Monster Foodies Truck.
+ * ======================================================*/
 export type LineItem = any;
 
 export interface Order {
   lineItems: LineItem[];
 }
 
-export function priceOrder(order: Order): number { return 1; }
+/*
+ * ======================================================
+ * TODO: Implement priceOrder.
+ * ======================================================*/
+export function priceOrder(order: Order): number {
+  return 1;
+}
 
 /* Monster's foodie truck takes orders on paper slips, 
    but sometimes people don't read the menu before they

@@ -15,10 +15,6 @@ test("has type inference", () => {
   let arrayOfFruits = ["apple", "orange", "pear"];
 
   let arrayOfBools = [true, false];
-
-  let aNull = null;
-
-  let anUndefined = undefined;
 });
 
 test("and type annotations", () => {
@@ -36,10 +32,6 @@ test("and type annotations", () => {
   let arrayOfFruits: string[] = ["apple", "orange", "pear"];
 
   let arrayOfBools: boolean[] = [true, false];
-
-  let aNull: null = null;
-
-  let anUndefined: undefined = undefined;
 });
 
 test("types enforce constraints", () => {
@@ -62,13 +54,13 @@ test("types enforce constraints", () => {
 
 test("object types", () => {
   /*
-   * TypeScript gets more interesting when we introduce 
+   * TypeScript gets more interesting when we introduce
    * structural typing. Object shapes are types.
    */
   let apple = { name: "apple", color: "red" };
   apple.color;
 
-  /* 
+  /*
    * TypeScript knows what the properties on apple are, so
    * it will tell us if we ask for one that doesn't exist.
    */
@@ -76,12 +68,15 @@ test("object types", () => {
   apple.nooooo;
 
   /*
-  * We can also define types inline. This variable is declared to have
-  * a new, ad hoc object type before we even assign a value.
-  * 
-  * Object type syntax looks a lot like object literal syntax:
-  */
-  let orange: { name: string; color: string } = { name: "orange", color: "orange" };
+   * We can also define types inline. This variable is declared to have
+   * a new, ad hoc object type before we even assign a value.
+   *
+   * Object type syntax looks a lot like object literal syntax:
+   */
+  let orange: { name: string; color: string } = {
+    name: "orange",
+    color: "orange"
+  };
 
   // typings:expect-error
   let notAFruit: { name: string; color: string } = { color: "red" };
@@ -92,7 +87,6 @@ test("object types", () => {
 });
 
 test("type aliases", () => {
-  
   /*
    * These types are a little more complicated to write than the primatives.
    * What if we want to use them again? We can describe aliases for types,
@@ -108,7 +102,6 @@ test("type aliases", () => {
 });
 
 test("interfaces", () => {
-  
   /*
    * Interfaces are another way to describe object types.
    * Functionally speaking, they operate just like a type
@@ -147,7 +140,6 @@ test("interfaces", () => {
     name: "plate"
   };
 
-  
   /*
    * Remember that you can use any kind of type definition
    * anywhere that you would use the others.
@@ -169,64 +161,168 @@ test("interfaces", () => {
 });
 
 test("function types", () => {
-  
   /*
+   * Functions have types, too. Hover over "addOne."
+   */
+  function addOne(x: number) {
+    return x + 1;
+  }
+
+  /*
+   * And TypeScript knows the type of values returned from a function.
+   */
+  let four = addOne(3); // => 4
+
+  /*
+   * A JAVASCRIPT INTERLUDE!
+   * In JavaScript, there are two main syntaxes for declaring
+   * functions. The above is one. Call it a "function expression."
+   * Below is another. We call this "fat arrow syntax."
+   */
+  let subtractOne = (x: number) => {
+    return x - 1;
+  };
+
+  let two = subtractOne(3); // => 2
+
+  /*
+   * There are some subtle differences between these styles,
+   * but we won't need to worry about them for this workshop.
+   * Note that the subtractOne looks like a variable declaration-
+   * functions are first-class objects in JavaScript, so we
+   * can do all the same things with them that we would with
+   * any other variable...
+   */
+  let subtractor = subtractOne;
+  let adder = addOne;
+
+  /*
+   * ...including passing them as arguments to _other_ functions.
+   */
+  let doSomething = (func: (x: number) => number, y: number) => {
+    return func(y);
+  };
+
+  let seven = doSomething(adder, 6); // => 7
+  let five = doSomething(subtractor, 6); // => 5
+
+  /*
+   * In these tests, we can make assertions about values.
+   */
+  expect(seven).toEqual(7);
+  expect(five).toEqual(5);
+
+  /*
+   * JavaScript also has a handy shorthand for "just return
+   * this value": Remove the curly braces and the "return".
+   */
+  let shorthandFunction = (x: number) => x;
+
+  /*
+   * Note that if you're using this style to return an object,
+   * you'll need to wrap the return value in parens.
+   */
+  let shorthandObjectReturner = () => ({ name: "Laura", style: "cozy" });
+
+  expect(shorthandObjectReturner()).toEqual({ name: "Laura", style: "cozy" });
+
+  /*
+   * One last snippet of JavaScript syntax: we'll be using string
+   * interpolation, which lets us refer to variables inside of
+   * strings. This is handy for formatting.
+   */
+  let name = "Rachael";
+  let greeting = `Hello, ${name}!`;
+  expect(greeting).toEqual("Hello, Rachael!");
+
+  /*
+   * Okay, JS interlude done!
+   * BACK TO TYPESCRIPT!
    * Type annotations get more powerful when we start using
    * them with functions. Check out the type of declareFavoriteFood.
    */
   function declareFavoriteFood(name: string, food: string): string {
     return `${name}'s favorite food is ${food}.`;
   }
-  /* TS knows the return type of declareFavoriteFood. */
-  let waldosFavorite = declareFavoriteFood("Waldo", "chips");
+
   /*
-   * If we try to pass a value of the wrong type as an arg, we'll 
-   * get an error- just like we did when assigning a variable 
-   * to the wrong type.
+   * As before, using a type annotation can protect us from making
+   * mistakes- this time in a function implementation.
+   */
+  function bustedFunction(name: string, food: string): string {
+    // typings:expect-error
+    return 4;
+  }
+
+  /*
+   * The same goes for function args- TypeScript won't let us pass
+   * bad args into a function.
    */
   // typings:expect-error
   let invalidInput = declareFavoriteFood("Waldo", true);
 
   /*
-   * We can describe the type of the _function_, too. The syntax 
-   * looks a lot like an arrow function:
+   * As with the primitive and object types, we can manually
+   * annotate the type of a function. The syntax looks a lot
+   * like an arrow function:
    */
-  let declarationFunction: (name: string, food: string) => string = declareFavoriteFood;
-
+  let declarationFunction: (
+    name: string,
+    food: string
+  ) => string = declareFavoriteFood;
 
   /*
-  * And we can alias function types just like any other:
-  */
+   * And we can alias function types just like any other:
+   */
   type ExplanationFunction = (name: string, food: string) => string;
 
-  /*
-  * When TypeScript sees a lambda in a position where it knows the exact type,
-  * type annotations on the function arguments aren't necessary.
-  */
-  let declareNotLikeFood: ExplanationFunction = (name, food) => 
+  let declareNotLikeFood: ExplanationFunction = (name: string, food: string) =>
     `${name} doesn't like ${food}.`;
-   
+
+  // typings:expect-error
+  let notAnExplanationFunction: ExplanationFunction = (num: number) => num;
+
   /*
    * Being able to describe function signatures as types
-   * makes it much easier to treat functions like data. 
+   * makes it much easier to treat functions like data safely.
    */
-  function announceFeelings(foodFeelings: ExplanationFunction) {
-    const result = foodFeelings("Rachael", "bell peppers");
+  function announce(foodFeelings: ExplanationFunction) {
+    let result = foodFeelings("Rachael", "bell peppers");
     return `I asked, and ${result}`;
   }
 
-  expect(announceFeelings(declareFavoriteFood)).toEqual(
+  expect(announce(declareFavoriteFood)).toEqual(
     "I asked, and Rachael's favorite food is bell peppers."
   );
-  expect(announceFeelings(declareNotLikeFood)).toEqual(
+  expect(announce(declareNotLikeFood)).toEqual(
     "I asked, and Rachael doesn't like bell peppers."
   );
+
+  /*
+   * Remember that ONLY structural compatibility matters in TypeScript.
+   */
+  function pizzaRuiner(name: string, toppings: string) {
+    return `${name} thinks that ${toppings} are the best way to ruin a pizza.`;
+  }
+
+  expect(announce(pizzaRuiner)).toEqual(
+    "I asked, and Rachael thinks that bell peppers are the best way to ruin a pizza."
+  );
+
+  /*
+   * And if a value isn't structurally compatible with a type,
+   * we can't use it where we expect that type.
+   */
+  let foo = () => 5;
+
+  // typings:expect-error
+  announce(foo);
 });
 
 test("the 'any' type", () => {
   /*
    * TS uses the keyword 'any' for a type that could be anything.
-   * 
+   *
    * Values of this type are just like JavaScript. There's no compile-
    * time constraints on what can be done with them.
    */
@@ -235,16 +331,16 @@ test("the 'any' type", () => {
   anything = 5;
 
   /*
-  * Our strictness level doesn't let variables explicitly be any,
-  * so JavaScript-style functions aren't allowed. (This is a
-  * setting.)
-  */
+   * Our strictness level doesn't let variables explicitly be any,
+   * so JavaScript-style function declarations aren't allowed.
+   * (This is a setting.)
+   */
   // typings:expect-error
   function declareFavoriteFood(name, food) {
     return `${name}'s favorite food is ${food}`;
   }
 
-   /* But it does allow _explicit_ any for function args: */
+  /* But it does allow _explicit_ any for function args: */
   function typedDeclareFavoriteFood(name: any, food: any) {
     return `${name}'s favorite food is ${food.toLocaleUpperCase()}`;
   }
@@ -252,9 +348,11 @@ test("the 'any' type", () => {
    * Using 'any' is risky, because it effectively disables
    * type checking:
    */
-  expect(() => { let thisWillBlowUp = typedDeclareFavoriteFood(null, 2); }).toThrowError()
+  expect(() => {
+    let thisWillBlowUp = typedDeclareFavoriteFood(null, 2);
+  }).toThrowError();
 
-   /* We'll come back to 'any' in the next exercise. */
+  /* We'll come back to 'any' in the next exercise. */
 });
 
 test("supersets and structural compatibility", () => {
@@ -270,7 +368,7 @@ test("supersets and structural compatibility", () => {
   function priceStatement(item: FoodItem) {
     return `That ${item.name} will be $${item.cost}`;
   }
-  
+
   interface FlavoredFoodItem {
     name: string;
     cost: number;
@@ -289,7 +387,7 @@ test("supersets and structural compatibility", () => {
   let cheesyCheezits = priceStatement(cheezits);
 
   /*
-   * But, we can't pass a FoodItem where we expect a FlavoredFoodItem. 
+   * But, we can't pass a FoodItem where we expect a FlavoredFoodItem.
    */
   function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
     return `That ${item.flavorProfile} ${item.name} will be $${item.cost}.`;
@@ -305,33 +403,38 @@ test("supersets and structural compatibility", () => {
   type _t2 = AssertAssignable<FlavoredFoodItem, FoodItem>;
 });
 
+// /**************************************************************************/
 // test("Writing our own types", () => {
-//   /* 
+//   /*
 //    * ======================================================
-//    * TODO: Update FixThisType to allow strings or numbers.
+//    * TODO: Update FixThisType to allow strings only.
 //    * ======================================================*/
 //   type FixThisType = any;
-//   const jaime: FixThisType = "Jaime"
-//   const meredith: FixThisType = "Meredith"
+//   let jaime: FixThisType = "Jaime"
+//   let meredith: FixThisType = "Meredith"
 //   // typings:expect-error
-//   const yes: FixThisType = true;
+//   let no: FixThisType = false;
 // })
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("Writing some object types", () => {
 //   /*
 //    * ======================================================
-//    * TODO: Update FixThisOneToo to allow objects with a type
+//    * TODO: Update FixThisOneToo to allow objects with a kind
 //    * and a disposition.
 //    * ======================================================*/
 //   type FixThisOneToo = any;
-//   const nellie = { type: "dog", disposition: "good" }
-//   const roxy = { type: "dog", disposition: "aloof" }
+//   let nellie: FixThisOneToo = { kind: "dog", disposition: "good" }
+//   let roxy: FixThisOneToo = { kind: "dog", disposition: "aloof" }
 //   // typings:expect-error
-//   const friday = { type: "cat", fluffy: "very" }
+//   let friday: FixThisOneToo = { kind: "cat", fluffy: "very" }
 //   // typings:expect-error
-//   const cauchy = { type: "cat", fluffy: "not really" }
+//   let cauchy: FixThisOneToo = { kind: "cat", fluffy: "not really" }
 // })
+// /**************************************************************************/
 
+// /**************************************************************************/
 // test("Writing some function types", ()=>{
 //   /*
 //    * ======================================================
@@ -339,8 +442,8 @@ test("supersets and structural compatibility", () => {
 //    * a string and returns a string.
 //    * ======================================================*/
 //   type AndThisOne = any;
-//   const sayHello: AndThisOne = (name: string) => { return `Hello, ${name}.`}
-//   const sayGoodbye: AndThisOne = (name: string) => { return `Goodbye, ${name}.`}
+//   let sayHello: AndThisOne = (name: string) => { return `Hello, ${name}.`}
+//   let sayGoodbye: AndThisOne = (name: string) => { return `Goodbye, ${name}.`}
 //   // typings:expect-error
-//   const isFido: AndThisOne = (name: string) => { return name === "Fido"};
+//   let isFido: AndThisOne = (name: string) => { return name === "Fido"};
 // })
