@@ -24,7 +24,7 @@ To make sure you're prepared for the workshop, please do the following:
 
 * Run `npm install` from this repository. This will download the dependencies for the workspace and help us avoid overly straining the conference wifi.
 
-* Run `npm test`. You should see output like the following:
+* Run `npm run exercise-0`. You should see output like the following:
 
   ```
   > npm test
