@@ -31,18 +31,18 @@ To make sure you're prepared for the workshop, please do the following:
   
   > ts-workshop@1.0.0 test /Users/colthorp/Repositories/ts-workshop
   > jest
-  
-   PASS  exercises/exercise-1.test.ts
-   PASS  __tests__/type-tester.test.ts
-  
-  Test Suites: 2 passed, 2 total
-  Tests:       2 passed, 2 total
-  Snapshots:   0 total
-  Time:        5.325s
-  Ran all test suites.
-  ```
+    PASS  __tests__/type-tester.test.ts
+    PASS  exercises/exercise-0/exercise.test.ts
 
-  
+    Test Suites: 2 passed, 2 total
+    Tests:       2 passed, 2 total
+    Snapshots:   0 total
+    Time:        1.959s, estimated 3s
+    Ran all test suites matching /exercise-0|type/i.
+  ```
+  This test-running process will remain running until you stop it. When you save changes to a file, the tests will automatically rerun.
+
+* When you're ready to start, check out the `doc` folder in the root of the repo for the workshop slides. Then, open up `exercises/exercise-1/exercise.test.ts` and run `npm run exercise-1` in your terminal. Follow along with the comments, and then uncomment the exercise at the bottom of the file when you're ready to start! 
 
 ## Check editor support
 
