@@ -43,7 +43,7 @@ interface Taco {
   
   export interface Sandwich {
     type: "sandwich";
-    protein: "chicken" | "portabelloCap";
+    protein: "chicken" | "jackfruit" | "portabelloCap";
     toppings: Topping[];
   }
   
