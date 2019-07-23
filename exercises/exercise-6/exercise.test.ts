@@ -72,7 +72,7 @@ property is optional. Let's take a closer look at what that means.
 Let's explore what this interface will let us declare.
 */
 test("1. Optional properties", () => {
-  const stateWithNoTransitions: HungerState = REPLACEME;
+  const stateWithNoTransitions: HungerState = {name: "junk" };
   expect(stateWithNoTransitions).not.toHaveProperty('sleep')
   expect(stateWithNoTransitions).not.toHaveProperty('eatMeal')
   expect(stateWithNoTransitions).not.toHaveProperty('eatSnack')

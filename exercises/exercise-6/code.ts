@@ -6,20 +6,27 @@ export interface HungerState {
 }
 
 export class Starving implements HungerState {
-  readonly name = "starving";
+  name = "starving";
+  eatSnack = () => new Hungry();
+  eatMeal = () => new Full();
 }
 
 export class Hungry implements HungerState {
-  readonly name = "hungry";
+  name = "hungry";
+  eatSnack = () => new Peckish();
+  eatMeal = () => new Full();
 }
 
 export class Peckish implements HungerState {
-  readonly name = "peckish";
+  name = "peckish";
+  eatSnack = () => new Full();
 }
 
 export class Full implements HungerState {
-  readonly name = "full";
+  name = "full";
+  sleep = () => new Starving();
 }
+
 
 export enum Transition {
     SNACK = "SNACK",
@@ -28,5 +35,7 @@ export enum Transition {
 }
 
 export function quickestRouteToSleep(state: HungerState): Transition[] {
+  let Jane = { state: new Starving() };
+  Jane.state.eatSnack().eatMeal
   return [];
 }
