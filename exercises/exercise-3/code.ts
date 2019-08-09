@@ -1,7 +1,5 @@
 import { AssertAssignable } from "../util";
 
-type Foo = Protein | EntreeType;
-
 /* Monster Foodies Food Truck Menu
 Taco....................$5
   Protein

@@ -108,53 +108,58 @@ test("literals in control flow", () => {
 //    * ======================================================
 //    * TODO: Update Earthlings to allow these values:
 //    * ======================================================*/
-//   type Earthlings = {};
-//   let dog: Earthlings = { type: "animal", name: "Fido" };
-//   let cat: Earthlings = { type: "animal", name: "Suki" };
-//   let zucchini: Earthlings = {
+//   type Earthling = {};
+//   let dog: Earthling = { type: "animal", name: "Fido" };
+//   let cat: Earthling = { type: "animal", name: "Suki" };
+//   let zucchini: Earthling = {
 //     type: "vegetable",
 //     name: "Zucchini"
 //   };
-//   let rose: Earthlings = { type: "vegetable", name: "Rose" };
-//   let quartz: Earthlings = { type: "mineral", name: "Quartz" };
-//   let diamond: Earthlings = { type: "mineral", name: "Diamond" };
+//   let rose: Earthling = { type: "vegetable", name: "Rose" };
+//   let quartz: Earthling = { type: "mineral", name: "Quartz" };
+//   let diamond: Earthling = { type: "mineral", name: "Diamond" };
 
 //   /* typings:expect-error */
-//   const invalidEarthling: Earthlings = { type: "martian", name: "Quux" }
+//   const invalidEarthling: Earthling = { type: "martian", name: "Quux" }
 //   /* typings:expect-error */
-//   const invalidEarthling2: Earthlings = { type: "plutonian" }
+//   const invalidEarthling2: Earthling = { type: "plutonian" }
 
 //   /*
 //    * ======================================================
 //    * TODO: Update Aliens to allow these values:
 //    * ======================================================*/
-//   type Aliens = {};
+//   type Alien = {};
 
-//   let alienBlaxnor: Aliens = {
+//   let alienBlaxnor: Alien = {
 //     homePlanet: "Jupiter",
 //     phaser: true
 //   };
-//   let alienXanter: Aliens = {
+//   let alienXanter: Alien = {
 //     homePlanet: "Mars",
 //     phaser: false
 //   };
 
 //   /*
 //    * ======================================================
-//    * TODO: Confirm that EarthlingsAndAliens disallows these types
+//    * TODO: Confirm that EarthlingOrAlien allows and disallows 
+//    * the following values
 //    * ======================================================*/
-//   type EarthlingsAndAliens = Earthlings & Aliens;
-//   // typings:expect-error
-//   let star: EarthlingsAndAliens = "Sirius";
+//   type EarthlingOrAlien = Earthling | Alien;
+
+//   let person: EarthlingOrAlien = { type: "animal", name: "Fernando" }
+//   let alien: EarthlingOrAlien = { homePlanet: "Pluto", phaser: true }
 
 //   // typings:expect-error
-//   let galaxy: EarthlingsAndAliens = {
+//   let star: EarthlingOrAlien = "Sirius";
+
+//   // typings:expect-error
+//   let galaxy: EarthlingOrAlien = {
 //     type: "LocalGalaxy",
 //     name: "Milky Way"
 //   };
 
 //   // typings:expect-error
-//   let asteroid: EarthlingsAndAliens = {
+//   let asteroid: EarthlingOrAlien = {
 //     homePlanet: false,
 //     name: "Asteroid"
 //   };

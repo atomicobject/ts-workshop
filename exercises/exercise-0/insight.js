@@ -13,25 +13,9 @@ console.log(foo.toString());
 // a moment and pretend we're fallible humans who sometimes 
 // miss cases.)
 
-  
-const bar = subtractOne("hello");
-
-
-// I don't know what I can pass to this function
-// I don't know what this function returns
-// I don't know what fields exist on this object
-// I don't know if I am covering all cases
-
-// export function describeNumber(x: number) {
-//     if (x > 0) { return "positive" }
-//     if (x < 0) { return "negative" }
-// }
-
-// const three = 3;
-
-// const descriptionOne = describeNumber(three);
-// const descriptionTwo = describeNumber("three");
-
-// console.log(`${three} is ${describeNumber(three)}`);
-
-// console.log(`${three} times two is ${timesTwo(three)}`);
+let thing = {
+    foo: "bar"
+};
+// Here's another bug- it'd be nice to not have to 
+// look for this kind of problem, right?
+thing.bar;
