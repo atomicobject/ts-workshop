@@ -8,13 +8,6 @@ Taco....................$5
     Carnitas (+$2)
     Salsa (+$0.50)
   Add a second taco for +$3 (+$4 for Carnitas)
-Sushi ..................$8
-  Protein    
-    Tuna
-    King Salmon (+$2)
-  Rice
-    White Rice
-    Brown Rice (+$1) 
 Sandwich................$4
   Protein
     Chicken
@@ -30,26 +23,19 @@ Add AwesomeSauce to anything for $1!
 export type Protein =
   | "chicken" // 🐓
   | "jackfruit" // 🍈
-  | "tuna" // 🐟
 
   // Pricey Proteins
   | "carnitas" // 🐖
-  | "kingSalmon" // 🐟
   | "portabelloCap"; // 🍄
 
 export type EntreeType =
   | "taco" // 🌮
-  | "sushi" // 🍣
   | "sandwich"; // 🍞
 
 export type Topping =
   | "cheese" // 🧀
   | "lettuce" // 🥗
   | "tomato"; // 🍅
-
-export type RiceType =
-  | "brownRice" // 🍘
-  | "whiteRice"; // 🍙
 
 /*
  * ======================================================

@@ -46,31 +46,6 @@ test("it disallows invalid tacos", () => {
     awesomeSauce: false
   };
 });
-test("it allows valid sushi", () => {
-  const sushi_1: LineItem = {
-    type: "sushi",
-    protein: "kingSalmon",
-    riceType: "brownRice",
-    awesomeSauce: false
-  };
-
-  const sushi_2: LineItem = {
-    type: "sushi",
-    protein: "tuna",
-    riceType: "whiteRice",
-    awesomeSauce: true
-  };
-});
-
-test("it disallows invalid sushi", () => {
-  // typings:expect-error
-  const badSushi_1: LineItem = {
-    type: "sushi",
-    protein: "portabelloCap",
-    riceType: "brownRice",
-    awesomeSauce: true
-  };
-});
 
 test("it allows valid sandwiches", () => {
   const sandwich_1: LineItem = {
@@ -110,12 +85,6 @@ test("correctly prices a simple order", () => {
         toppings: []
       },
       {
-        type: "sushi",
-        protein: "tuna",
-        awesomeSauce: true,
-        riceType: "whiteRice"
-      },
-      {
         type: "taco",
         protein: "chicken",
         salsa: false,
@@ -135,18 +104,6 @@ test("correctly prices a complicated order", () => {
         protein: "chicken",
         awesomeSauce: false,
         toppings: ["cheese", "lettuce", "tomato"]
-      },
-      {
-        type: "sushi",
-        protein: "kingSalmon",
-        awesomeSauce: true,
-        riceType: "brownRice"
-      },
-      {
-        type: "sushi",
-        protein: "tuna",
-        awesomeSauce: true,
-        riceType: "brownRice"
       },
       {
         type: "taco",
