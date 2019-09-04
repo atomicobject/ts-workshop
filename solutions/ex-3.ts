@@ -8,13 +8,6 @@ Taco....................$5
     Carnitas (+$2)
     Salsa (+$0.50)
   Add a second taco for +$3 (+$4 for Carnitas)
-Sushi ..................$8
-  Protein    
-    Tuna
-    King Salmon (+$2)
-  Rice
-    White Rice
-    Brown Rice (+$1) 
 Sandwich................$4
   Protein
     Chicken
@@ -34,13 +27,6 @@ interface Taco {
     salsa: boolean; // 💃
   }
   
-  
-  export interface Sushi {
-    type: "sushi";
-    protein: "kingSalmon" | "tuna";
-    riceType: RiceType;
-  }
-  
   export interface Sandwich {
     type: "sandwich";
     protein: "chicken" | "portabelloCap";
@@ -51,33 +37,26 @@ interface Taco {
     awesomeSauce: boolean; // ☢️ and 🤯
   }
   
-  type MenuItem = Taco | Sushi | Sandwich;
+  type MenuItem = Taco | Sandwich;
   export type LineItem = MenuItem & Extras;
   
 
 export type Protein =
   | "chicken" // 🐓
   | "jackfruit" // 🍈
-  | "tuna" // 🐟
 
   // Pricey Proteins
   | "carnitas" // 🐖
-  | "kingSalmon" // 🐟
   | "portabelloCap"; // 🍄
 
 export type EntreeType =
   | "taco" // 🌮
-  | "sushi" // 🍣
   | "sandwich"; // 🍞
 
 export type Topping =
   | "cheese" // 🧀
   | "lettuce" // 🥗
   | "tomato"; // 🍅
-
-export type RiceType =
-  | "brownRice" // 🍘
-  | "whiteRice"; // 🍙
 
 export interface Order {
   lineItems: LineItem[];
@@ -91,7 +70,6 @@ type PaperLineItem = {
   protein: Protein;
   awesomeSauce: boolean;
   extraTaco?: boolean;
-  riceType?: RiceType;
   salsa?: boolean;
   toppings?: Topping[];
 };
@@ -111,12 +89,6 @@ function priceTaco(taco: Taco): number {
   return 5 + protein + salsa + secondTaco;
 }
 
-function priceSushi(sushi: Sushi): number {
-  const protein = sushi.protein === "kingSalmon" ? 2 : 0;
-  const rice = sushi.riceType === "brownRice" ? 1 : 0;
-  return 8 + protein + rice;
-}
-
 export function priceItem(item: LineItem) {
   let basePrice: number;
   switch (item.type) {
@@ -125,9 +97,6 @@ export function priceItem(item: LineItem) {
       break;
     case "taco":
       basePrice = priceTaco(item);
-      break;
-    case "sushi":
-      basePrice = priceSushi(item);
       break;
     default:
       throw new Error("bad mojo");
