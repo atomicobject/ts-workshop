@@ -1,4 +1,4 @@
-import { Protein, Topping, EntreeType, RiceType } from "../exercise-3/code";
+import { Protein, Topping, EntreeType } from "../exercise-3/code";
 import React from "react";
 import { Flavor } from "../util";
 
@@ -33,7 +33,7 @@ export type Annotation = "pricey" | "nuclear";
 
 export type Extras = "extraTaco" | "awesomeSauce" | "salsa";
 
-export type FoodStuffs = Protein | Topping | EntreeType | RiceType | Extras;
+export type FoodStuffs = Protein | Topping | EntreeType | Extras;
 export interface IconProps {
   type: FoodStuffs;
 }

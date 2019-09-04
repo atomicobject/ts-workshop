@@ -1,4 +1,4 @@
-import { Protein, Topping, EntreeType, RiceType } from "../exercises/exercise-3/code";
+import { Protein, Topping, EntreeType } from "../exercises/exercise-3/code";
 import React from "react";
 
 export interface ReceiptProps {
@@ -36,7 +36,7 @@ export enum Annotation {
 
 export type Extras = "extraTaco" | "awesomeSauce" | "salsa";
 
-export type AllComponents = Protein | Topping | EntreeType | RiceType | Extras;
+export type AllComponents = Protein | Topping | EntreeType | Extras;
 export interface IconProps {
   type: AllComponents;
 }
@@ -47,8 +47,6 @@ function descFor(type: AllComponents): string {
       return "🐖 Carnitas";
     case "awesomeSauce":
       return "☢️ Awesome Sauce";
-    case "brownRice":
-      return "🍘 Brown Rice";
     case "cheese":
       return "🧀 Cheese";
     case "chicken":
@@ -57,8 +55,6 @@ function descFor(type: AllComponents): string {
       return "🌮 Extra Taco";
     case "jackfruit":
       return "🍈 Jackfruit";
-    case "kingSalmon":
-      return "🐟 King Salmon";
     case "lettuce":
       return "🥗 Lettuce";
     case "portabelloCap":
@@ -67,16 +63,10 @@ function descFor(type: AllComponents): string {
       return "💃 Salsa";
     case "sandwich":
       return "🍞 Sandwich";
-    case "sushi":
-      return "🍣 Sushi";
     case "taco":
       return "🌮 Taco";
     case "tomato":
       return "🍅 Tomato";
-    case "tuna":
-      return "🐟 Tuna";
-    case "whiteRice":
-      return "🍙 White Rice";
   }
 }
 export const ComponentDesc: React.SFC<IconProps> = props => {

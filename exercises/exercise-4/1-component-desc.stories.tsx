@@ -23,10 +23,6 @@ storiesOf("Exercise 4.1: Description", module)
     expectToLookLike("🌮 Taco", () => <Description type={"taco"} />)
   )
   .add(
-    "Sushi",
-    expectToLookLike("🍣 Sushi", () => <Description type={"sushi"} />)
-  )
-  .add(
     "Sandwich",
     expectToLookLike("🍞 Sandwich", () => <Description type={"sandwich"} />)
   )
@@ -38,15 +34,10 @@ storiesOf("Exercise 4.1: Description", module)
     "Jackfruit",
     expectToLookLike("🍈 Jackfruit", () => <Description type={"jackfruit"} />)
   )
-  .add("Tuna", expectToLookLike("🐟 Tuna", () => <Description type={"tuna"} />))
-
-  .add("King Salmon", expectToLookLike("🐟 King Salmon", () => <Description type={"kingSalmon"} />))
   .add(
     "Portobello Cap",
     expectToLookLike("🍄 Portobello Cap", () => <Description type={"portabelloCap"} />)
   )
- .add("brown rice", expectToLookLike( "🍘 Brown Rice", () => <Description type={"brownRice"} />))
- .add("white rice", expectToLookLike("🍙 White Rice", () => <Description type={"whiteRice"} />))
  .add("cheese", expectToLookLike("🧀 Cheese", () => <Description type={"cheese"} />))
  .add("lettuce", expectToLookLike("🥗 Lettuce", () => <Description type={"lettuce"} />))
  .add("tomato", expectToLookLike("🍅 Tomato", () => <Description type={"tomato"} />))

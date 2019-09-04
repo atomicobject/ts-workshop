@@ -3,7 +3,7 @@ import React from "react";
 import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { ItemSummary, Annotation } from "./code";
-import { EntreeType, Protein, RiceType, Topping } from "../exercise-3/code";
+import { EntreeType, Protein, Topping } from "../exercise-3/code";
 
 storiesOf("Exercise 4.3: Item", module)
   .add("Intro", () => (
