@@ -48,7 +48,7 @@ To make sure you're prepared for the workshop, please do the following:
 
 We recommend using **Visual Studio Code**, as it comes with excellent TypeScript support built in. If you decide not to use it, we recommend downloading it before the workshop in case you run into issues with your editor of choice.
 
-If you'd prefer to use a different editor, you'll want to make sure that it's set up to properly type check TypeScript as you type. If you open `exercise-1.test.ts`, you should see one error for the variable `foo`. We expect this error, as indicated by the `typings:expect-error` above.
+If you'd prefer to use a different editor, you'll want to make sure that it's set up to properly type check TypeScript as you type. If you open `exercise-0/exercise.test.ts`, you should see one error for the variable `foo`. We expect this error, as indicated by the `typings:expect-error` above.
 
 A properly configured Visual Studio Code shows the following:
 
