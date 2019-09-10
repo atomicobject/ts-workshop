@@ -1,21 +1,30 @@
 import { AssertAssignable } from "../util";
 
+//
+// Run this exercise with: npm run exercise-2
+//
+
 test("literal types", () => {
   /* Type aliases get more useful when we move beyond primative types. */
   type ALiteralString = "just this one";
 
+  /** We can assign the exact string to a variable of ALiteralString */
   let theRightLiteral: ALiteralString = "just this one";
 
+  /** But we cannot assign any other string! */
   // typings:expect-error
   let notThatLiteral: ALiteralString = "some other string";
 });
 
 test("infers different types based on keywords", () => {
+
+  /** Since `regularString` is not a constant, TypeScript allows it to be any string */
   let regularString = "hello";
 
   /*
-   * Check out the type of literalString! It's a string literal,
-   * which means TS knows it can only be this exact value.
+   * But check out the type of literalString! It's a string literal,
+   * which means TS knows it can only be this exact value. It does this
+   * since literalString is a constant and will never be anything else.
    */
   const literalString = "goodnight";
 
@@ -24,19 +33,6 @@ test("infers different types based on keywords", () => {
   const literalNumber = 2;
 });
 
-test("literals in control flow", () => {
-  /*
-   * TS understands control flow.
-   * Take a look at the type of 'fruit' inside of these blocks.
-   */
-  function isBanana(fruit: string) {
-    if (fruit === "banana") {
-      return `${fruit} is a banana`;
-    } else {
-      return ` ${fruit} is not a banana`;
-    }
-  }
-});
 
 // /**************************************************************************/
 // test("describes a literal", () => {
@@ -131,10 +127,12 @@ test("literals in control flow", () => {
 //   type Alien = {};
 
 //   let alienBlaxnor: Alien = {
+//     name: "Blaxnor",
 //     homePlanet: "Jupiter",
 //     phaser: true
 //   };
 //   let alienXanter: Alien = {
+//     name: "Xanter",
 //     homePlanet: "Mars",
 //     phaser: false
 //   };
@@ -147,7 +145,7 @@ test("literals in control flow", () => {
 //   type EarthlingOrAlien = Earthling | Alien;
 
 //   let person: EarthlingOrAlien = { type: "animal", name: "Fernando" }
-//   let alien: EarthlingOrAlien = { homePlanet: "Pluto", phaser: true }
+//   let alien: EarthlingOrAlien = { name: "Mac", homePlanet: "Pluto", phaser: true }
 
 //   // typings:expect-error
 //   let star: EarthlingOrAlien = "Sirius";
@@ -163,6 +161,23 @@ test("literals in control flow", () => {
 //     homePlanet: false,
 //     name: "Asteroid"
 //   };
+
+
+//   /**
+//    * If we have a value of a union type, we can access common properties
+//    */
+//   function printName(creature: EarthlingOrAlien){
+//     console.log(creature.name)
+//   }
+
+//    /**
+//     * But we cannot access properties that aren't common to all constituents
+//     */
+//   function printType(creature: EarthlingOrAlien) {
+//     // typings:expect-error
+//     console.log(creature.type);
+//   }
+
 // });
 // /**************************************************************************/
 
@@ -210,6 +225,24 @@ test("literals in control flow", () => {
 
 // /**************************************************************************/
 // test("type narrowing and exhaustiveness", () => {
+//   /* ======================================================
+//    * TS understands control flow.
+//    * 
+//    * TODO: Take a look at the type of 'fruit' each time it's referenced in
+//    * isBanana below.
+//    * ====================================================== */
+//   function isBanana(fruit: 'banana' | 'apple' | 'pear') {
+//     if (fruit === "banana") {
+//       return `${fruit} is a banana`;
+//     } else {
+//       return ` ${fruit} is not a banana`;
+//     }
+//   }
+
+//   /* ======================================================
+//    * TODO: Check out the return type of classify. TS has figured out
+//    * which specific strings can possibly be returned.
+//    * ====================================================== */
 //   function classify(n: number) {
 //     if (n < 0) return "negative";
 //     if (n > 0) return "positive";
@@ -217,7 +250,9 @@ test("literals in control flow", () => {
 //   }
 
 //   /*
-//    * TS can narrow types as we move through control flow.
+//    * TS checks our declared return type against the inferred type
+//    * from all code paths in a function.
+//    * 
 //    * This makes it easy to tell if we've handled all cases.
 //    *
 //    * ======================================================
@@ -225,24 +260,22 @@ test("literals in control flow", () => {
 //    *       describeNumber and see what happens.
 //    * ======================================================*/
 //   function describeNumber(num: number): string {
-//     const value = classify(3);
+//     const value = classify(num);
 
 //     if (value === "negative") {
-//       value;
 //       return `${num} is a negative number`;
 //     } else if (value === "positive") {
-//       value;
 //       return `${num} is a positive number`;
 //     } else {
-//       value;
 //       return `${num} is zero`;
 //     }
 //   }
 
+  
 //   /*
 //    * ======================================================
-//    * TODO: Change ONLY the input FruitColor to prove that the
-//    * function below will always return one of these two strings.
+//    * TODO: Change ONLY the input type FruitColor so that the
+//    * function below will only accept inputs it is able to classify
 //    * ======================================================*/
 //   type FruitColor = string;
 
@@ -270,6 +303,15 @@ test("literals in control flow", () => {
 // test("working with discriminated unions", () => {
 //   /*
 //    * Let's take a look at the HotDrink type described in the slides.
+//    *
+//    * TS can narrow types as we move through control flow. When
+//    * we're handling different cases of a union type, it's helpful
+//    * to have a single property that is shared between all the cases,
+//    * but has a different literal value for each case in the union. This allows
+//    * us to use type narrowing to determine which case we're dealing with.
+//    *
+//    * This is great for when we have a bunch of similar objects with
+//    * different constraints
 //    */
 //   type Tea = {
 //     type: "tea"; // Discriminant field
@@ -284,7 +326,10 @@ test("literals in control flow", () => {
 
 //   type HotDrink = Tea | Coffee;
 
-//   /*
+//   /**
+//    * Since type is common to both Tea and Coffee, we can test it to
+//    * figure out which we're dealing with.
+//    * 
 //    * ======================================================
 //    * TODO: Write a function that takes a HotDrink and
 //    * returns the style, for tea, or the roast, for coffee.
@@ -295,7 +340,7 @@ test("literals in control flow", () => {
 //   ): "green" | "black" | "herbal" | "dark" | "medium" | "light" {}
 
 //   const rachaelsDrink: Tea = {name: "Chamomile", style: "herbal", type: "tea"}
-//   const drewsDrink: Coffee = {name: "Sparrows Blend", roast: "light", type: "coffee"}
+//   const drewsDrink: Coffee = {name: "Onyx Columbia San Jose", roast: "light", type: "coffee"}
 
 //   expect(describe(rachaelsDrink)).toEqual("herbal");
 //   expect(describe(drewsDrink)).toEqual("light");
@@ -305,47 +350,55 @@ test("literals in control flow", () => {
 // /**************************************************************************/
 // test("build a discriminated union", () => {
 //   /*
-//    * TS can narrow types as we move through control flow. When
-//    * we're handling different cases of a union type, it's helpful
-//    * to have a single property that is shared between all the cases,
-//    * but has a different value for each case in the union. This allows
-//    * us to use type narrowing to determine which case we're dealing with.
-//    *
-//    * This is great for when we have a bunch of similar objects with
-//    * different constraints.
-//    *
 //    * ======================================================
-//    * TODO: Change FruitType so this test passes- so that
+//    * TODO: Define FruitType as a discriminated union so that
 //    * the type proves that apples are red and can be polished,
 //    * and bananas are yellow and can be peeled.
 //    * ======================================================
 //    */
+
 //   type FruitType = any;
 
+//   // Hint: To define a function property within an object, write something like:
+//   // type SomeObject = {
+//   //   myFunc: () => void
+//   // };
+
 //   function doSomething(fruit: FruitType) {
+//     // FruitType must have a `type` field as a discriminant
 //     switch (fruit.type) {
 //       case "apple":
-//         // NOTE: typeof fruit is the type representing the type of the fruit variable.
-//         // We'll be using this to check that variables are inferred to the right type.
-
-//         // Assert that fruit is statically known to have the color "red"
+//         // Apples must be the color red in this example
 //         type _t1 = AssertAssignable<{ color: "red" }, typeof fruit>;
+
+//         // For this example, apples MUST NOT be yellow
 //         // typings:expect-error
 //         type _t2 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
 
+//         // Apples must have a polish function property
 //         fruit.polish();
+
+//         // Apples must not have a peel function property
 //         // typings:expect-error
 //         fruit.peel();
+
 //         break;
+
 //       case "banana":
-//         fruit;
+//         // Bananas must be yellow in our example
 //         type _t3 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
+
+//         // Bananas must not be red.
 //         // typings:expect-error
 //         type _t4 = AssertAssignable<{ color: "red" }, typeof fruit>;
 
+//         // We can peel a banana
 //         fruit.peel();
+
+//         // But polishing a banana would be silly.
 //         // typings:expect-error
 //         fruit.polish();
+
 //         break;
 //     }
 //   }
@@ -353,7 +406,7 @@ test("literals in control flow", () => {
 // /**************************************************************************/
 
 // /**************************************************************************/
-// test("unions & intersections", () => {
+// test("combining unions & intersections", () => {
 //   /*
 //    * Unions and intersections can be combined to make complex types.
 //    * Let's revisit our pet types.
