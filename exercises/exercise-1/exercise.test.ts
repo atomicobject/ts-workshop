@@ -41,6 +41,11 @@ test("types enforce constraints", () => {
    */
   let hello = "a string";
 
+  /** 
+   * Throughout this workshop, we'll be playing with deliberately 
+   * creating TypeScript errors. Any time that you see the "typings:expect-error"
+   * annotation, the following line _should_ have a type error.
+  */
   // typings:expect-error
   hello = 5;
 
