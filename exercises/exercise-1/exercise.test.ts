@@ -89,15 +89,15 @@ test("the 'any' type", () => {
   /*
     * TS uses the keyword 'any' for a type that could be anything.
     *
-    * Values of this type are just like JavaScript. There's no compile-
-    * time constraints on what can be done with them.
+    * Values of this type are just like JavaScript. There are no static
+    * constraints on what can be done with them.
   */
   let anything: any = "foo";
   anything = true;
   anything = 5;
 
   /*
-   * Our strictness level doesn't let variables explicitly be any,
+   * Our strictness level doesn't let variables implicitly be any,
    * so JavaScript-style function declarations aren't allowed.
    * (This is a setting.)
    */
@@ -220,7 +220,7 @@ test("supersets and structural compatibility", () => {
   type _t2 = AssertAssignable<FlavoredFoodItem, FoodItem>;
 });
 
-/*  WHEN YOU UNCOMMENT THESE TESTS:
+/*  🚨 WHEN YOU UNCOMMENT THESE TESTS: 🚨
 *   To uncomment a single test, uncomment from one star-line to the next.
 *   Have `npm run exercise-1` running in your terminal. When you uncomment
 *   a test and save the file, you should see a test failure in your terminal.
