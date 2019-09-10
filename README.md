@@ -16,8 +16,6 @@ Doing this will help things kick off smoothly. Thanks for your help!
 
 To make sure you're prepared for the workshop, please do the following:
 
-* [Install NPM](https://www.npmjs.com/get-npm) or, if you use homebrew, `brew install npm`
-
 * Ensure you have node 8 or newer installed. [Install it here](https://nodejs.org/en/download/) or `brew install node`. We've tested with both node 8 and 10. (Use `node --version` to check that you have the right version installed. If you need a different version of node on your machine for another project, check out [nvm](https://github.com/creationix/nvm))
 
 * Clone this repo locally. We will be asking you to pull changes the morning of the workshop, so please clone with `git`, as opposed to downloading a zip file.
