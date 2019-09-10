@@ -302,18 +302,5 @@ test("supersets and structural compatibility", () => {
 //   type _t1 = AssertAssignable<Pet, Cat>;
 //   // typings:expect-error
 //   type _t2 = AssertAssignable<Cat, Pet>;
-
-//   /*
-//    * ======================================================
-//    * BONUS TODO: Edit myPet and myCat to be a valid Pet and 
-//    * Cat. Can you pass myCat into handlePet, or vice versa?
-//    * What if you remove the type annotations on myPet and 
-//    * myCat?
-//    * ======================================================*/ 
-//   let myPet: Pet = {};
-//   let myCat: Cat = {};
-
-//   function handlePet(pet: Pet) {}
-//   function handleCat(cat: Cat) {}
 // })
 // /**************************************************************************/
