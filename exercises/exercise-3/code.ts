@@ -42,7 +42,7 @@ export type Topping =
  * TODO: Update LineItem to represent an order from the
  * Monster Foodies Truck.
  * ======================================================*/
-export type LineItem = any;
+export type LineItem = {};
 
 export interface Order {
   lineItems: LineItem[];
@@ -56,17 +56,23 @@ export function priceOrder(order: Order): number {
   return 1;
 }
 
-/* Monster's foodie truck takes orders on paper slips, 
-   but sometimes people don't read the menu before they
-   order. */
+/** The Monster Foodies truck takes orders on paper slips. 
+  * PaperLineItem represents the structure of an order 
+  * from the paper slips. Make sure your LineItem type 
+  * matches up with the paper slips by confirming that 
+  * it is structurally compatible with PaperLineItem.
+  */
 type PaperLineItem = {
   type: EntreeType;
   protein: Protein;
   awesomeSauce: boolean;
   extraTaco?: boolean;
-  riceType?: RiceType;
   salsa?: boolean;
   toppings?: Topping[];
 };
 
+/**
+ * This AssertAssignable line will have a type error if your
+ * line item is not structurally compatible with PaperLineItem.
+ */
 type _t1 = AssertAssignable<PaperLineItem, LineItem>;
