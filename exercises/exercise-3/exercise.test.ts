@@ -75,44 +75,177 @@ test("it disallows invalid sandwiches", () => {
   };
 });
 
-test("correctly prices a simple order", () => {
-  const order: Order = {
-    lineItems: [
-      {
-        type: "sandwich",
-        protein: "chicken",
-        awesomeSauce: false,
-        toppings: []
-      },
-      {
-        type: "taco",
-        protein: "chicken",
-        salsa: false,
-        awesomeSauce: false,
-        extraTaco: false
-      }
-    ]
-  };
-  expect(priceOrder(order)).toEqual(18);
-});
+// /*************************************************************************/
+// test('it can price a simple sandwich', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "sandwich",
+//         protein: "chicken",
+//         awesomeSauce: false,
+//         toppings: []
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(4);
+// });
+// /*************************************************************************/
 
-test("correctly prices a complicated order", () => {
-  const order: Order = {
-    lineItems: [
-      {
-        type: "sandwich",
-        protein: "chicken",
-        awesomeSauce: false,
-        toppings: ["cheese", "lettuce", "tomato"]
-      },
-      {
-        type: "taco",
-        protein: "carnitas",
-        salsa: true,
-        awesomeSauce: false,
-        extraTaco: true
-      }
-    ]
-  };
-  expect(priceOrder(order)).toEqual(38.5);
-});
+// /*************************************************************************/
+// test('it can price a sandwich with one free topping and awesomesauce', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "sandwich",
+//         protein: "jackfruit",
+//         awesomeSauce: true,
+//         toppings: ['cheese'] // free
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(4 + 1);
+// });
+// /*************************************************************************/
+
+// /*************************************************************************/
+// test('it can price a sandwich with a premium protein', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "sandwich",
+//         protein: "portabelloCap",
+//         awesomeSauce: false,
+//         toppings: ['cheese'] // free
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(4 + 2);
+// });
+// /*************************************************************************/
+
+// /*************************************************************************/
+// test('it can price a sandwich with extra toppings', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "sandwich",
+//         protein: "chicken",
+//         awesomeSauce: false,
+//         toppings: ['cheese', "lettuce", 'tomato']
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(4 + 0.5*2);
+// });
+// /*************************************************************************/
+
+
+// /*************************************************************************/
+// test('it can price a simple taco', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "taco",
+//         protein: "chicken",
+//         salsa: false,
+//         awesomeSauce: false,
+//         extraTaco: false
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(5);
+// })
+
+// /*************************************************************************/
+// test('it can price a taco with an extra taco', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "taco",
+//         protein: "jackfruit",
+//         salsa: false,
+//         awesomeSauce: false,
+//         extraTaco: true
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(5 + 3);
+// })
+// /*************************************************************************/
+
+// /*************************************************************************/
+// test('it can price a taco with both sauces', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "taco",
+//         protein: "chicken",
+//         salsa: true,
+//         awesomeSauce: true,
+//         extraTaco: false
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(5 + 1 + 0.5);
+// })
+// /*************************************************************************/
+
+// /*************************************************************************/
+// test('it can price a single taco with carnitas', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "taco",
+//         protein: "carnitas",
+//         salsa: false,
+//         awesomeSauce: false,
+//         extraTaco: false
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(5 + 2);
+// })
+// /*************************************************************************/
+
+// /*************************************************************************/
+// test('it can price two tacos with carnitas', () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "taco",
+//         protein: "carnitas",
+//         salsa: false,
+//         awesomeSauce: false,
+//         extraTaco: true
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(5 + 2 + 4);
+// })
+// /*************************************************************************/
+
+// /*************************************************************************/
+// test("correctly prices a complicated order", () => {
+//   const order: Order = {
+//     lineItems: [
+//       {
+//         type: "sandwich",
+//         protein: "chicken",
+//         awesomeSauce: false,
+//         toppings: ["cheese", "lettuce", "tomato"]
+//       },
+//       {
+//         type: "taco",
+//         protein: "carnitas",
+//         salsa: true,
+//         awesomeSauce: false,
+//         extraTaco: true
+//       }
+//     ]
+//   };
+//   expect(priceOrder(order)).toEqual(
+//     4 + 0.5*(3-1) +   // The sandwich
+//     5 + 2 + 4 + 0.5        // The taco
+//   );
+// });
+// /*************************************************************************/
