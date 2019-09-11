@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import { orderToReceipt } from "./code";
-import { Order, EntreeType, Protein, RiceType } from "../exercise-3/code";
+import { Order, EntreeType, Protein } from "../exercise-3/code";
 import { Receipt } from "../exercise-4/code";
 import React from "react";
 
@@ -18,10 +18,10 @@ storiesOf("orderToReceipt", module)
           salsa: true
         },
         {
-          type: "sushi",
-          protein: "kingSalmon",
-          riceType: "brownRice",
-          awesomeSauce: false
+          type: "sandwich",
+          protein: "chicken",
+          awesomeSauce: false,
+          toppings: ["cheese", "lettuce", "tomato"]
         }
       ]
     };

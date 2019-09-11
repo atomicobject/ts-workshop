@@ -103,44 +103,4 @@ describe("orderToReceipt", () => {
 
     expect(orderToReceipt(argument, 3)).toEqual(expected);
   });
-  test("Translates sushi", () => {
-    const argument: Order = {
-      lineItems: [
-        {
-          type: "sushi",
-          protein: "kingSalmon",
-          riceType: "brownRice",
-          awesomeSauce: true
-        }
-      ]
-    };
-
-    const expected: ReceiptProps = {
-      items: [
-        {
-          entreeType: "sushi",
-          additions: [
-            {
-              additionType: "kingSalmon",
-              annotation: "pricey"
-            },
-            {
-              additionType: "brownRice"
-            },
-            {
-              additionType: "awesomeSauce",
-              annotation: "nuclear"
-            }
-          ],
-          itemTotal: 12,
-          mindBlowing: true
-        }
-      ],
-      subtotal: 12,
-      tip: 3,
-      total: 15
-    };
-
-    expect(orderToReceipt(argument, 3)).toEqual(expected);
-  });
 });
