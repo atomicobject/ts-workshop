@@ -88,6 +88,20 @@ test("function types", () => {
   function timesThree(x) {
     return x * 3;
   }
+
+  /**
+   * We can use a slightly different function declaration syntax:
+   */
+  let timesFour = (x: number) => x * 4;
+
+  /** 
+   * Functions are values, so they can have type annotations just like
+   * any other value.
+   * The type of aNumberFunction is (x: number) => number, which is to say, a 
+   * function that takes a number and returns a number.
+   */
+  let aNumberFunction: (x: number) => number = timesFour
+  
 });
 
 test("the 'any' type", () => {
@@ -163,10 +177,10 @@ test("object types", () => {
 
 test("type aliases", () => {
   /*
-      * These types are a little more complicated to write than the primatives.
-      * What if we want to use them again? We can describe aliases for types,
-      * and we can use them anywhere that we would use a type.
-      */
+  * These types are a little more complicated to write than the primatives.
+  * What if we want to use them again? We can describe aliases for types,
+  * and we can use them anywhere that we would use a type.
+  */
   type Fruit = { name: string; color: string };
 
   let strawberry: Fruit = { color: "red", name: "Strawberry" };
@@ -174,7 +188,60 @@ test("type aliases", () => {
 
   // typings:expect-error
   let plate: Fruit = { size: "small", color: "blue" };
+
+  /**
+   * We can alias any valid type:
+   */
+  type AFunction = (x: number) => number;
+  type APrimitive = string;
+  type AFruit = Fruit;
 });
+
+test("compound types", () => {
+  /**
+   * Types can be constructed of other types.
+   */
+
+  type Fruit = {
+    name: string;
+    color: string 
+  } 
+
+  /**
+   * We can alias function types.
+   */
+  type JobDescriber = () => string
+
+  /**
+   * We can assemble object types from any other simple or aliased types.
+   */
+  type Person = {
+    name: string
+    favoriteFruit: Fruit
+    pets: string[]
+    describeJob: JobDescriber
+  }
+
+  let Kaitie: Person = {
+    name: "Kaitie",
+    favoriteFruit: {
+      name: "papaya",
+      color: "yellow"
+    },
+    pets: ["Friday", "Chili"],
+    describeJob: () => { return "I teach kids about nature!" }
+  }
+
+  let Kaelynn: Person = {
+    name: "Kaelynn",
+    favoriteFruit: {
+      name: "pear",
+      color: "green"
+    },
+    pets: [],
+    describeJob: () => { return "I build bridges!" }
+  }
+})
 
 test("supersets and structural compatibility", () => {
   type FoodItem = {
@@ -197,10 +264,10 @@ test("supersets and structural compatibility", () => {
     flavorProfile: string;
   }
   /*
-      * The type FlavoredFoodItem has a superset of the properties
-      * of FoodItem, so we can pass a FlavoredFoodItem anywhere
-      * that we expect a FoodItem.
-      */
+  * The type FlavoredFoodItem has a superset of the properties
+  * of FoodItem, so we can pass a FlavoredFoodItem anywhere
+  * that we expect a FoodItem.
+  */
   let cheezits: FlavoredFoodItem = {
     name: "Box of Cheezits",
     cost: 4,
@@ -209,8 +276,8 @@ test("supersets and structural compatibility", () => {
   let cheesyCheezits = priceStatement(cheezits);
 
   /*
-      * But, we can't pass a FoodItem where we expect a FlavoredFoodItem.
-      */
+  * But, we can't pass a FoodItem where we expect a FlavoredFoodItem.
+  */
   function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
     return `That ${item.flavorProfile} ${item.name} will be $${item.cost}.`;
   }
