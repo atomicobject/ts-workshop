@@ -4,9 +4,9 @@ import { Order, EntreeType, Protein } from "../exercise-3/code";
 import { Receipt } from "../exercise-4/code";
 import React from "react";
 
-// npm run exercise-6b
+// npm run exercise-5b
 
-storiesOf("orderToReceipt", module)
+storiesOf("Exercise 5: orderToReceipt", module)
   .add("Can work end-to-end with our receipt component", () => {
     const order: Order = {
       lineItems: [
