@@ -89,6 +89,8 @@ test("function types", () => {
     return x * 3;
   }
 
+  timesThree("hello");
+
   /**
    * We can use a slightly different function declaration syntax:
    */
@@ -258,6 +260,8 @@ test("supersets and structural compatibility", () => {
     return `That ${item.name} will be $${item.cost}`;
   }
 
+  priceStatement(apple);
+
   type FlavoredFoodItem = {
     name: string;
     cost: number;
@@ -331,6 +335,7 @@ test("supersets and structural compatibility", () => {
 // })
 // /**************************************************************************/
 
+// /**************************************************************************/
 // test("Writing a function with help from TS", () => {
 //   /*
 //    * ======================================================
