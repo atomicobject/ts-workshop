@@ -20,7 +20,7 @@ test("has type inference", () => {
 test("and type annotations", () => {
   /*
    * Rather than letting TS infer the types, we can add
-   * type annotations that explicitly describe the variable type.
+   * type annotations that explicitly describe the value type.
    */
 
   let hello: string = "hello world";
