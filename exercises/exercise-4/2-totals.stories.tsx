@@ -2,6 +2,7 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
+import { TotalSection } from "./code";
 
 
 storiesOf("Exercise 4.2: Totals", module)
