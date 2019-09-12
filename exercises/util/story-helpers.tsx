@@ -24,5 +24,5 @@ export function expectToLookLike(
 }
 
 export const ReplaceMe: React.SFC<{}> = props => (
-  <div>Replace this tag with your own component exampl</div>
+  <div>Replace this tag with your own component example</div>
 );
