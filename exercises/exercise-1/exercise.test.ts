@@ -292,12 +292,14 @@ test("supersets and structural compatibility", () => {
   type _t2 = AssertAssignable<FlavoredFoodItem, FoodItem>;
 });
 
-/*  🚨 WHEN YOU UNCOMMENT THESE TESTS: 🚨
+/**  🚨 WHEN YOU UNCOMMENT THESE TESTS: 🚨
 *   To uncomment a single test, uncomment from one star-line to the next.
 *   Have `npm run exercise-1` running in your terminal. When you uncomment
 *   a test and save the file, you should see a test failure in your terminal.
 *   Keep working until you save the file and see the tests pass in your terminal.
 *   Good luck!
+*
+*  VS Code shortcut: mac: cmd-/    linux/windows: ctrl-/
 */
 // /**************************************************************************/
 // test("Writing our own types", () => {
