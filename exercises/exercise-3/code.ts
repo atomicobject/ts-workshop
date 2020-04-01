@@ -8,7 +8,7 @@ import { AssertAssignable } from "../util";
  * We'll represent items from these slips as a PaperLineItem, 
  * which is simply a collection of properties. 
  */
-type PaperLineItem = {
+export type PaperLineItem = {
   type: EntreeType;
   protein: Protein;
   awesomeSauce: boolean;
@@ -30,18 +30,11 @@ type PaperLineItem = {
  * ======================================================
  * TODO: Update the LineItem type to represent an order from the
  * Monster Foodies Truck. Make sure that LineItem only represents 
- * valid orders!
+ * valid orders! Use the discriminated union technique and 
+ * other tools you've learned to do this.
  * ======================================================*/
 export type LineItem = {};
 
-/**
- * We don't want to make the Monster Foodies Truck change their 
- * order slips, so make sure that you use the same properties 
- * as PaperLineItem. This AssertAssignable line will have a 
- * type error if your line item is not structurally compatible 
- * with PaperLineItem.
- */
-type _t1 = AssertAssignable<PaperLineItem, LineItem>;
 
 export interface Order {
   lineItems: LineItem[];

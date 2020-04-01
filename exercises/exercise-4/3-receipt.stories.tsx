@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/react";
-import React from "react";
+import * as React from "react";
 import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { ItemSummary, Annotation, Receipt } from "./code";

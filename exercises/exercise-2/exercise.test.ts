@@ -1,8 +1,15 @@
 import { AssertAssignable } from "../util";
 
-//
-// Run this exercise with: npm run exercise-2
-//
+/** npm run exercise-2
+ * 
+ * Just like at the end of exercise 2, work through this file by uncommenting
+ * tests and changing the definition of `FixThisType` to make the type errors 
+ * match the assertions.
+ * 
+ * Remember, any line that is preceded by a `typings:expect-error` comment
+ * should have a red squiggly/type error after you've defined the type properly.
+ * 
+ **/
 
 test("literal types", () => {
   /* Type aliases get more useful when we move beyond primative types. */
@@ -73,7 +80,7 @@ test("infers different types based on keywords", () => {
 //   // typings:expect-error
 //   let aBool: FixThisType = true;
 // });
-// /**************************************************************************/
+// /*************************************************************************/
 
 // /**************************************************************************/
 // test("this allows us to constrain types in interesting ways", () => {
