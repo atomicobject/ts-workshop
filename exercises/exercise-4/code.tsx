@@ -1,5 +1,5 @@
 import { Protein, Topping, EntreeType } from "../exercise-3/code";
-import React from "react";
+import * as React from "react";
 import { Flavor } from "../util";
 
 export interface ReceiptProps {
@@ -80,6 +80,7 @@ type TotalsProps = {
 export const TotalSection: React.SFC<TotalsProps> = props => {
   // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
   const examplePrice = 3.50;
+
   return <div>{3.50.toFixed(2)}</div>;
 };
 

@@ -1,5 +1,5 @@
 import { RenderFunction } from "@storybook/react";
-import React from "react";
+import * as React from "react";
 
 export function expectToLookLike(
   expected: string | React.ReactElement<any>,

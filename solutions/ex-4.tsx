@@ -1,5 +1,5 @@
 import { Protein, Topping, EntreeType } from "../exercises/exercise-3/code";
-import React from "react";
+import * as React from "react";
 
 export interface ReceiptProps {
   /** Array of line item summaries */
