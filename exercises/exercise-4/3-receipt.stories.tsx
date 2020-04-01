@@ -6,7 +6,7 @@ import { ItemSummary, Annotation, Receipt } from "./code";
 import { EntreeType, Protein, Topping } from "../exercise-3/code";
 import { StaticExample } from "./example";
 
-storiesOf("Exercise 4.4: The full Receipt", module)
+storiesOf("Exercise 4.3: The full Receipt", module)
   .add("Intro", () => (
     <div>
       <h1>Create a Receipt Component</h1>

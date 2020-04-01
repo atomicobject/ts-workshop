@@ -43,8 +43,28 @@ function descFor(type: FoodStuffs): string {
   switch (type) {
     case "carnitas":
       return "🐖 Carnitas";
-    
-    // TODO: Fill me in by copying and pasting examples from the stories file
+    case "awesomeSauce":
+      return "☢️ Awesome Sauce";
+    case "cheese":
+      return "🧀 Cheese";
+    case "chicken":
+      return "🐓 Chicken";
+    case "extraTaco":
+      return "🌮 Extra Taco";
+    case "jackfruit":
+      return "🍈 Jackfruit";
+    case "lettuce":
+      return "🥗 Lettuce";
+    case "portabelloCap":
+      return "🍄 PortaBello Cap";
+    case "salsa":
+      return "💃 Salsa";
+    case "sandwich":
+      return "🍞 Sandwich";
+    case "taco":
+      return "🌮 Taco";
+    case "tomato":
+      return "🍅 Tomato";
 
     default:
       throw new Error(`Not implemented case ${type}`);

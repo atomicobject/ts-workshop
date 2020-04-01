@@ -82,7 +82,9 @@ test("function types", () => {
 
   /**
    * We're using a high TS strictness setting today. That means
-   * that the type checker will insist that we type our arguments.
+   * that the type checker will insist that we type our arguments to functions.
+   * 
+   * (This is a setting)
    */
   // typings:expect-error
   function timesThree(x) {
@@ -92,7 +94,7 @@ test("function types", () => {
   timesThree("hello");
 
   /**
-   * We can use a slightly different function declaration syntax:
+   * We can use (and tend to prefer) arrow function syntax in many cases:
    */
   let timesFour = (x: number) => x * 4;
 
@@ -104,42 +106,6 @@ test("function types", () => {
    */
   let aNumberFunction: (x: number) => number = timesFour
   
-});
-
-test("the 'any' type", () => {
-  /*
-    * TS uses the keyword 'any' for a type that could be anything.
-    *
-    * Values of this type are just like JavaScript. There are no static
-    * constraints on what can be done with them.
-  */
-  let anything: any = "foo";
-  anything = true;
-  anything = 5;
-
-  /*
-   * Our strictness level doesn't let variables implicitly be any,
-   * so JavaScript-style function declarations aren't allowed.
-   * (This is a setting.)
-   */
-  // typings:expect-error
-  function declareFavoriteFood(name, food) {
-    return `${name}'s favorite food is ${food}`;
-  }
-
-  /* But it does allow _explicit_ any for function args: */
-  function typedDeclareFavoriteFood(name: any, food: any) {
-    return `${name}'s favorite food is ${food.toLocaleUpperCase()}`;
-  }
-  /*
-   * Using 'any' is risky, because it effectively disables
-   * type checking:
-   */
-  expect(() => {
-    let thisWillBlowUp = typedDeclareFavoriteFood(null, 2);
-  }).toThrowError();
-
-  /* We'll come back to 'any' in the next exercise. */
 });
 
 
@@ -336,6 +302,42 @@ test("classes", () => {
   // The type and the runtime machinery are separate in TypeScript!
   expect(aPointLikeThing instanceof Point).toBeFalsy()
 
+});
+
+test("the 'any' type", () => {
+  /*
+  * TS uses the type 'any' for a type that could be anything.
+  *
+  * Values of this type are just like JavaScript. There are no static
+  * constraints on what can be done with them, and no assistance
+  * from the IDE
+  */
+  let anything: any = "foo";
+  anything = true;
+  anything = 5;
+
+  /*
+   * Our strictness level doesn't let variables implicitly be any.
+   * Untyped parameters in TypeScript implicitly get the type `any`.
+   * Thus, we've configured TypeScript in a way that disallows normal 
+   * JavaScript function declaration, but this is a team choice.
+   */
+  // typings:expect-error
+  function declareFavoriteFood(name, food) {
+    return `${name}'s favorite food is ${food}`;
+  }
+
+  /* But it does allow _explicit_ any for function args: */
+  function typedDeclareFavoriteFood(name: any, food: any) {
+    return `${name}'s favorite food is ${food.toLocaleUpperCase()}`;
+  }
+  /*
+   * Using 'any' is risky, because it effectively disables
+   * type checking:
+   */
+  expect(() => {
+    let thisWillBlowUp = typedDeclareFavoriteFood(null, 2);
+  }).toThrowError();
 });
 
 

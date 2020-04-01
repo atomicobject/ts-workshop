@@ -5,7 +5,7 @@ import "./styles.css";
 import { TotalSection } from "./code";
 
 
-storiesOf("Exercise 4.2: Totals", module)
+storiesOf("Exercise 4.1: Totals", module)
   .add("Intro", () => (
     <div>
       <h1>TotalSection</h1>

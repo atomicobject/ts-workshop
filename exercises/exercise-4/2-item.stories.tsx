@@ -5,7 +5,7 @@ import "./styles.css";
 import { ItemSummary, Annotation } from "./code";
 import { EntreeType, Protein, Topping } from "../exercise-3/code";
 
-storiesOf("Exercise 4.3: Item", module)
+storiesOf("Exercise 4.2: Item", module)
   .add("Intro", () => (
     <div>
       <h1>ItemSummary component</h1>
