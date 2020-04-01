@@ -143,6 +143,7 @@ test("object types", () => {
   let reallyNotAFruit: { name: string; color: string } = { foo: false };
 });
 
+
 test("type aliases", () => {
   /*
   * These types are a little more complicated to write than the primatives.

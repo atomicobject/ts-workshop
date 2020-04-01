@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import "./styles.css";
 import { Protein, Topping, EntreeType } from "../exercise-3/code";

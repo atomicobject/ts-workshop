@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import { orderToReceipt } from "./code";
 import { Order, EntreeType, Protein } from "../exercise-3/code";
 import { Receipt } from "../exercise-4/code";
-import React from "react";
+import * as React from "react";
 
 // npm run exercise-5b
 

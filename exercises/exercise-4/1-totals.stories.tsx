@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/react";
-import React from "react";
+import * as React from "react";
 import { expectToLookLike, ReplaceMe } from "../util/story-helpers";
 import "./styles.css";
 import { TotalSection } from "./code";
@@ -10,7 +10,7 @@ storiesOf("Exercise 4.1: Totals", module)
     <div>
       <h1>TotalSection</h1>
       <p>
-        Create a component for showing the Subtotal, Tip, and Total at the bottom of the receipt.
+        Implement the `TotalSection` component to show Subtotal, Tip, and Total at the bottom of the receipt.
       </p>
     </div>
   ))

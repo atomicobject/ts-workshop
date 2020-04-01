@@ -1,5 +1,5 @@
 import { RenderFunction } from "@storybook/react";
-import React from "react";
+import * as React from "react";
 
 export function expectToLookLike(
   expected: string | React.ReactElement<any>,
@@ -24,5 +24,5 @@ export function expectToLookLike(
 }
 
 export const ReplaceMe: React.SFC<{}> = props => (
-  <div>Replace this tag with your own component example</div>
+  <div>Edit the story file and change &lt;ReplaceMe /&gt; with the appropriate tag</div>
 );
