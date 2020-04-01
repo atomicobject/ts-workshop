@@ -1,3 +1,7 @@
+/**
+ * NOTE: See the intro in exercise.test file for this exercise
+ * for explanation
+ */
 import { AssertAssignable } from "../util";
 
 /**
@@ -43,6 +47,10 @@ export interface Order {
 /*
  * ======================================================
  * TODO: Implement priceOrder.
+ * 
+ * Useful JavaScript:
+ * * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
+ * * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
  * ======================================================*/
 export function priceOrder(order: Order): number {
   return 1;

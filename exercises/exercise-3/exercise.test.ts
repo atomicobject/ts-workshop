@@ -1,4 +1,19 @@
-import { LineItem, Order, priceOrder } from "./code";
+/**
+ * Let's solve a real problem!
+ * 
+ * The Monster Foodies have a food truck selling tacos and sandwiches.
+ * (See: https://www.youtube.com/watch?v=73IIFJffd-I)
+ * 
+ * Take a look at their menu, in doc/monster_foodies_menu.pdf in this repository.
+ * 
+ * You can order sandwiches and tacos from them and tailor your order to your taste.
+ * They've hired us to build a digital order display.
+ * 
+ * Exercise a "type-first development" approach by designing a type that accurately
+ * captures the options and invariants reflected in the Monster Foodies menu.
+ */
+
+import { LineItem, Order, priceOrder, PaperLineItem } from "./code";
 import { AssertAssignable } from "../util";
 
 /** 
@@ -21,11 +36,18 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
    * as PaperLineItem. This AssertAssignable line will have a 
    * type error if your line item is not structurally compatible 
    * with PaperLineItem.
+   * 
+   * One easy way to make this test pass is to copy the contents of
+   * PaperLineItem into LineItem... Try it!
+   * 
+   * But they won't pass for long as you uncomment more tests! Design
+   * a discriminated union to represent all valid orders, and disallow
+   * any invalid order.
    */
   type _t1 = AssertAssignable<PaperLineItem, LineItem>;
 })
 
-/**************************************************************************/
+// /**************************************************************************/
 
 
 // test("it allows a valid taco", () => {
@@ -52,7 +74,7 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
 //   };
 // });
 
-/**************************************************************************/
+// /**************************************************************************/
 
 // test("it disallows invalid tacos", () => {
 //   // typings:expect-error
@@ -73,7 +95,7 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
 //   };
 // });
 
-/**************************************************************************/
+// /**************************************************************************/
 
 // test("it allows valid sandwiches", () => {
 //   const sandwich_1: LineItem = {
@@ -90,7 +112,7 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
 //   };
 // });
 
-/**************************************************************************/
+// /**************************************************************************/
 
 // test("it disallows invalid sandwiches", () => {
 //   // typings:expect-error

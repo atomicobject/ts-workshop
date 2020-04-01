@@ -69,6 +69,7 @@ test("infers different types based on keywords", () => {
 //    * we can union together any valid types.
 //    * ======================================================
 //    * TODO: Update FixThisType to allow strings or numbers.
+//    * Use the `|` character to union types together
 //    * ======================================================*/
 //   type FixThisType = any;
 
@@ -207,13 +208,15 @@ test("infers different types based on keywords", () => {
 //   };
 //   type PetInfo = { name: string; familyName: string };
 
+//   // We can define types that are both pet and Cat (or Dog) by intersecting
+//   // the PetInfo type with the species type.
 //   type PetCat = PetInfo & Cat;
 //   type PetDog = PetInfo & Dog;
 
 //   /*
 //    * ======================================================
 //    * TODO: Describe a valid PetCat and PetDog below.
-//    * HINT: Use autocompletion to help you fill in the properties.
+//    * HINT: Use autocompletion (ctrl-space) to help you fill in the properties.
 //    * ======================================================*/
 //   const sukiTheCat: PetCat = {};
 //   const finnTheDog: PetDog = {};
@@ -319,6 +322,9 @@ test("infers different types based on keywords", () => {
 //    *
 //    * This is great for when we have a bunch of similar objects with
 //    * different constraints
+//    * 
+//    * This technique - uninioning object types together with a shared, discriminating field - 
+//    * is called a "discriminated union"
 //    */
 //   type Tea = {
 //     type: "tea"; // Discriminant field
