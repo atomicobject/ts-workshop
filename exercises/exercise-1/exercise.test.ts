@@ -296,6 +296,49 @@ test("supersets and structural compatibility", () => {
   type _t2 = AssertAssignable<FlavoredFoodItem, FoodItem>;
 });
 
+test("classes", () => {
+  class Point {
+    constructor(public readonly x: number, public readonly y: number) {}
+
+    toString() {
+      return `(${this.x}, ${this.y})`
+    }
+  }
+
+  // A class gives us a runtime object we can use to construct points with the new keyword
+  const origin = new Point(0,0);
+  expect(origin.x).toEqual(0);
+  expect(origin.y).toEqual(0);
+  expect(origin.toString()).toEqual("(0, 0)")
+
+  // We can also do a runtime test to see if an object was constructed with Point
+  expect(origin instanceof Point).toBeTruthy()
+
+  // TypeScript also gives us a type that describes the shape of valid Point instances.
+  // This type does not require object be constructed with the class, only that they're 
+  // structurally compatible, just like in the example above.
+  const aPointLikeThing: Point = {
+    x: 1,
+    y: 1,
+    toString: () => "(1,1)"
+  }
+  // As you'd expect, TypeScript isn't happy if you try to claim incompatible objects are Point.
+  const aNotPointLikeThing: Point = {
+    // typings:expect-error
+    x: '1',
+    y: 1,
+    // typings:expect-error
+    toString: () => null
+  }
+
+
+  // But things that are valid Point are not necessarily instances of the class.
+  // The type and the runtime machinery are separate in TypeScript!
+  expect(aPointLikeThing instanceof Point).toBeFalsy()
+
+});
+
+
 /**  🚨 WHEN YOU UNCOMMENT THESE TESTS: 🚨
 *   To uncomment a single test, uncomment from one star-line to the next.
 *   Have `npm run exercise-1` running in your terminal. When you uncomment

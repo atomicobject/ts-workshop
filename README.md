@@ -53,6 +53,9 @@ A properly configured Visual Studio Code shows the following:
 ![ex-1-start](doc/ex-1-start.png)
 
 
+## TypeScript References
+
+If you need to look something up, the [TypeScript Handbook](https://www.typescriptlang.org/v2/docs/handbook/basic-types.html) is a great reference. Note that there are separate pages for different topics.
 
 ### Potential issues
 
