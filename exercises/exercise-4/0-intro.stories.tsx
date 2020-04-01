@@ -9,6 +9,16 @@ import { Description, FoodStuffs, TotalSection } from "./code";
 
 /** 
  * npm run exercise-4 and point a browser at http://localhost:6006 
+ * 
+ * All of the work in this exercise is visual! Use the sidebar to go through
+ * step-by-step. Implement React components to help get the visual examples to match
+ * 
+ * example.tsx contains all the HTML you will need. Refer to that if you have questions about
+ * syntax, HTML, or how to style things. All the CSS is implemented - just use the same CSS classes
+ * you see here to get the visual effect.
+ * 
+ * To learn more about how HTML is being embedded in JavaScript, find out more in the React docs:
+ *   https://reactjs.org/docs/introducing-jsx.html
 */
 
 storiesOf("Exercise 4.0 Receipt", module).add("static example", () => (
