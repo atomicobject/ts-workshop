@@ -70,6 +70,19 @@ function descFor(type: FoodStuffs): string {
       throw new Error(`Not implemented case ${type}`);
   }
 }
+
+//Mess with this a little bit, but wrote as a possible solution to getting the stuff to appear in the list
+//Broken, lines overlap with each other
+/*function checkForAnnotation(type: AdditionSummaryProps) {
+  switch(type.annotation){
+    case "pricey":
+      return <div className="crown-marker">👑</div>;
+    case "nuclear":
+      return <div className="crown-marker">☢️</div>;
+    default:
+      return <div className="misc">&nbsp;</div>;
+  }
+}*/
 export const Description: React.SFC<IconProps> = props => {
   return <span>{descFor(props.type)}</span>;
 };
@@ -86,12 +99,13 @@ export const TotalSection: React.SFC<TotalsProps> = props => {
 
 export const AdditionSummary: React.SFC<AdditionSummaryProps> = props => (
   // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
-  <li>An item</li>
+  <li>{descFor(props.additionType)}</li>
 );
 
 export const ItemSummary: React.SFC<ItemSummaryProps> = props => (
   // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
   <div className="line-item">
+    <h3>{descFor(props.entreeType)}</h3>
     <ul className="addition-list">
       {/* Render an AdditionSummary using each addition as props */}
       {props.additions.map((addition, i) => (
@@ -99,14 +113,26 @@ export const ItemSummary: React.SFC<ItemSummaryProps> = props => (
         <AdditionSummary key={i} {...addition} />
       ))}
     </ul>
+    <div className="item-total">Total: ${props.itemTotal.toFixed(2)}</div>
   </div>
 );
 
 export const Receipt: React.SFC<ReceiptProps> = props => (
   <div className="order-summary">
+    <h1>Order Summary</h1>
     {props.items.map((item, i) => (
       // Note: key is required by react for arrays of elements
       <ItemSummary key={i} {...item} />
-    ))}
+    ))
+    }
+
+    <hr className="divider" />
+
+    <div  className="total-section">
+      <div className="subtotal-info">Subtotal: ${props.subtotal.toFixed(2)}</div>
+      <div className="subtotal-info">Tip: ${props.tip.toFixed(2)}</div>
+
+      <div className="grand-total">Total: ${props.total.toFixed(2)}</div>
+    </div>
   </div>
 );

@@ -70,6 +70,97 @@ storiesOf("Exercise 4.3: The full Receipt", module)
   )
   .add(
     "Your example 1",
-    () => <ReplaceMe />
-    // with your own Receipt
+    () => (
+      <Receipt
+        subtotal={200}
+        tip={60}
+        total={260}
+        items={[
+          {
+            entreeType: "sandwich",
+            mindBlowing: true,
+            itemTotal: 125,
+            additions: [
+              {
+                additionType: "chicken"
+              },
+              {
+                additionType: "cheese"
+              },
+              {
+                additionType: "carnitas",
+                annotation: "pricey"
+              },
+              {
+                additionType: "awesomeSauce",
+                annotation: "nuclear"
+              }
+            ]
+          },
+          {
+            entreeType: "sandwich",
+            mindBlowing: false,
+            itemTotal: 50,
+            additions: [
+              {
+                additionType: "lettuce"
+              },
+              {
+                additionType: "chicken"
+              },
+              {
+                additionType: "awesomeSauce",
+                annotation: "nuclear"
+              },
+              {
+                additionType: "jackfruit"
+              },
+              {
+                additionType: "salsa"
+              },
+              {
+                additionType: "carnitas",
+                annotation: "pricey"
+              },
+              {
+                additionType: "sandwich"
+              }
+            ]
+          },
+          {
+            entreeType: "taco",
+            mindBlowing: true,
+            itemTotal: 25,
+            additions: [
+              {
+                additionType: "salsa"
+              },
+              {
+                additionType: "awesomeSauce",
+                annotation: "nuclear"
+              },
+              {
+                additionType: "carnitas",
+                annotation: "pricey"
+              },
+              {
+                additionType: "cheese"
+              },
+              {
+                additionType: "chicken"
+              },
+              {
+                additionType: "lettuce"
+              },
+              {
+                additionType: "tomato"
+              },
+              {
+                additionType: "extraTaco"
+              }
+            ]
+          }
+        ]}
+      />
+    )
   );

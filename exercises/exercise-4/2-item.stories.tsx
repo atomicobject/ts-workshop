@@ -118,7 +118,33 @@ storiesOf("Exercise 4.2: Item", module)
       )
     )
   )
-  .add("Your example 1", () => 
-    <ReplaceMe />
-    // with your own ItemSummary example
-  )
+  .add("Your example 1", () => (
+    <ItemSummary
+      entreeType={"sandwich"}
+      mindBlowing={false}
+      itemTotal={453}
+      additions={[
+        {
+          additionType: "cheese",
+        },
+        {
+          additionType: "awesomeSauce",
+          annotation: "nuclear",
+        },
+        {
+          additionType: "chicken",
+        },
+        {
+          additionType: "salsa",
+        },
+       {
+          additionType: "carnitas",
+          annotation: "pricey",
+        },
+        {
+          additionType: "lettuce",
+        }
+      ]}
+    />
+  ) 
+)
