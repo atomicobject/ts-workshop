@@ -202,6 +202,8 @@ export const ItemSummary: React.SFC<ItemSummaryProps> = props => (
       ))}
     </ul>
     <div className="item-total">Total: ${props.itemTotal.toFixed(2)}</div>
+
+    {props.mindBlowing && <div className="awesome-sauce-backdrop">😻</div>}
   </div>
 );
 

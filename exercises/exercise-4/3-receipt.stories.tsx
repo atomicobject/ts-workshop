@@ -99,7 +99,7 @@ storiesOf("Exercise 4.3: The full Receipt", module)
           },
           {
             entreeType: "sandwich",
-            mindBlowing: false,
+            mindBlowing: true,
             itemTotal: 50,
             additions: [
               {
