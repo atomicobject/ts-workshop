@@ -39,8 +39,109 @@ export interface IconProps {
 }
 
 
-function descFor(type: FoodStuffs): string {
+function descFor(type: FoodStuffs): JSX.Element {
   switch (type) {
+    case "carnitas":
+      return (
+        <li>
+          <div className="crown-marker">👑</div>
+          <div className="addition-label">🐖 Carnitas</div>
+        </li>
+      );
+    case "awesomeSauce":
+      return (
+        <li>
+          <div className="crown-marker">☢️</div>
+          <div className="addition-label awesome-sauce">Awesome Sauce</div>
+        </li>
+      );
+    case "cheese":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🧀 Cheese</div>
+        </li>
+      );
+    case "chicken":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🐓 Chicken</div>
+        </li>
+      );
+    case "extraTaco":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🌮 Extra Taco</div>
+        </li>
+      );
+    case "jackfruit":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🍈 Jackfruit</div>
+        </li>
+      );
+    case "lettuce":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🥗 Lettuce</div>
+        </li>
+      );
+    case "portabelloCap":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🍄 PortaBello Cap</div>
+        </li>
+      );
+    case "salsa":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">💃 Salsa</div>
+        </li>
+      );
+    case "sandwich":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🍞 Sandwich</div>
+        </li>
+      );
+    case "taco":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🌮 Taco</div>
+        </li>
+      );
+    case "tomato":
+      return (
+        <li>
+          <div className="crown-marker">&nbsp;</div>
+          <div className="addition-label">🍅 Tomato</div>
+        </li>
+      );
+
+    default:
+      return (
+        <li>
+          <div className="crown-marker">‼️</div>
+          <div className="addition-label">Invalid Addition</div>
+        </li>
+      );
+  }
+}
+
+//Generates title
+//Really didn't need to be implemented in this use case, but
+//-it adds the extra functionality of if a theoretical customer
+//-only wanted to buy one of these, addtion or not, individually
+function getTitle(type: FoodStuffs): String {
+  switch(type){
     case "carnitas":
       return "🐖 Carnitas";
     case "awesomeSauce":
@@ -65,24 +166,10 @@ function descFor(type: FoodStuffs): string {
       return "🌮 Taco";
     case "tomato":
       return "🍅 Tomato";
-
     default:
-      throw new Error(`Not implemented case ${type}`);
+      return "‼️ Invalid Item";
   }
 }
-
-//Mess with this a little bit, but wrote as a possible solution to getting the stuff to appear in the list
-//Broken, lines overlap with each other
-/*function checkForAnnotation(type: AdditionSummaryProps) {
-  switch(type.annotation){
-    case "pricey":
-      return <div className="crown-marker">👑</div>;
-    case "nuclear":
-      return <div className="crown-marker">☢️</div>;
-    default:
-      return <div className="misc">&nbsp;</div>;
-  }
-}*/
 export const Description: React.SFC<IconProps> = props => {
   return <span>{descFor(props.type)}</span>;
 };
@@ -98,17 +185,18 @@ export const TotalSection: React.SFC<TotalsProps> = props => {
 };
 
 export const AdditionSummary: React.SFC<AdditionSummaryProps> = props => (
-  // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
+  //Calls descFor to get the appropriate addition description
   <li>{descFor(props.additionType)}</li>
 );
 
 export const ItemSummary: React.SFC<ItemSummaryProps> = props => (
-  // TODO: Implement me for real. Feel free to copy HTML structure from StaticExample
   <div className="line-item">
-    <h3>{descFor(props.entreeType)}</h3>
+    <h3>{getTitle(props.entreeType)}</h3> {/*Gets item title*/}
     <ul className="addition-list">
       {/* Render an AdditionSummary using each addition as props */}
       {props.additions.map((addition, i) => (
+        //-Below this is a loop. It will go through all elements of size i (which appears to be defined/counted automatically)
+        //--and do whatever is in the function/constant defined in the beginning (ex in this case, AdditionSummary, which is defined above).
         // Note: key is required by react for arrays of elements
         <AdditionSummary key={i} {...addition} />
       ))}
