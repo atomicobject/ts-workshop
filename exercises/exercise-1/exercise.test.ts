@@ -368,8 +368,8 @@ test("the 'any' type", () => {
 // test("Writing some function types", ()=>{
 //   /*
 //    * ======================================================
-//    * TODO: Update FixThisType to allow a function that takes
-//    * a string and returns a string.
+//    * TODO: Change FixThisType from "any" to a type that allows 
+//    * a function that takes a string and returns a string.
 //    * ======================================================*/
 //   type FixThisType = any;
 //   let sayHello: FixThisType = (name: string) => { return `Hello, ${name}.`}
@@ -404,7 +404,7 @@ test("the 'any' type", () => {
 // test("Writing some object types", () => {
 //   /*
 //    * ======================================================
-//    * TODO: Update FixThisOneToo to allow objects with a kind
+//    * TODO: Update FixThisType to allow objects with a kind
 //    * and a disposition.
 //    * ======================================================*/
 //   type FixThisType = any;

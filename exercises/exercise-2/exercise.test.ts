@@ -2,7 +2,7 @@ import { AssertAssignable } from "../util";
 
 /** npm run exercise-2
  * 
- * Just like at the end of exercise 2, work through this file by uncommenting
+ * Just like at the end of exercise 1, work through this file by uncommenting
  * tests and changing the definition of `FixThisType` to make the type errors 
  * match the assertions.
  * 
@@ -13,14 +13,14 @@ import { AssertAssignable } from "../util";
 
 test("literal types", () => {
   /* Type aliases get more useful when we move beyond primative types. */
-  type ALiteralString = "just this one";
+  type ALiteralString = "cat";
 
   /** We can assign the exact string to a variable of ALiteralString */
-  let theRightLiteral: ALiteralString = "just this one";
+  let theRightLiteral: ALiteralString = "cat";
 
   /** But we cannot assign any other string! */
   // @ts-expect-error
-  let notThatLiteral: ALiteralString = "some other string";
+  let notThatLiteral: ALiteralString = "dog";
 });
 
 test("infers different types based on keywords", () => {
@@ -40,6 +40,9 @@ test("infers different types based on keywords", () => {
   const literalNumber = 2;
 });
 
+/**
+ * Let's do some more independent exercises.
+ **/
 
 // /**************************************************************************/
 // test("describes a literal", () => {
@@ -95,10 +98,10 @@ test("infers different types based on keywords", () => {
 
 //   let aTrue: FixThisType = true;
 
-//   let aString: FixThisType = "this string";
+//   let aString: FixThisType = "tortise";
 
 //   // @ts-expect-error
-//   let someOtherString: FixThisType = "not that string";
+//   let someOtherString: FixThisType = "hare";
 //   // @ts-expect-error
 //   let aNull: FixThisType = null;
 //   // @ts-expect-error
@@ -158,14 +161,14 @@ test("infers different types based on keywords", () => {
 //   // @ts-expect-error
 //   let star: EarthlingOrAlien = "Sirius";
 
-//   // @ts-expect-error
 //   let galaxy: EarthlingOrAlien = {
+//     // @ts-expect-error
 //     type: "LocalGalaxy",
 //     name: "Milky Way"
 //   };
 
-//   // @ts-expect-error
 //   let asteroid: EarthlingOrAlien = {
+//     // @ts-expect-error
 //     homePlanet: false,
 //     name: "Asteroid"
 //   };
@@ -350,7 +353,7 @@ test("infers different types based on keywords", () => {
 //    */
 //   function describe(
 //     drink: HotDrink
-//   ): "green" | "black" | "herbal" | "dark" | "medium" | "light" {}
+//   ): Tea["style"] | Coffee["roast"] {}
 
 //   const rachaelsDrink: Tea = {name: "Chamomile", style: "herbal", type: "tea"}
 //   const drewsDrink: Coffee = {name: "Onyx Columbia San Jose", roast: "light", type: "coffee"}
@@ -365,14 +368,14 @@ test("infers different types based on keywords", () => {
 //   /*
 //    * ======================================================
 //    * TODO: Define FruitType as a discriminated union so that
-//    * the type proves that apples are red and can be polished,
-//    * and bananas are yellow and can be peeled.
+//    * the type proves that apples are red and have a polish function,
+//    * and bananas are yellow and have a peel function.
 //    * ======================================================
 //    */
 
 //   type FruitType = any;
 
-//   // Hint: To define a function property within an object, write something like:
+//   // Hint: To define a function property within an object type, write something like:
 //   // type SomeObject = {
 //   //   myFunc: () => void
 //   // };
