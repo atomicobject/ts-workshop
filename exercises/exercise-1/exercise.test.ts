@@ -43,17 +43,17 @@ test("types enforce constraints", () => {
 
   /** 
    * Throughout this workshop, we'll be playing with deliberately 
-   * creating TypeScript errors. Any time that you see the "typings:expect-error"
+   * creating TypeScript errors. Any time that you see the "@ts-expect-error"
    * annotation, the following line _should_ have a type error.
   */
-  // typings:expect-error
+  // @ts-expect-error
   hello = 5;
 
   /*
    * Type annotations are useful because they allow us to
    * express our intent to TypeScript, so it can catch mistakes.
    */
-  // typings:expect-error
+  // @ts-expect-error
   let shouldBeAString: string = true;
 });
 
@@ -77,7 +77,7 @@ test("function types", () => {
    * TypeScript statically proves that nobody has called the 
    * function with bad arguments.
    */
-  // typings:expect-error
+  // @ts-expect-error
   let notANumber = addOne("hello");
 
   /**
@@ -86,7 +86,7 @@ test("function types", () => {
    * 
    * (This is a setting)
    */
-  // typings:expect-error
+  // @ts-expect-error
   function timesThree(x) {
     return x * 3;
   }
@@ -121,7 +121,7 @@ test("object types", () => {
    * TypeScript knows what the properties on apple are, so
    * it will tell us if we ask for one that doesn't exist.
    */
-  // typings:expect-error
+  // @ts-expect-error
   apple.nooooo;
 
   /*
@@ -135,11 +135,11 @@ test("object types", () => {
     color: "orange"
   };
 
-  // typings:expect-error
+  // @ts-expect-error
   let notAFruit: { name: string; color: string } = { color: "red" };
-  // typings:expect-error
+  // @ts-expect-error
   let stillNotAFruit: { name: string; color: string } = "hello";
-  // typings:expect-error
+  // @ts-expect-error
   let reallyNotAFruit: { name: string; color: string } = { foo: false };
 });
 
@@ -155,7 +155,7 @@ test("type aliases", () => {
   let strawberry: Fruit = { color: "red", name: "Strawberry" };
   let lemon: Fruit = { color: "yellow", name: "Lemon" };
 
-  // typings:expect-error
+  // @ts-expect-error
   let plate: Fruit = { size: "small", color: "blue" };
 
   /**
@@ -254,12 +254,12 @@ test("supersets and structural compatibility", () => {
   }
 
   // But regular food isn't assignable to a type that expects flavored food
-  // typings:expect-error
+  // @ts-expect-error
   let noApples = flavoredFoodPriceStatement(apple);
 
   // In the future, we'll use AssertAssignable to prove structural compatibility or lack thereof:
   type _t1 = AssertAssignable<FoodItem, FlavoredFoodItem>;
-  // typings:expect-error
+  // @ts-expect-error
   type _t2 = AssertAssignable<FlavoredFoodItem, FoodItem>;
 });
 
@@ -291,10 +291,10 @@ test("classes", () => {
   }
   // As you'd expect, TypeScript isn't happy if you try to claim incompatible objects are Point.
   const aNotPointLikeThing: Point = {
-    // typings:expect-error
+    // @ts-expect-error
     x: '1',
     y: 1,
-    // typings:expect-error
+    // @ts-expect-error
     toString: () => null
   }
 
@@ -323,7 +323,7 @@ test("the 'any' type", () => {
    * Thus, we've configured TypeScript in a way that disallows normal 
    * JavaScript function declaration, but this is a team choice.
    */
-  // typings:expect-error
+  // @ts-expect-error
   function declareFavoriteFood(name, food) {
     return `${name}'s favorite food is ${food}`;
   }
@@ -361,7 +361,7 @@ test("the 'any' type", () => {
 //   type FixThisType = any;
 //   let jaime: FixThisType = "Jaime"
 //   let meredith: FixThisType = "Meredith"
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let no: FixThisType = false;
 // })
 // /**************************************************************************/
@@ -376,7 +376,7 @@ test("the 'any' type", () => {
 //   type FixThisType = any;
 //   let sayHello: FixThisType = (name: string) => { return `Hello, ${name}.`}
 //   let sayGoodbye: FixThisType = (name: string) => { return `Goodbye, ${name}.`}
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let isFido: FixThisType = (name: string) => { return name === "Fido"};
 // })
 // /**************************************************************************/
@@ -406,9 +406,9 @@ test("the 'any' type", () => {
 //   type FixThisType = any;
 //   let nellie: FixThisType = { kind: "dog", disposition: "good" }
 //   let roxy: FixThisType = { kind: "dog", disposition: "aloof" }
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let friday: FixThisType = { kind: "cat", fluffy: "very" }
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let cauchy: FixThisType = { kind: "cat", fluffy: "not really" }
 // })
 // /**************************************************************************/
@@ -425,7 +425,7 @@ test("the 'any' type", () => {
 //   type Cat = {};
 
 //   type _t1 = AssertAssignable<Pet, Cat>;
-//   // typings:expect-error
+//   // @ts-expect-error
 //   type _t2 = AssertAssignable<Cat, Pet>;
 // })
 // /**************************************************************************/

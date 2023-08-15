@@ -77,7 +77,7 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
 // /**************************************************************************/
 
 // test("it disallows invalid tacos", () => {
-//   // typings:expect-error
+//   // @ts-expect-error
 //   const badTaco_1: LineItem = {
 //     type: "taco",
 //     protein: "kingSalmon",
@@ -86,7 +86,7 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
 //     awesomeSauce: false
 //   };
 
-//   // typings:expect-error
+//   // @ts-expect-error
 //   const badTaco_2: LineItem = {
 //     type: "taco",
 //     protein: "carnitas",
@@ -115,7 +115,7 @@ test("Ensure that our LineItem type is compatible with PaperLineItem", () => {
 // /**************************************************************************/
 
 // test("it disallows invalid sandwiches", () => {
-//   // typings:expect-error
+//   // @ts-expect-error
 //   const badSandwich_1: LineItem = {
 //     type: "sandwich",
 //     protein: "portabelloCap",
