@@ -1,4 +1,5 @@
-import { AssertAssignable } from "../util";
+import { AssertAssignable } from "../exercises/util";
+
 
 //
 // Run this exercise with: npm run exercise-2
@@ -157,14 +158,14 @@ test("unions can be between types of any shape", () => {
   // @ts-expect-error
   let star: EarthlingOrAlien = "Sirius";
 
-  // @ts-expect-error
   let galaxy: EarthlingOrAlien = {
+    // @ts-expect-error
     type: "LocalGalaxy",
     name: "Milky Way"
   };
 
-  // @ts-expect-error
   let asteroid: EarthlingOrAlien = {
+    // @ts-expect-error
     homePlanet: false,
     name: "Asteroid"
   };
