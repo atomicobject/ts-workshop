@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "jest --watchAll",
-    "exercise-0": "cross-env CHECK_FILE='exercise-0' jest --watchAll --testPathPattern=exercise-0 type ",
+    "exercise-0": "cross-env CHECK_FILE='exercise-0' jest --watchAll -- exercise-0 type ",
     "exercise-1": "cross-env CHECK_FILE='exercise-1' jest --watchAll exercise-1 type ",
     "exercise-2": "cross-env CHECK_FILE='exercise-2' jest --watchAll exercise-2 type ",
     "exercise-3": "cross-env CHECK_FILE='exercise-3' jest --watchAll exercise-3 type ",
