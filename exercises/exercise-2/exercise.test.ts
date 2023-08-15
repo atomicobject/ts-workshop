@@ -2,25 +2,25 @@ import { AssertAssignable } from "../util";
 
 /** npm run exercise-2
  * 
- * Just like at the end of exercise 2, work through this file by uncommenting
+ * Just like at the end of exercise 1, work through this file by uncommenting
  * tests and changing the definition of `FixThisType` to make the type errors 
  * match the assertions.
  * 
- * Remember, any line that is preceded by a `typings:expect-error` comment
+ * Remember, any line that is preceded by a `@ts-expect-error` comment
  * should have a red squiggly/type error after you've defined the type properly.
  * 
  **/
 
 test("literal types", () => {
   /* Type aliases get more useful when we move beyond primative types. */
-  type ALiteralString = "just this one";
+  type ALiteralString = "cat";
 
   /** We can assign the exact string to a variable of ALiteralString */
-  let theRightLiteral: ALiteralString = "just this one";
+  let theRightLiteral: ALiteralString = "cat";
 
   /** But we cannot assign any other string! */
-  // typings:expect-error
-  let notThatLiteral: ALiteralString = "some other string";
+  // @ts-expect-error
+  let notThatLiteral: ALiteralString = "dog";
 });
 
 test("infers different types based on keywords", () => {
@@ -40,6 +40,9 @@ test("infers different types based on keywords", () => {
   const literalNumber = 2;
 });
 
+/**
+ * Let's do some more independent exercises.
+ **/
 
 // /**************************************************************************/
 // test("describes a literal", () => {
@@ -51,13 +54,13 @@ test("infers different types based on keywords", () => {
 
 //   let hello: FixThisType = "hello";
 
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let world: FixThisType = "world";
 
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let goodnight: FixThisType = "goodnight";
 
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let moon: FixThisType = "moon";
 // });
 // /**************************************************************************/
@@ -78,7 +81,7 @@ test("infers different types based on keywords", () => {
 //   let aNumber: FixThisType = 2;
 //   let anotherNumber: FixThisType = 4;
 
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let aBool: FixThisType = true;
 // });
 // /*************************************************************************/
@@ -95,13 +98,13 @@ test("infers different types based on keywords", () => {
 
 //   let aTrue: FixThisType = true;
 
-//   let aString: FixThisType = "this string";
+//   let aString: FixThisType = "tortise";
 
-//   // typings:expect-error
-//   let someOtherString: FixThisType = "not that string";
-//   // typings:expect-error
+//   // @ts-expect-error
+//   let someOtherString: FixThisType = "hare";
+//   // @ts-expect-error
 //   let aNull: FixThisType = null;
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let aFalse: FixThisType = false;
 // });
 // /**************************************************************************/
@@ -123,9 +126,9 @@ test("infers different types based on keywords", () => {
 //   let quartz: Earthling = { type: "mineral", name: "Quartz" };
 //   let diamond: Earthling = { type: "mineral", name: "Diamond" };
 
-//   /* typings:expect-error */
+//   /* @ts-expect-error */
 //   const invalidEarthling: Earthling = { type: "martian", name: "Quux" }
-//   /* typings:expect-error */
+//   /* @ts-expect-error */
 //   const invalidEarthling2: Earthling = { type: "plutonian" }
 
 //   /*
@@ -155,17 +158,17 @@ test("infers different types based on keywords", () => {
 //   let person: EarthlingOrAlien = { type: "animal", name: "Fernando" }
 //   let alien: EarthlingOrAlien = { name: "Mac", homePlanet: "Pluto", phaser: true }
 
-//   // typings:expect-error
+//   // @ts-expect-error
 //   let star: EarthlingOrAlien = "Sirius";
 
-//   // typings:expect-error
 //   let galaxy: EarthlingOrAlien = {
+//     // @ts-expect-error
 //     type: "LocalGalaxy",
 //     name: "Milky Way"
 //   };
 
-//   // typings:expect-error
 //   let asteroid: EarthlingOrAlien = {
+//     // @ts-expect-error
 //     homePlanet: false,
 //     name: "Asteroid"
 //   };
@@ -182,7 +185,7 @@ test("infers different types based on keywords", () => {
 //     * But we cannot access properties that aren't common to all constituents
 //     */
 //   function printType(creature: EarthlingOrAlien) {
-//     // typings:expect-error
+//     // @ts-expect-error
 //     console.log(creature.type);
 //   }
 
@@ -350,7 +353,7 @@ test("infers different types based on keywords", () => {
 //    */
 //   function describe(
 //     drink: HotDrink
-//   ): "green" | "black" | "herbal" | "dark" | "medium" | "light" {}
+//   ): Tea["style"] | Coffee["roast"] {}
 
 //   const rachaelsDrink: Tea = {name: "Chamomile", style: "herbal", type: "tea"}
 //   const drewsDrink: Coffee = {name: "Onyx Columbia San Jose", roast: "light", type: "coffee"}
@@ -365,14 +368,14 @@ test("infers different types based on keywords", () => {
 //   /*
 //    * ======================================================
 //    * TODO: Define FruitType as a discriminated union so that
-//    * the type proves that apples are red and can be polished,
-//    * and bananas are yellow and can be peeled.
+//    * the type proves that apples are red and have a polish function,
+//    * and bananas are yellow and have a peel function.
 //    * ======================================================
 //    */
 
 //   type FruitType = any;
 
-//   // Hint: To define a function property within an object, write something like:
+//   // Hint: To define a function property within an object type, write something like:
 //   // type SomeObject = {
 //   //   myFunc: () => void
 //   // };
@@ -385,14 +388,14 @@ test("infers different types based on keywords", () => {
 //         type _t1 = AssertAssignable<{ color: "red" }, typeof fruit>;
 
 //         // For this example, apples MUST NOT be yellow
-//         // typings:expect-error
+//         // @ts-expect-error
 //         type _t2 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
 
 //         // Apples must have a polish function property
 //         fruit.polish();
 
 //         // Apples must not have a peel function property
-//         // typings:expect-error
+//         // @ts-expect-error
 //         fruit.peel();
 
 //         break;
@@ -402,14 +405,14 @@ test("infers different types based on keywords", () => {
 //         type _t3 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
 
 //         // Bananas must not be red.
-//         // typings:expect-error
+//         // @ts-expect-error
 //         type _t4 = AssertAssignable<{ color: "red" }, typeof fruit>;
 
 //         // We can peel a banana
 //         fruit.peel();
 
 //         // But polishing a banana would be silly.
-//         // typings:expect-error
+//         // @ts-expect-error
 //         fruit.polish();
 
 //         break;

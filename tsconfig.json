@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "rootDir": "exercises",
+    "rootDir": ".",
   },
   "exclude": [
     "node_modules"

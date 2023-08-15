@@ -1,4 +1,5 @@
-import { AssertAssignable } from "../util";
+import { AssertAssignable } from "../exercises/util";
+
 
 //
 // Run this exercise with: npm run exercise-2
@@ -12,7 +13,7 @@ test("literal types", () => {
   let theRightLiteral: ALiteralString = "just this one";
 
   /** But we cannot assign any other string! */
-  // typings:expect-error
+  // @ts-expect-error
   let notThatLiteral: ALiteralString = "some other string";
 });
 
@@ -44,13 +45,13 @@ test("describes a literal", () => {
 
   let hello: FixThisType = "hello";
 
-  // typings:expect-error
+  // @ts-expect-error
   let world: FixThisType = "world";
 
-  // typings:expect-error
+  // @ts-expect-error
   let goodnight: FixThisType = "goodnight";
 
-  // typings:expect-error
+  // @ts-expect-error
   let moon: FixThisType = "moon";
 });
 /**************************************************************************/
@@ -70,7 +71,7 @@ test("manually creating union types", () => {
   let aNumber: FixThisType = 2;
   let anotherNumber: FixThisType = 4;
 
-  // typings:expect-error
+  // @ts-expect-error
   let aBool: FixThisType = true;
 });
 /**************************************************************************/
@@ -89,11 +90,11 @@ test("this allows us to constrain types in interesting ways", () => {
 
   let aString: FixThisType = "this string";
 
-  // typings:expect-error
+  // @ts-expect-error
   let someOtherString: FixThisType = "not that string";
-  // typings:expect-error
+  // @ts-expect-error
   let aNull: FixThisType = null;
-  // typings:expect-error
+  // @ts-expect-error
   let aFalse: FixThisType = false;
 });
 /**************************************************************************/
@@ -118,9 +119,9 @@ test("unions can be between types of any shape", () => {
   let quartz: Earthling = { type: "mineral", name: "Quartz" };
   let diamond: Earthling = { type: "mineral", name: "Diamond" };
 
-  /* typings:expect-error */
+  /* @ts-expect-error */
   const invalidEarthling: Earthling = { type: "martian", name: "Quux" }
-  /* typings:expect-error */
+  /* @ts-expect-error */
   const invalidEarthling2: Earthling = { type: "plutonian" }
 
   /*
@@ -154,17 +155,17 @@ test("unions can be between types of any shape", () => {
   let person: EarthlingOrAlien = { type: "animal", name: "Fernando" }
   let alien: EarthlingOrAlien = { name: "Mac", homePlanet: "Pluto", phaser: true }
 
-  // typings:expect-error
+  // @ts-expect-error
   let star: EarthlingOrAlien = "Sirius";
 
-  // typings:expect-error
   let galaxy: EarthlingOrAlien = {
+    // @ts-expect-error
     type: "LocalGalaxy",
     name: "Milky Way"
   };
 
-  // typings:expect-error
   let asteroid: EarthlingOrAlien = {
+    // @ts-expect-error
     homePlanet: false,
     name: "Asteroid"
   };
@@ -181,7 +182,7 @@ test("unions can be between types of any shape", () => {
     * But we cannot access properties that aren't common to all constituents
     */
   function printType(creature: EarthlingOrAlien) {
-    // typings:expect-error
+    // @ts-expect-error
     console.log(creature.type);
   }
 
@@ -405,14 +406,14 @@ test("build a discriminated union", () => {
         type _t1 = AssertAssignable<{ color: "red" }, typeof fruit>;
 
         // For this example, apples MUST NOT be yellow
-        // typings:expect-error
+        // @ts-expect-error
         type _t2 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
 
         // Apples must have a polish function property
         fruit.polish();
 
         // Apples must not have a peel function property
-        // typings:expect-error
+        // @ts-expect-error
         fruit.peel();
 
         break;
@@ -422,14 +423,14 @@ test("build a discriminated union", () => {
         type _t3 = AssertAssignable<{ color: "yellow" }, typeof fruit>;
 
         // Bananas must not be red.
-        // typings:expect-error
+        // @ts-expect-error
         type _t4 = AssertAssignable<{ color: "red" }, typeof fruit>;
 
         // We can peel a banana
         fruit.peel();
 
         // But polishing a banana would be silly.
-        // typings:expect-error
+        // @ts-expect-error
         fruit.polish();
 
         break;

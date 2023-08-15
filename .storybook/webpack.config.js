@@ -1,13 +1,27 @@
-const path = require("path");
-module.exports = (baseConfig, env, config) => {
-  config.module.rules.push({
-    test: /\.(ts|tsx)$/,
-    loader: require.resolve("awesome-typescript-loader"),
-      query: {
+'use strict';
+const path = require('path');
 
-        configFileName: "./tsconfig.storybook.json"
-      }
-  });
-  config.resolve.extensions.push(".ts", ".tsx");
-  return config;
+module.exports = {
+    devtool: 'inline-source-map',
+	entry: './src/index.ts',
+	output: {
+		filename: 'main.js',
+		path: path.resolve(__dirname, 'dist')
+	},
+    module: {
+        rules: [
+            {
+                test: /\.([cm]?ts|tsx)$/,
+                loader: 'ts-loader',
+            },
+        ],
+    },
+    resolve: {
+        extensions: [ '.ts', '.tsx', '.js' ],
+        extensionAlias: {
+            '.ts': ['.js', '.ts'],
+            '.cts': ['.cjs', '.cts'],
+            '.mts': ['.mjs', '.mts']
+        }
+    }
 };
