@@ -41,11 +41,11 @@ test("types enforce constraints", () => {
    */
   let hello = "a string";
 
-  /** 
-   * Throughout this workshop, we'll be playing with deliberately 
+  /**
+   * Throughout this workshop, we'll be playing with deliberately
    * creating TypeScript errors. Any time that you see the "@ts-expect-error"
    * annotation, the following line _should_ have a type error.
-  */
+   */
   // @ts-expect-error
   hello = 5;
 
@@ -71,10 +71,10 @@ test("function types", () => {
   let four = addOne(3);
 
   /**
-   * Type annotations on function arguments are particularly 
-   * helpful, because they let the function implementor 
+   * Type annotations on function arguments are particularly
+   * helpful, because they let the function implementor
    * know that they don't have to handle unsupported inputs;
-   * TypeScript statically proves that nobody has called the 
+   * TypeScript statically proves that nobody has called the
    * function with bad arguments.
    */
   // @ts-expect-error
@@ -83,7 +83,7 @@ test("function types", () => {
   /**
    * We're using a high TS strictness setting today. That means
    * that the type checker will insist that we type our arguments to functions.
-   * 
+   *
    * (This is a setting)
    */
   // @ts-expect-error
@@ -98,16 +98,14 @@ test("function types", () => {
    */
   let timesFour = (x: number) => x * 4;
 
-  /** 
+  /**
    * Functions are values, so they can have type annotations just like
    * any other value.
-   * The type of aNumberFunction is (x: number) => number, which is to say, a 
+   * The type of aNumberFunction is (x: number) => number, which is to say, a
    * function that takes a number and returns a number.
    */
-  let aNumberFunction: (x: number) => number = timesFour
-  
+  let aNumberFunction: (x: number) => number = timesFour;
 });
-
 
 test("object types", () => {
   /*
@@ -132,7 +130,7 @@ test("object types", () => {
    */
   let orange: { name: string; color: string } = {
     name: "orange",
-    color: "orange"
+    color: "orange",
   };
 
   // @ts-expect-error
@@ -143,13 +141,12 @@ test("object types", () => {
   let reallyNotAFruit: { name: string; color: string } = { foo: false };
 });
 
-
 test("type aliases", () => {
   /*
-  * These types are a little more complicated to write than the primatives.
-  * What if we want to use them again? We can describe aliases for types,
-  * and we can use them anywhere that we would use a type.
-  */
+   * These types are a little more complicated to write than the primatives.
+   * What if we want to use them again? We can describe aliases for types,
+   * and we can use them anywhere that we would use a type.
+   */
   type Fruit = { name: string; color: string };
 
   let strawberry: Fruit = { color: "red", name: "Strawberry" };
@@ -173,54 +170,58 @@ test("compound types", () => {
 
   type Fruit = {
     name: string;
-    color: string 
-  } 
+    color: string;
+  };
 
   /**
    * We can alias function types.
    */
-  type JobDescriber = () => string
+  type JobDescriber = () => string;
 
   /**
    * We can assemble object types from any other simple or aliased types.
    */
   type Person = {
-    name: string
-    favoriteFruit: Fruit
-    pets: string[]
-    describeJob: JobDescriber
-  }
+    name: string;
+    favoriteFruit: Fruit;
+    pets: string[];
+    describeJob: JobDescriber;
+  };
 
   let Kaitie: Person = {
     name: "Kaitie",
     favoriteFruit: {
       name: "papaya",
-      color: "yellow"
+      color: "yellow",
     },
     pets: ["Friday", "Chili"],
-    describeJob: () => { return "I teach kids about nature!" }
-  }
+    describeJob: () => {
+      return "I teach kids about nature!";
+    },
+  };
 
   let Kaelynn: Person = {
     name: "Kaelynn",
     favoriteFruit: {
       name: "pear",
-      color: "green"
+      color: "green",
     },
     pets: [],
-    describeJob: () => { return "I build bridges!" }
-  }
-})
+    describeJob: () => {
+      return "I build bridges!";
+    },
+  };
+});
 
 test("supersets and structural compatibility", () => {
   type FoodItem = {
     name: string;
     cost: number;
-  }
+  };
 
   let apple = {
     name: "apple",
-    cost: 2
+    cost: 2,
   };
 
   function priceStatement(item: FoodItem) {
@@ -233,22 +234,22 @@ test("supersets and structural compatibility", () => {
     name: string;
     cost: number;
     flavorProfile: string;
-  }
+  };
   /*
-  * The type FlavoredFoodItem has a superset of the properties
-  * of FoodItem, so we can pass a FlavoredFoodItem anywhere
-  * that we expect a FoodItem.
-  */
+   * The type FlavoredFoodItem has a superset of the properties
+   * of FoodItem, so we can pass a FlavoredFoodItem anywhere
+   * that we expect a FoodItem.
+   */
   let cheezits: FlavoredFoodItem = {
     name: "Box of Cheezits",
     cost: 4,
-    flavorProfile: "cheesy"
+    flavorProfile: "cheesy",
   };
   let cheesyCheezits = priceStatement(cheezits);
 
   /*
-  * But, we can't pass a FoodItem where we expect a FlavoredFoodItem.
-  */
+   * But, we can't pass a FoodItem where we expect a FlavoredFoodItem.
+   */
   function flavoredFoodPriceStatement(item: FlavoredFoodItem) {
     return `That ${item.flavorProfile} ${item.name} will be $${item.cost}.`;
   }
@@ -268,51 +269,49 @@ test("classes", () => {
     constructor(public readonly x: number, public readonly y: number) {}
 
     toString() {
-      return `(${this.x}, ${this.y})`
+      return `(${this.x}, ${this.y})`;
     }
   }
 
   // A class gives us a runtime object we can use to construct points with the new keyword
-  const origin = new Point(0,0);
+  const origin = new Point(0, 0);
   expect(origin.x).toEqual(0);
   expect(origin.y).toEqual(0);
-  expect(origin.toString()).toEqual("(0, 0)")
+  expect(origin.toString()).toEqual("(0, 0)");
 
   // We can also do a runtime test to see if an object was constructed with Point
-  expect(origin instanceof Point).toBeTruthy()
+  expect(origin instanceof Point).toBeTruthy();
 
   // TypeScript also gives us a type that describes the shape of valid Point instances.
-  // This type does not require object be constructed with the class, only that they're 
+  // This type does not require object be constructed with the class, only that they're
   // structurally compatible, just like in the example above.
   const aPointLikeThing: Point = {
     x: 1,
     y: 1,
-    toString: () => "(1,1)"
-  }
+    toString: () => "(1,1)",
+  };
   // As you'd expect, TypeScript isn't happy if you try to claim incompatible objects are Point.
   const aNotPointLikeThing: Point = {
     // @ts-expect-error
-    x: '1',
+    x: "1",
     y: 1,
     // @ts-expect-error
-    toString: () => null
-  }
-
+    toString: () => null,
+  };
 
   // But things that are valid Point are not necessarily instances of the class.
   // The type and the runtime machinery are separate in TypeScript!
-  expect(aPointLikeThing instanceof Point).toBeFalsy()
-
+  expect(aPointLikeThing instanceof Point).toBeFalsy();
 });
 
 test("the 'any' type", () => {
   /*
-  * TS uses the type 'any' for a type that could be anything.
-  *
-  * Values of this type are just like JavaScript. There are no static
-  * constraints on what can be done with them, and no assistance
-  * from the IDE
-  */
+   * TS uses the type 'any' for a type that could be anything.
+   *
+   * Values of this type are just like JavaScript. There are no static
+   * constraints on what can be done with them, and no assistance
+   * from the IDE
+   */
   let anything: any = "foo";
   anything = true;
   anything = 5;
@@ -320,7 +319,7 @@ test("the 'any' type", () => {
   /*
    * Our strictness level doesn't let variables implicitly be any.
    * Untyped parameters in TypeScript implicitly get the type `any`.
-   * Thus, we've configured TypeScript in a way that disallows normal 
+   * Thus, we've configured TypeScript in a way that disallows normal
    * JavaScript function declaration, but this is a team choice.
    */
   // @ts-expect-error
@@ -341,21 +340,20 @@ test("the 'any' type", () => {
   }).toThrowError();
 });
 
-
 /**  🚨 WHEN YOU UNCOMMENT THESE TESTS: 🚨
-*   To uncomment a single test, uncomment from one star-line to the next.
-*   Have `npm run exercise-1` running in your terminal. When you uncomment
-*   a test and save the file, you should see a test failure in your terminal.
-*   Keep working until you save the file and see the tests pass in your terminal.
-*   Good luck!
-*
-*  VS Code shortcut: mac: cmd-/    linux/windows: ctrl-/
-*/
+ *   To uncomment a single test, uncomment from one star-line to the next.
+ *   Have `npm run exercise-1` running in your terminal. When you uncomment
+ *   a test and save the file, you should see a test failure in your terminal.
+ *   Keep working until you save the file and see the tests pass in your terminal.
+ *   Good luck!
+ *
+ *  VS Code shortcut: mac: cmd-/    linux/windows: ctrl-/
+ */
 // /**************************************************************************/
 // test("Writing our own types", () => {
 //   /*
 //    * ======================================================
-//    * TODO: Update the definition of FixThisType to allow 
+//    * TODO: Update the definition of FixThisType to allow
 //    * strings only.
 //    * ======================================================*/
 //   type FixThisType = any;
@@ -381,20 +379,26 @@ test("the 'any' type", () => {
 // })
 // /**************************************************************************/
 
-// /**************************************************************************/
+/**************************************************************************/
 // test("Writing a function with help from TS", () => {
 //   /*
 //    * ======================================================
 //    * TODO: Implement classifyFruit to return the following when
-//    * color is: 
+//    * color is:
 //    *     "red"    => "apple"
 //    *     "yellow" => "banana"
 //    *     "orange" => "orange"
 //    *     other    => "I don't know that fruit"
 //    * Take note of when the type error goes away!
 //    * ======================================================*/
-//   function classifyFruit(color: string): string {}
-// })
+//   function classifyFruit(color: string): string {
+//   }
+
+//   expect(classifyFruit("red")).toEqual("apple")
+//   expect(classifyFruit("yellow")).toEqual("banana")
+//   expect(classifyFruit("orange")).toEqual("orange")
+//   expect(classifyFruit("purple")).toEqual("I don't know that fruit")
+// });
 
 // /**************************************************************************/
 // test("Writing some object types", () => {
@@ -417,8 +421,8 @@ test("the 'any' type", () => {
 // test("Structural compatibility", () => {
 //   /*
 //    * ======================================================
-//    * TODO: Define a Pet and a Cat type such that Cat is 
-//    * assignable to Pet, but Pet isn't assignable to 
+//    * TODO: Define a Pet and a Cat type such that Cat is
+//    * assignable to Pet, but Pet isn't assignable to
 //    * Cat. Use whatever properties you like!
 //    * ======================================================*/
 //   type Pet = {};
